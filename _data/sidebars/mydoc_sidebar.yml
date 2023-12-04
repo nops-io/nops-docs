@@ -108,66 +108,70 @@ entries:
           url: /sso-aws.html
           output: web
 
-  - title: ShareSave
+
+
+  - title: Compute Copilot
     output: web
     folderitems:
 
-    - title: Savings on Auto-Pilot
-      url: /sharesave-overview.html
+    - title: Spot Instance Reliability SLA
+      url: /copilot-service-sla.html
       output: web
 
       subfolders:
-      - title: Compute Copilot
+      - title: EKS
         output: web
         subfolderitems:
 
-        - title: Compute Copilot Spot Instance Reliability SLA
-          url: /copilot-service-sla.html
-          output: web
-
-        - title: Onboarding EKS clusters to Compute Copilot
+        - title: Onboarding EKS clusters
           url: /copilot-eks-onboarding.html
           output: web
 
-        - title: Onboarding Auto Scale Groups to Compute Copilot using Stackset
-          url: /copilot-asg-stackset.html
+      - title: ASG
+        output: web
+        subfolderitems:
+
+        - title: ASG Support Matrix
+          url: /copilot-asg-matrix.html
           output: web
           
-        - title: Onboarding Auto Scale Groups to Compute Copilot
+        - title: Onboarding Auto Scale Groups to Compute Copilot using Stackset
+          url: /copilot-asg-configurebytag.html
+          output: web
+
+        - title: Onboarding Auto Scale Groups
           url: /copilot-asg-onboarding.html
           output: web
 
-        - title: Compute Copilot for ASG Support Matrix
-          url: /copilot-asg-matrix.html
-          output: web
+        - title: Onboarding Auto Scale Groups using Stackset
+          url: /copilot-asg-stackset.html
+          output: web          
 
-      - title: Commitment Management
-        output: web
-        subfolderitems:
 
-        - title: Configure Commitment Management
-          url: /rfcm-configure.html
-          output: web
+    - title: Configure Commitment Management
+      url: /copilot-cm-configure.html
+      output: web
 
-      - title: Essentials
-        output: web
-        subfolderitems:
 
-        - title: Scheduler Using EventBridge
-          url: /scheduler-eventbridge-setup.html
-          output: web  
+  - title: Essentials
+    output: web
+    folderitems:
 
-        - title: Essentials for Storage
-          url: /essentials-storage-configuration.html
-          output: web    
+      - title: Scheduler Using EventBridge
+        url: /scheduler-eventbridge-setup.html
+        output: web  
 
-        - title: Scheduler Using Terraform
-          url: /scheduler-terraform.html
-          output: web              
+      - title: Scheduler Using Terraform
+        url: /scheduler-terraform.html
+        output: web 
 
-        - title: EC2 Rightsizing with DataDog
-          url: /ec2-rightisizing-with-nops-using-datadog.html
-          output: web             
+      - title: Storage
+        url: /essentials-storage-configuration.html
+        output: web                 
+
+      - title: EC2 Rightsizing with DataDog
+        url: /ec2-rightisizing-with-nops-using-datadog.html
+        output: web             
 
   - title: Agents and Integrations
     output: web

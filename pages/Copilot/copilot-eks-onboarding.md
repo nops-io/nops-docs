@@ -20,7 +20,8 @@ Learn more about how Compute Copilot for EKS can help you to put your EKS cost o
 1. You must be logged in to your [nOps account](https://app.nops.io/accounts/signin/). 
 2. Your AWS account must be configured to your nOps account.
 3. You must have Kubernetes cluster with Karpenter < 0.33 installed.
-    Note: The support to Karpenter 0.33 is estimated to middle of January of 2024.
+
+   Note: The support to Karpenter 0.33 is estimated to middle of January of 2024.
 
 ### About Compute Copilot for EKS: ###
 

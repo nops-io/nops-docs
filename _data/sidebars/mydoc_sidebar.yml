@@ -208,7 +208,7 @@ entries:
         output: web 
       
       - title: Datadog Agent in ASG for Enhanced Rightsizing
-        url: Datadog-Agent-in-ASG-for-Enhanced -Rightsizing.html
+        url: Datadog-Agent-in-ASG-for-Enhanced-Rightsizing.html
         output: web 
 
       - title: Datadog agent configuration on linux based asg

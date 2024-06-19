@@ -43,7 +43,7 @@ Here’s how nOps enhances the process:
 
 3. **Review Recommendations:** Take a moment to review your recommendations.  You can view details such as Environment, Resource Count, Yearly Savings, and an action button to view more details and create the automation.![](https://lh7-us.googleusercontent.com/-GPabPErBDbjAxu4_HUlmAPXJAoaqpwZBqqPPVF-U_deyOGQ64q2ab5JUY1yePw2zW-eLEaqSNMNWo52f-LKLqqvjaVPNCxBROJkjDUxJiYPSdwhEwJSGNu74EL13FLb5k6-nVR3QAJGtgi4ZEB94VA)********
 
-4. **On Action Page:** Here, you’ll need to either select EventBridge or [configure it if it’s not available](https://help.nops.io/essentials-eventbridge-setup.html). This step is crucial for automation. Additionally, choose the desired time frame for the automation to run, ensuring it aligns with your operational needs.![](https://lh7-us.googleusercontent.com/8iOqSpzcxxMezAyTPnznNBX6K8O4eJIowJOqwOJ5KTBdHxk1eVHePUYw2IzLvjjLnYG_au-IontfaDPu0QaYn32rgRqLh19a9W6X-ii2wuTuuI4YXiMqXqn1XFuFcEIlPdCK16Ky2j6tbQm-cJSQNFE)
+4. **On Action Page:** Here, you’ll need to either select EventBridge or [configure it if it’s not available](https://help.nops.io/essentials-stack.html). This step is crucial for automation. Additionally, choose the desired time frame for the automation to run, ensuring it aligns with your operational needs.![](https://lh7-us.googleusercontent.com/8iOqSpzcxxMezAyTPnznNBX6K8O4eJIowJOqwOJ5KTBdHxk1eVHePUYw2IzLvjjLnYG_au-IontfaDPu0QaYn32rgRqLh19a9W6X-ii2wuTuuI4YXiMqXqn1XFuFcEIlPdCK16Ky2j6tbQm-cJSQNFE)
 
 5) **Confirm Selection and Estimated Savings**: By default, all EBS volumes are selected. You can deselect any instances if needed. Review the estimated savings and confirm the action.
 

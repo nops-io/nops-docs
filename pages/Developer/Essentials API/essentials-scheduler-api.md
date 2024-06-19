@@ -120,7 +120,8 @@ In the payload of the request, specify the following fields:
     - `price_per_unit`: current resource price per hour;
 - `project`: nOps project ID;
 - `account_number`: AWS Account ID;
-- `eventbridge_configuration`: AWS EventBridge Configuration ID for nOps. See this [article](https://help.nops.io/create-and-configure-eventbridge.html) for more details;
+- `eventbridge_configuration`: AWS EventBridge Configuration ID for nOps;
+<!-- - `eventbridge_configuration`: AWS EventBridge Configuration ID for nOps. Check this [article](https://help.nops.io/create-and-configure-eventbridge.html) for more details; -->
 - `scheduler_for`: should be `scheduler_start_stop` for Scheduler;
 - `description`: Scheduler description;
 - `hours_down`: the number of hours during which resources will be down for 4 weeks (up to 167);

@@ -60,7 +60,7 @@ Follow the steps to create your schedule (for our example, an RDP server).
 2. Type your nSwitch Name and select your **EventBridge**.
     ![](https://lh7-us.googleusercontent.com/BD5BC0NRRCskZx527V2pVCcy6j5XY5CQDIG75twNDHrZbfPZwCvoYNtDvX301fu8K_w3tSqoTUJ4LZRFSKxJvAmP2Vn4q7sFEalbVvBU24cO5hQh60RQ671KVdFQfzSkk9j_U9yE8MkNtShv40oVwQU)
 
-    {%include note.html content="If you don’t have EventBridge, read [this article](/essentials-eventbridge-setup.html) first." %}
+    {%include note.html content="If you don’t have EventBridge configured, read [this article](/essentials-stack.html) first." %}
 
 3. Scroll down and select the time zone and time to schedule the resource(s). In this example, the RDP server will be scheduled to run from 9 a.m. to 6 p.m. on weekdays. 
 

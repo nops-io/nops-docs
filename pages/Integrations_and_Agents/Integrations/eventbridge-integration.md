@@ -54,8 +54,13 @@ To see the event bus that nOps just created, go to **AWS > Amazon EventBridge > 
 
 The next step is to add an EventBridge target into Webhooks.
 
-Adding EventBridge Target into nOps Webhooks
-============================================
+# Creating EventBridge for Multiple AWS Accounts #
+
+nOps supports the creation of EventBridge for multiple AWS accounts simultaneously. In the "Create New Event Bridge" window, select multiple accounts from the dropdown to configure EventBridges across several AWS accounts at once.
+
+![](https://lh7-us.googleusercontent.com/NgqptOG06zJcGOOp3dcVQ-jmEzFWCTkUmUdYgHv1kTEtJkalZieemnXdo_2oBerihVFNLUe_SNosAxFE8fNkP2G0btUV0kc-_U2BZW56OZqcFFRaPYTsIgvVtcPLDiiuESdQY3sHI3v77T0qdIgTWbU)
+
+# Adding EventBridge Target into nOps Webhooks # 
 
 nOps has a Webhook for almost every cost optimization rule in the nOps environment.
 
@@ -74,40 +79,5 @@ In the **Create New Webhook** page:
 4.  Select an EventBridge from the list. The list consists of all EventBridges that you create in **nOps > Organization Settings > Integrations > EventBridge** tab.
     
 5.  Click **Save**.
-    
-
-Launch Stack
-============
 
 When you create an EventBridge in nOps, nOps will automatically create an event bus in your selected AWS account. To see the event bus that nOps automatically created, go to **AWS > Amazon EventBridge > Event buses > Custom event bus**.
-
-Once, you have configured the webhook, come back to the **nOps > Organization Settings > Integrations > EventBridge** tab and click **Launch Stack** against the EventBridge that you created:
-
-* * *
-
-**Note:** Before you click **Launch Stack**, make sure that you are logged into the AWS account that you used for the EventBridge. You also need to make sure that the account region is the same as the one you specified while creating the EventBridge.
-
-* * *
-
-When you click Launch Stack, you will be redirected to **AWS > CloudFormation > Stacks > Create stack.** All fields on the page will be prefilled.
-
-![](/tmpimg/eb-stackset.png)
-
-_You can follow the link highlighted above to see the CloudFormation template. To see the CloudFormation template right now, see [Scheduler CloudFormation Template](https://s3-us-west-2.amazonaws.com/nops-rules-lambda-sources/scheduler/scheduler.yml)._
-
-Check the acknowledgment box, and click **Create stack**. The EventBridge is now ready and configured.
-
-Add Key in KMS
-==============
-
-Allow Scheduler Lambda Function to use encrypted EBS with KMS to get **automatic Stack creation for EventBridge with a single click.** To enable, go to **nOps > Organization Settings > Integrations > EventBridge** and click **Add key in KMS.** You will be redirected to the **Create stack** page in AWS:
-
-![](/tmpimg/eb-kms-stack.png)
-
-* * *
-
-**Note:** To check the template, go to the link highlighted above.
-
-* * *
-
-Simply enter your **KmsArn**, acknowledge, and click **Create stack**.

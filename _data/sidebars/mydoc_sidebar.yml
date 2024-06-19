@@ -183,8 +183,8 @@ entries:
     output: web
     folderitems:
 
-      - title: EventBridge Integration for Essentials
-        url: /essentials-eventbridge-setup.html
+      - title: Essentials Stack
+        url: /essentials-stack.html
         output: web  
 
       - title: Scheduler Using Terraform
@@ -388,9 +388,9 @@ entries:
         output: web
         subfolderitems:
 
-        - title: Create and configure EventBridge
-          url: /create-and-configure-eventbridge.html
-          output: web
+        # - title: Create and configure EventBridge
+        #   url: /create-and-configure-eventbridge.html
+        #   output: web
 
         - title: Essentials Scheduler API
           url: /essentials-scheduler-api.html

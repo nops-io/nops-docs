@@ -88,7 +88,7 @@ weight: 3.0
 ```
 ### **IAM Permissions to be attached to the Scheduler SlackBot Lambda Function:** ###
 
-![](https://nops-docs-img.s3.amazonaws.com/solutions/dev-slackbot-lambda.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/solutions/dev-slackbot-lambda.png)
 
 
 We need to set the ACCESS_KEY above in the Lambda configuration under _**‘Environment Variables’**_

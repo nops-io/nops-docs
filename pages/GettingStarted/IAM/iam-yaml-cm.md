@@ -58,19 +58,19 @@ To begin savings via **nOps ShareSave – Auto-Pilot Risk-free Commitment Manage
 
 1.  Log in to your **AWS Payer/Management account** with your IAM user
 2.  In another tab, Log in to your **nOps Client** and head over to the **ShareSave** dashboard:
-  ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-sharesave-tab-highlighted.png)
+  ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-sharesave-tab-highlighted.png)
 3.  On the **ShareSave Opportunity** dashboard, in the **List of Opportunities** section, click the **Configure Risk Free Commitment** button:
-  ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-rfcm-button-highlighted.png)
+  ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-rfcm-button-highlighted.png)
 4.  Once you click the **Configure Risk Free Commitment** button, the following pop-up will appear:
-  ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-proceed.png)
+  ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
     1.  If the pop-up does not appear, make sure that the pop-up isn’t being blocked by your browser.
     2.  **Before you click Proceed, make sure that you’re logged in to your AWS Payer/Management account in the same browser.**
 5.  After you click **Proceed**, nOps will take you to your AWS console’s CloudFormation **Quick create stack** page —with all the required information pre-filled  
     **Acknowledge** and click **Create stack**:
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-create-stack.png)  
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-create-stack.png)  
     NOTE: The CloudFormation will take about 3-5mins to complete
 6.  Once the CloudFormation has completed, go to **AWS Organizations via the AWS Console** to see the two nOps ShareSave Accounts added
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-sharesave-in-aws-organization.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-sharesave-in-aws-organization.png)
 
 ShareSave: Auto-Pilot Risk-Free Commitment Management configuration is now complete.
 

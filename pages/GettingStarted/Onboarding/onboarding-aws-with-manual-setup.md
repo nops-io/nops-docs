@@ -70,7 +70,7 @@ In this section, you need to select the account setup method. In the scope of th
 
 When you click **Next,** you should see a screen similar to:
 <span id="externalid">
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-manual-setup-fields.png)</span>
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-manual-setup-fields.png)</span>
 
 Copy the **External ID** and save it, you will need it later on.
 
@@ -203,7 +203,7 @@ You must now add information about the AWS role, S3 bucket, and CUR information 
 6.  Enter the name of the Cost & Usage Report you created in step 4 of [Create the Cost & Usage Report](#create-the-cost--usage-report) section.
 7.  Enter the report prefix path that you created in step 6 of [Create/Select the S3 billing bucket](#createselect-the-s3-billing-bucket).
 8.  Click **Verify Details**.
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-manual-setup-fields.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-manual-setup-fields.png)
 
 
 ## Link Cloud Accounts ##

@@ -1,5 +1,5 @@
 ---
-title: nOps Copilot Manged ASG
+title: nOps Copilot Managed ASG
 keywords: savings, recommendations, sharesave, asg, copilot, autoscaling
 tags: [copilot, asg]
 sidebar: mydoc_sidebar
@@ -14,18 +14,18 @@ weight: 1.0
 
 ## About Copilot Managed Solution for ASG and how it works ##
 
-- ASG configured with a `Fully Manged ASG` approach is converted to a Mixed Instances Policy (MIP) ASG, allowing nOps Compute Copilot to define Spot Instance Types this ASG can launch.
-- Compute Copilot Lambda keeps Managed ASG MIP in sync with the latest Spot Market recommendations by nOp, taking in account your Reserved Instances data. In result, on scale-out events Managed ASG launches a Spot instance that is cheaper than the OnDemand this ASG was launching before configuring it to Compute Copilot.
+- ASG configured with a `Fully Managed ASG` approach is converted to a Mixed Instances Policy (MIP) ASG, allowing nOps Compute Copilot to define Spot Instance Types this ASG can launch.
+- Compute Copilot Lambda keeps Managed ASG MIP in sync with the latest Spot Market recommendations by nOps, taking in account your Reserved Instances data. In result, on scale-out events Managed ASG launches a Spot instance that is cheaper than the OnDemand this ASG was launching before configuring it to Compute Copilot.
 - In case there are OnDemands available for Spot migration running, or there are Spots that are at risk of interruption, Compute Copilot Lambda initiates an Instance Refresh to bring the ASG to the state approved by nOps Spot Market recommendations.
 
 
 ## Why Managed ASG approach ##
 
-In addition to [the benefits of the original](https://help.nops.io/copilot-asg-onboarding.html?#why-compute-copilot) Compute Copilot ASG approach, that just replaces OnDemand instances to Spot after a launch, this Manged ASG approach brings: 
+In addition to [the benefits of the original](https://help.nops.io/copilot-asg-onboarding.html?#why-compute-copilot) Compute Copilot ASG approach, that replaces OnDemand instances to Spot after a launch, this Managed ASG approach brings: 
 
-- By utilizing ASG Mixed Instance Policy, Managed ASG approach typically does not replace instances after they are launched, reduce the amount of unnecessary noise your Application experiences.
+- By utilizing ASG Mixed Instance Policy, Managed ASG approach typically does not replace instances after they are launched, reducing the amount of unnecessary noise your Application experiences.
 - Since Compute Copilot with Managed ASG integrates directly to AWS Instance Refresh and MIP, it now supports complicated use cases like **AWS CodeDeploy** and any other **Life Cycle Hook** specific cases.
-- By settings strict MaxSpotPrice setting within ASG MIP, it makes sure the price of Managed Spot is always cheaper than the OnDemand was initially defined, even in Spot Market Prices are changing frequently.
+- By setting a strict MaxSpotPrice setting within ASG MIP, it makes sure the price of Managed Spot is always cheaper than the OnDemand was initially defined, even in Spot Market Prices are changing frequently.
 
 
 ## Configuring you ASG to Compute Copilot as a nOps Managed ASG ##

@@ -1,5 +1,5 @@
 ---
-title: Configure nOps Kubernetes Agent on EKS
+title: Configure nOps Kubernetes Agent for Container Cost
 keywords: CostContainer, integrations
 tags: [agents_integrations]
 sidebar: mydoc_sidebar
@@ -9,58 +9,95 @@ series: [agents_integrations]
 weight: 6.0
 ---
 
-{: .no_toc }
+Installing the Container Cost Kubernetes agent is required to get access to container level visibility.
 
-### This document serves as a comprehensive guide, walking you through the setup and deployment procedures, guaranteeing seamless integration with the nOps platform to enhance operational efficiency.The nOps Kubernetes Agent (nops-k8s-agent) plays a vital role in streamlining cloud infrastructure management.Its purpose is to:
+The way it works is by collecting metrics from the cluster and storing them into a S3 bucket on your AWS account which then is copied
+over to nOps.
 
-1) Gather metadata from Kubernetes clusters.
+1. TOC
+{:toc}
 
-2) Safely transmit this information to an Amazon S3 bucket.This functionality empowers the nOps platform to:1) Analyze the accumulated data.
-3) Offer actionable insights for optimizing costs and managing resources.
+# Prerequisites
 
-## Prerequisites
-
-1) You must have an active nOps account. If you do not have one, please register on the nOps website.2. Make sure you have access to a Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
-
-
-
-## Steps to Configure nOps Kubernetes Agent
-
-1. Go to Organization setting > Integrations > Container cost Tab
-2. Select the AWS account you want to set up k8s cost agent.
-3. Click on Setup button.
-4. You will be redirected to the AWS console > cloud formation stack page. (make sure you are already logged into AWS account in the same browser tab).
-
-![](https://lh7-us.googleusercontent.com/nPx5BeHTlSh28DP045-42-OmhPy15SPDHv5brOSvld3Z_VZbIzcg4OZJqpXBXoFrx2f2yujyc9zXoj48kDFMMmz4TcsWY8TNLFmaUdxq-prZF_P4hZmVKeArUs8CtWraHYSAEuA2zoEmj9ryZVhz1Eo)
-
-5. Create a stack.
-6. Return to nOps platform and check the status. 
-
-![](https://lh7-us.googleusercontent.com/UaddssjZ6rK9aZEa3luYO_SHQEqxorkhyBEwudJoL-riDinH6EGe-FseGYg4Dtdh5QX4m9xZfAg0T1YyT7_DZWE8Bo60-AqctR6dCuh-brL58PRCXqRtlneK1Q-41nBpVDBU7vP-OPSZXHJ6092RkVM)
-
-7. As soon as the status is showing “configured” click on Generate script button.
-
-8. Copy the script to any application like , notepad. 
-9. On AWS cloud formation page , go to output and copy user name.
-10. Redirect to the IAM users page and find your user name.
-11. follow the steps to create access key. 
-12. Copy Access ID and Key and paste it into generated script.
-13. Again , Go back to AWS console and open your eks cluster to copy the cluster ARN and paste it in the same generated script and save the file.
-14. Change the permissions of the file and make it an executable one. 
-
-To change the permission of that, 
-you run:Chmod +x script\_name.sh
-And to execute:./script\_name.sh
-
-15. Run the Generated script file into terminal to configure the agent as shown below.
-
-![](https://lh7-us.googleusercontent.com/Ov4lnnsBQvECBDeQXWMK1Jok732HbyQadFYPp6scm8nyZWeR-PQ6WFVQGa0RVMy94ux4hgtwIlQbJ7IopjVp6MTcWr96xBpnZQNVrzrippPJfUU2C-uiQAhpGok5f0IOfqwpiYqf-Vd1lEsPeWBZYJs)
+1. You must have an active nOps account. If you do not have one, please register on <a href="https://app.nops.io/" target="_blank">nOps</a>
+2. Make sure you have access to the Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
+3. <a href="https://helm.sh/" target="_blank">Helm</a>
+4. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
+5. Unix-like terminal to execute the installation script.
 
 
-After successfully configuration, you gain complete visibility into your workloads, tailored to your preferred level of detail. While your EKS expenditure typically remains opaque, pinpointing cloud inefficiencies can be a challenge. nOps streamlines this process by automatically detecting wastage through CPU and memory metrics, empowering you to optimize resources and realize immediate cost savings.
+# Steps to Configure nOps Kubernetes Agent
 
-**FAQs**
+1. **Navigate to Container Cost Tab**
+    - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
+    - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/integrations-container-cost.png)
 
-1. I have prometheus installed and I use it for a variety of purposes in my cluster, will this affect that?
- **Ans:** No, the agent installation process deploys it's own Prometheus with it's own namespace so there's no interference with current Prometheus deployments.
+2. **Setup Container Cost Integration**
+    - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
+    - This step will:
+        - Create an S3 bucket in your AWS account.
+        - Grant writing permissions to the agent for writing files to that bucket.
+        - Use either your OIDC Identity Provider to create a service role or an IAM User with permissions to write to the S3 bucket.
+        - Allow nOps to copy those files.
+
+3. **Configure CloudFormation Stack**
+    - On the CloudFormation stack creation page:
+        - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
+        - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`.
+            If you choose this approach, you must create and store secret key credentials to replace values in the installation script.
+        - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
+        - Click the **Create stack** button.
+    - ![CloudFormation Stack Parameters](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-cf-parameters.png)
+
+4. **Check Integration Status**
+    - After the creation is complete, return to the nOps platform.
+    - Click the **Check Status** button to verify the integration status.
+
+
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-cost-integration-check-status.gif)
+
+5. **Copy Generated Script, Configure, and Run It**
+
+    1. Replace the cluster ARN in the script:
+        ```sh
+        APP_NOPS_K8S_AGENT_CLUSTER_ARN="<REPLACE-YourClusterARN>" # You can find this on your EKS dashboard on AWS
+        ```
+
+    2. If you chose to use an IAM User, perform the following extra steps:
+        ```sh
+        USE_SECRETS=false # Set this to true if you don't want to use identity provider service role
+        AGENT_AWS_ACCESS_KEY_ID="<REPLACE-YourAccessKeyId>"
+        AGENT_AWS_SECRET_ACCESS_KEY="<REPLACE-YourSecretAccessKey>"
+        ```
+
+    3. Make the script executable:
+        ```sh
+        chmod +x script_name.sh
+        ```
+
+    4. Run the script:
+        ```sh
+        ./install-nops-k8s-agent.sh
+        ```
+        - If you need IPv6, add the `--ipv6` parameter:
+            ```sh
+            ./install-nops-k8s-agent.sh --ipv6
+            ```
+        - If you need to use a custom registry (can't use public repositories directly), use the `--custom-registry` parameter. This will prompt you for the custom registry URL during the installation process.
+
+---
+
+After successful configuration, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
+
+
+# Frequently Asked Questions
+
+1. **Will the agent installation affect my existing Prometheus setup?**
+
+    **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, ensuring that it does not interfere with your current Prometheus deployments.
+
+2. **Can I use a custom registry to download container images?**
+
+    **Answer:** Yes, you need to use the `--custom-registry` parameter on the installation script execution.
+
 

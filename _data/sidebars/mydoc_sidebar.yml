@@ -264,7 +264,7 @@ entries:
           url: /Configure-the-Notification-Center-to-get-scheduled-alerts.html
           output: web
 
-        - title: Configure-nOps-Kubernetes-Agent-on-EKS
+        - title: Configure nOps Kubernetes Agent for Container Cost
           url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
           output: web
 

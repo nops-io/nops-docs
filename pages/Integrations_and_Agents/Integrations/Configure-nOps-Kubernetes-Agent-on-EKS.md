@@ -54,7 +54,7 @@ over to nOps.
     - Click the **Check Status** button to verify the integration status.
 
 
-    ![](https://lh7-us.googleusercontent.com/UaddssjZ6rK9aZEa3luYO_SHQEqxorkhyBEwudJoL-riDinH6EGe-FseGYg4Dtdh5QX4m9xZfAg0T1YyT7_DZWE8Bo60-AqctR6dCuh-brL58PRCXqRtlneK1Q-41nBpVDBU7vP-OPSZXHJ6092RkVM)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-cost-integration-check-status.gif)
 
 5. **Copy Generated Script, Configure, and Run It**
 

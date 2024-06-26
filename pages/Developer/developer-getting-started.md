@@ -34,19 +34,19 @@ Begin by opening a command window.
 
 2.  **Extract a public key** from the PEM certificate by using the following command.  
     `$ openssl rsa -in rsakey.pem -pubout > key.pub`  
-    ![](https://nops-docs-img.s3.amazonaws.com/solutions/sol-rsa-key.png)  
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/solutions/sol-rsa-key.png)  
 
 3.  Copy this information into your clipboard.
 
 4.  Log into the nOps console and from the **Organization Settings** pane click the **API Key** option
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-org-api-key-menu.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-org-api-key-menu.png)
 5.  Click on **Let’s Generate Your API Key**
-    ![](https://nops-docs-img.s3.amazonaws.com/solutions/sol-api-verified-key.png.png) 
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/solutions/sol-api-verified-key.png) 
  
 6.  Paste your RSA key into the nOps API Key **Signature Verification** field.
-    ![](https://nops-docs-img.s3.amazonaws.com/solutions/sol-api-with-key-pasted.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/solutions/sol-api-with-key-pasted.png)
 7.  Click **Save**.  You will see a confirmation dialog that contains your newly generated key.  
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-api-key-generated.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-api-key-generated.png)
 
     **You now have a fully configured API Client and can use this key when you send a request to nOps.
 

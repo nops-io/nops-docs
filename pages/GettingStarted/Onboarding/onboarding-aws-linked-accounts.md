@@ -27,7 +27,7 @@ You can configure linked accounts during the automatic setup process of the paye
 After your Payer Account is configured successfully, the automatic setup will then ask you if you want to onboard the linked account(s) right now. You can click on **Automatic Setup** for each linked account to start the account onboarding process:
 
 If you click on **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
@@ -46,19 +46,19 @@ Click on your account at the top right corner of the page and go to **Organizati
 
 You can onboard each linked account with _Manual Setup_ or _Automatic Setup_:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-nops-org-settings-account-list.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-nops-org-settings-account-list.png)
 
 Click **Automatic Setup** or **Manual Setup** to start the onboarding process.
 
 If you click **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
 
 If you click **Manual Setup**, you will be redirected to the Account Details (Manual Setup) page. Since nOps already has the information for S3 bucket that houses the CUR, the field for the S3 bucket will be locked. Click **Update Account** to start the onboarding process:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-linked-account-manual.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-linked-account-manual.png)
 
 During the onboarding process of linked accounts, nOps will not ask for the CUR since it has already been added with the AWS Organization Master Payer Account.
 

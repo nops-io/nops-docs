@@ -43,7 +43,7 @@ When you log in to your nOps account for the first time, a pop-up screen will ap
 2.  [Link AWS Accounts](#link-aws-accounts)
 3.  [Fetching](#fetching)
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-onboardingwizard.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-onboardingwizard.png)
 
 {% include note.html content="
 After adding your Payer account with the automatic setup, to add more accounts later:<br /><br />
@@ -100,7 +100,7 @@ When data ingestion starts, in the AWS console **CloudFormation > Stacks > Stack
 
 Once your AWS accounts are linked successfully, you will see the following screen:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-automatic-fetching.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-automatic-fetching.png)
 
 Once you log back into nOps, after data ingestion is complete, in the case of AWS _Organization Account_ you will see the **Setup Child Account** page. With the help of your CUR, the setup process will automatically pull in the child accounts associated with your organization account.
 
@@ -114,7 +114,7 @@ If you click **Automatic Setup**, the setup process will show you a confirmation
 
 Before you click **Proceed**, make sure that you are logged in to the child account you are onboarding. When you click **Proceed,** you will be redirected to the AWS CloudFormation console with all the fields pre-filled:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-automatic-stackset.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-automatic-stackset.png)
 
 Check the **I acknowledge that AWS CloudFormation might create an IAM resources** checkbox, and click **Create Stack**.
 

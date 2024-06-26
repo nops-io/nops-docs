@@ -93,14 +93,12 @@ In the Compute Copilot Auto Scaling Groups Onboarding call, we will launch a Clo
     
     _Note: you can also clone an existing template to fetch pre-defined configurations to apply to a new template._ 
 
-3. Select **Fully Managed ASG** if you want your ASG to be [fully managed by Compute Copilot Lambda](https://help.nops.io/copilot-managed-asg.html), utilizing the latest features like Instance Refresh and Mixed Instance Policy instead of it making the OnDemand to Spot replacements after the instance launch. 
+3. **Ignore Scale-In protection** - On selecting this option, Compute Copilot ASG Lambda will ignore Scale-in Protection on your instances and will replace them. By Default this is not selected.
 
-4. **Ignore Scale-In protection** - On selecting this option, Compute Copilot ASG Lambda will ignore Scale-in Protection on your instances and will replace them. By Default this is not selected.
-
-5. Set the **Minimum Number of On-demand Instances**
+4. Set the **Minimum Number of On-demand Instances**
 **Minimum Number of On-Demand Instances** defines the number of On-Demand instances that should be left in the ASG and not replaced with Spot. ASG Lambda won’t do any On-Demand to Spot replacement if it has fewerf On-Demands instances than specified in this config setting.
 
-6. Set the **Spot percentage** and **Max Spot Instances** using the draggable bars.
+5. Set the **Spot percentage** and **Max Spot Instances** using the draggable bars.
 
 **Spot percentage** defines the percentage of on-demand instances to be replaced with Spot. 
 

@@ -158,10 +158,6 @@ entries:
           url: /copilot-asg-onboarding.html
           output: web
 
-        - title: nOps Copilot Fully Manged ASG
-          url: /copilot-managed-asg.html
-          output: web
-
         - title: Onboarding Auto Scale Groups using Stackset
           url: /copilot-asg-stackset.html
           output: web          

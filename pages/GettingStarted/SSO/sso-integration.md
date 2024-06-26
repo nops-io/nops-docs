@@ -4,7 +4,7 @@ keywords: sso, setup, onboarding
 tags: [onboarding, sso]
 sidebar: mydoc_sidebar
 permalink: sso-integration.html
-folder: images/gettingstarted
+folder: GettingStarted
 series: [Onboarding, SSO]
 weight: 3.0
 ---

@@ -71,9 +71,6 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
     ![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c%201.gif)
 
 
-{% include custom/series_related.html %}
-
-
 ## FAQ
 
 
@@ -127,3 +124,6 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
 
     1. **Lock the ASG:** In order to maintain the stability of the cluster, we avoid replacing instances within the same Auto Scaling Group (ASG) or Amazon EKS cluster simultaneously. This is why the Lambda function 'locks' the ASG, ensuring that concurrent Lambda executions do not attempt to replace instances simultaneously. Therefore, if the Lambda is triggered while the ASG or the cluster is already locked, the Lambda completes its execution without replacing the instance. Additionally, the lock is always released before the Lambda execution is complete, regardless of errors or successful replacements.
     2. **Suspend Processes:** The Lambda needs to ensure that AWS won’t make changes to the ASG while an instance is being replaced. That’s why the Lambda makes a request to [the suspend processes API](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/suspend_processes.html) to suspend the following processes: Terminate and AZRebalance. Additionally, the processes are resumed before the Lambda execution is complete, regardless of errors or successful replacements.
+
+
+    {% include custom/series_related.html %}

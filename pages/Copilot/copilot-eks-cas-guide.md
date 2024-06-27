@@ -71,4 +71,59 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
     ![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c%201.gif)
 
 
+## FAQ
+
+
+1. **How does Compute Copilot for CA replace on-demand instances?**
+
+    ![compute-copilot-for-ca-architecture-diagram.png](/tmpimg/compute-copilot-for-ca-architecture-diagram.png)
+
+    As you can see in the above diagram, Compute Copilot for Cluster Autoscaler consists of two main components: the Compute Copilot Lambda and the Compute Copilot Agent.
+
+    Both the CC Agent and CC Lambda are installed in the user’s cloud. The agent runs in the EKS cluster. Therefore, a user with 10 clusters would have 10 agents running. However, only one Lambda is required, regardless of the number of clusters, AWS regions, or AWS accounts.
+
+
+2. **What are the responsibilities of the Compute Copilot Lambda?**
+
+    The Compute Copilot Lambda is the brain of our solution for Cluster Autoscaler. As the diagram illustrates, the Lambda is triggered when an instance is launched by the ASG. Its main responsibilities are to:
+
+    1. Validate whether an instance can or should be replaced.
+    2. Launch the new Spot instance.
+    3. Attach the new Spot instance to the ASG/cluster.
+    4. Communicate with the Compute Copilot Agent when an instance needs to be drained, marked as unschedulable (cordon), or marked as schedulable (uncordon).
+    5. Revert changes when something fails to keep the cluster stable.
+
+3. **What are the responsibilities of the Compute Copilot Agent?**
+
+    The agent is responsible for all necessary communications with the Kubernetes API. When the Lambda needs to drain, cordon, or uncordon a node, it communicates with the agent to trigger these operations. Therefore, the agent does not perform any action in the EKS cluster without being triggered by the Lambda.
+
+4. **How does the Lambda know if an instance should be replaced by Spot?**
+
+    The Lambda should try to replace an instance only if:
+
+        1. The Auto Scaling Group (ASG) is configured in the nOps UI.
+        2. The instance was not launched by nOps.
+        3. The instance is not covered by Compute Plans that cannot be freed up.
+        4. The instance is not covered by a Reserved Instance or Savings Plan.
+
+5. **How does the Lambda know if it’s safe to replace an instance with Spot?**
+
+    Once the instance passes the initial validations and is marked as unschedulable, there are more validations to ensure that it is safe to replace the instance. 
+
+    It's safe to replace an instance with a Spot instance only if:
+
+        1. Replacing the instance will not exceed the configured Spot percent threshold.
+        2. The instance is not protected from termination.
+        3. The instance is active (InService, Pending, Pending:Proceed or Pending:Wait)
+        4. The instance is not protected from Scale-In.
+        5. The Auto Scaling Group does not have Weighted Capacity.
+        6. The Auto Scaling Groups have not had any rebalancing in the past 10 minutes.
+        7. A reliable Spot option is found.
+
+6. **What does it mean to Lock the ASG and Suspend Processes?**
+
+    1. **Lock the ASG:** In order to maintain the stability of the cluster, we avoid replacing instances within the same Auto Scaling Group (ASG) or Amazon EKS cluster simultaneously. This is why the Lambda function 'locks' the ASG, ensuring that concurrent Lambda executions do not attempt to replace instances simultaneously. Therefore, if the Lambda is triggered while the ASG or the cluster is already locked, the Lambda completes its execution without replacing the instance. Additionally, the lock is always released before the Lambda execution is complete, regardless of errors or successful replacements.
+    2. **Suspend Processes:** The Lambda needs to ensure that AWS won’t make changes to the ASG while an instance is being replaced. That’s why the Lambda makes a request to [the suspend processes API](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/suspend_processes.html) to suspend the following processes: Terminate and AZRebalance. Additionally, the processes are resumed before the Lambda execution is complete, regardless of errors or successful replacements.
+
+
 {% include custom/series_related.html %}

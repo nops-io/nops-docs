@@ -85,6 +85,13 @@ over to nOps.
             ```
         - If you need to use a custom registry (can't use public repositories directly), use the `--custom-registry` parameter. This will prompt you for the custom registry URL during the installation process.
 
+        - If you want to also collect rightsizing metrics, add the `--rightsizing` parameter:
+            ```sh
+            ./install-nops-k8s-agent.sh --rightsizing
+            ```
+
+        You can combine the parameters.
+
 ---
 
 After successful configuration, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.

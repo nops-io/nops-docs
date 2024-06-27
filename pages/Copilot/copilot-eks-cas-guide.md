@@ -126,4 +126,4 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
     2. **Suspend Processes:** The Lambda needs to ensure that AWS won’t make changes to the ASG while an instance is being replaced. That’s why the Lambda makes a request to [the suspend processes API](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/suspend_processes.html) to suspend the following processes: Terminate and AZRebalance. Additionally, the processes are resumed before the Lambda execution is complete, regardless of errors or successful replacements.
 
 
-    {% include custom/series_related.html %}
+{% include custom/series_related.html %}

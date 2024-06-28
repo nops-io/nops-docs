@@ -1,6 +1,6 @@
 ---
 title: Onboarding AWS with 1-click CloudFormation
-keywords: setup, onboarding, tutorials, video, walkthrough
+keywords: setup, onboarding, tutorials, video, walkthrough, one click, cloudformation
 tags: [getting_started, onboarding]
 sidebar: mydoc_sidebar
 permalink: one-click-cloudformation.html

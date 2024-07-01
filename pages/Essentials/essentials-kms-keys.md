@@ -89,3 +89,6 @@ This configuration provides flexibility, allowing users to grant their Lambda fu
 
 Configuring KMS Key permissions in nOps is a straightforward process that significantly enhances the automation capabilities of your AWS infrastructure. By following this guide, you can ensure your Lambda functions have the necessary permissions to perform critical automation tasks securely.
 
+<br/><br/>
+
+{% include custom/series_related.html %}

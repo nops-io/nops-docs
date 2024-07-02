@@ -27,19 +27,19 @@ Before you begin, ensure that the nOps Essentials stack is configured. This stac
 
    - Navigate to **Organization Settings** and select **Integrations**.
 
-   - From the Integrations menu, choose **Event Bridge**.
+   - From the Integrations menu, choose **EventBridge**.
 
-2. **Reviewing Event Bridge Status**
+2. **Reviewing EventBridge Status**
 
-   - In the Event Bridge list, identify the status of your configurations.
+   - In the EventBridge list, identify the status of your configurations.
 
    - Yellow indicates "Update needed," red indicates "Not connected," and green indicates "Connected."
 
-   - Ensure your Event Bridge status is green to proceed with KMS Key configuration.
+   - Ensure your EventBridge status is green to proceed with KMS Key configuration.
 
 3. **Choosing KMS Key Permissions**
 
-   - Click the **Add KMS Keys** button next to a connected Event Bridge configuration.
+   - Click the **Add KMS Keys** button next to a connected EventBridge configuration.
 
    - A popup will appear with two options: **Use all KMS Keys** or **Single KMS Key**.
 

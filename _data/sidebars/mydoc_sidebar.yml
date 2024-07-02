@@ -205,7 +205,7 @@ entries:
 
       - title: KMS Key Management
         url: /essentials-kms-keys.html
-        output: web          
+        output: web        
 
       - title: EC2 and ASG Rightsizing with DataDog
         url: /ec2-asg-rightsizing-with-nops-using-datadog.html
@@ -215,7 +215,7 @@ entries:
         url: Datadog-Agent-in-ASG-for-Enhanced-Rightsizing.html
         output: web 
 
-      - title: Datadog agent configuration on linux based asg
+      - title: Datadog agent configuration on Linux based asg
         url: Datadog-agent-configuration-on-linux-based-asg.html
         output: web
 
@@ -252,7 +252,7 @@ entries:
           url: /integrate-datadog-with-nops-platform.html
           output: web
 
-        - title: Eventbridge Integration
+        - title: EventBridge Integration
           url: /eventbridge-integration.html
           output: web
 

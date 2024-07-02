@@ -11,14 +11,91 @@ weight: 3.0
 
 # Onboarding AWS Linked Accounts #
 
-There are three methods of onboarding a linked account:
+Here are ththeree methods of onboarding a linked accounts:
 
-1.  [During automatic setup](#during-automatic-setup)
-2.  [Via your nOps Organization Account](#nops-organization-settings)
-3.  [With Terraform Multi Account Registration (IaaC)](#terraform-multi-account-registration-iaac)
+1.  [With Stacket Multi Account One Click Setup](#With-Stacket-Multi-Account-One-Click-Setup)
+2.  [During automatic setup](#during-automatic-setup)
+3.  [Via your nOps Organization Account](#nops-organization-settings)
+4.  [With Terraform Multi Account Registration (IaaC)](#terraform-multi-account-registration-iaac)
 
 
 All of these onboarding methods give the linked accounts IAM permissions that allow nOps to read metadata, CloudTrail trails, Cloudwatch data, and everything else about the linked accounts. It allows nOps to offer its monitoring and recommendations features for security, operations, reliability, and performance.
+
+## With Stacket Multi Account One Click Setup ##
+
+Onboarding Multiple AWS Accounts to nOps using One Click CloudFormation
+
+**Introduction**
+
+nOps provides powerful analysis, dashboards, and reports for your AWS environment. Adhering to the principle of least privilege, nOps requires limited access to your AWS accounts via AWS-approved methods including AWS Organizations, CloudFormation, Stack, StackSets, and Lambda.
+
+This guide will walk you through the process of onboarding multiple AWS child accounts to nOps using a one-click CloudFormation setup.
+
+**Prerequisites**
+
+AWS Organization Master Payer account or access to the Master Payer account for configuration.
+
+Note: Before initiating, keep the AWS Organization’s Master Payer account signed in on another tab of your browser.
+ 
+Skip Step: 1 if the Master Payer account is already configured.
+
+**Steps**
+
+Step 1: Add a New AWS Account
+	Note: we are going to add the master payer AWS account 
+
+1. Initiate Account Addition:
+If you have created a new nOps client you will be asked to configure AWS on the very first Sign-in or Click on "Add New AWS Account" from the Dashboard if your account is new, or add it from Personal Settings > AWS Accounts.
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png
+
+
+2. Choose Setup Method:
+We provide two setup methods: 
+     1. nOps Wizard Setup
+     2. Manual Setup
+For this guide, select "nOps Wizard Setup" and click "Next".
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-2.png
+
+3. Enter Account Details:
+Enter the AWS Account Name and S3 Bucket Name.
+Click "Set up Account". This will redirect you to the AWS Create Stack page.
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-3.png
+
+4. Create Stack in AWS:
+The Create Stack page will have prefilled data including Stack name, ExternalId, and SystemBucketID.
+Check the box that says "I acknowledge that AWS CloudFormation might create IAM resources."
+Click the "Create Stack" button.
+The stack will be created and the Master Payer account will be configured successfully this may take up to 10 minutes after successful stack creation.
+
+ Step 2: Configure All Linked Child Accounts 
+
+1.  After the Master Payer account is successfully configured, it will automatically fetch the linked child AWS accounts and list them as Inactive AWS Accounts.
+
+2. Initiate MultiAccount Setup:
+To configure all child accounts at once, click on "CloudFormation Multiple Accounts Setup" from the AWS Accounts page, which will redirect you to the AWS Create Stack Page.
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-4.png
+
+3. Create Stack for Multiple Accounts:
+A Create Stack page will open on AWS with the name "Quick Create Stack".and All details would be prefilled.
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png
+
+Click on the "Create Stack" button to initiate the stack run.
+
+After successful CloudFormation execution within 30 minutes, all child accounts will be connected to nOps as Active AWS Accounts.
+
+https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png
+
+
+This feature also supports automatic listing and connection of any new child accounts created in AWS to nOps so you don't need to manually configure any new AWS account created under the same organization account.
+
+**Conclusion**
+By following these steps, you can seamlessly onboard multiple AWS-linked accounts to nOps, granting minimum necessary permissions through AWS-native CloudFormation.
+
 
 ## During Automatic Setup ##
 

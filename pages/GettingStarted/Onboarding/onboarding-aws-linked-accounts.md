@@ -47,7 +47,7 @@ Step 1: Add a New AWS Account
 1. Initiate Account Addition:
 If you have created a new nOps client you will be asked to configure AWS on the very first Sign-in or Click on "Add New AWS Account" from the Dashboard if your account is new, or add it from Personal Settings > AWS Accounts.
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png">
 
 
 2. Choose Setup Method:
@@ -56,13 +56,13 @@ We provide two setup methods:
      2. Manual Setup
 For this guide, select "nOps Wizard Setup" and click "Next".
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-2.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-2.png">
 
 3. Enter Account Details:
 Enter the AWS Account Name and S3 Bucket Name.
 Click "Set up Account". This will redirect you to the AWS Create Stack page.
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-3.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-3.png">
 
 4. Create Stack in AWS:
 The Create Stack page will have prefilled data including Stack name, ExternalId, and SystemBucketID.
@@ -77,18 +77,18 @@ The stack will be created and the Master Payer account will be configured succes
 2. Initiate MultiAccount Setup:
 To configure all child accounts at once, click on "CloudFormation Multiple Accounts Setup" from the AWS Accounts page, which will redirect you to the AWS Create Stack Page.
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-4.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-4.png">
 
 3. Create Stack for Multiple Accounts:
 A Create Stack page will open on AWS with the name "Quick Create Stack".and All details would be prefilled.
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png">
 
 Click on the "Create Stack" button to initiate the stack run.
 
 After successful CloudFormation execution within 30 minutes, all child accounts will be connected to nOps as Active AWS Accounts.
 
-https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png">
 
 
 This feature also supports automatic listing and connection of any new child accounts created in AWS to nOps so you don't need to manually configure any new AWS account created under the same organization account.

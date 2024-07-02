@@ -11,7 +11,7 @@ weight: 3.0
 
 # Onboarding AWS Linked Accounts #
 
-Here are ththeree methods of onboarding a linked accounts:
+Here are the methods of onboarding a linked accounts:
 
 1.  [With Stacket Multi Account One Click Setup](#With-Stacket-Multi-Account-One-Click-Setup)
 2.  [During automatic setup](#during-automatic-setup)

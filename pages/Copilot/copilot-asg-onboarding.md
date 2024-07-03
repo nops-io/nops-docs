@@ -143,11 +143,14 @@ Additionally, it adds three new tags to the EC2 Spot instance:
 
 
 1. **How does Compute Copilot replace on-demand instances?**
+    - For the nOps Copilot-Managed ASGs, the process of replacing on-demand instances with spot instances is described in the [nOps Copilot-Managed ASGs](https://help.nops.io/copilot-managed-asg.html) section.
+    
+    - If the ASG is configured using the original approach, the following steps take place:
     ![](https://lh7-us.googleusercontent.com/OjZwU_zk5KM1CXUihO_evtZwp-L6bkNXBvQHzcqCdD39OkO-t_KdEcQLYKBKLYV1l8SO2GLJgB7jtaG6Rr_9gWX-FpbznWEPW1Xt7Sv9ClZX0wJW6-YhrMTHgStuHXWM43z_H0-pZsAKVHRxXNSpzsM)
     
     1. ASG launches a new on-demand instance
-    1. Lambda intercepts the EC2 Instance State-change Notification event from EventBridge
-    1. If the created instance is not protected from termination and should be replaced, Compute Copilot performs the following steps. 
+    2. Lambda intercepts the EC2 Instance State-change Notification event from EventBridge
+    3. If the created instance is not protected from termination and should be replaced, Compute Copilot performs the following steps. 
         1. Copy the Launch Template or Launch Configuration from the ASG launch template
         2. In the copied Launch Template, modify Network Interfaces, Tags, Block Device and/or Mappings from the instance Launch Template or Configuration if needed
         3. Fetch recommended instance types from nOps API

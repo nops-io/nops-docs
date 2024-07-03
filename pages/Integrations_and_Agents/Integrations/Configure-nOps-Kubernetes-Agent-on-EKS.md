@@ -1,5 +1,5 @@
 ---
-title: Configure nOps Kubernetes Agent for Container Cost
+title: Configure nOps Kubernetes Agent for Container Insights
 keywords: CostContainer, integrations
 tags: [agents_integrations]
 sidebar: mydoc_sidebar

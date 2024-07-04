@@ -16,6 +16,8 @@ weight: 1.0
 
 Compute Copilot for ASGs are now fully managing your ASGs for additional savings and reliability. Here’s how it works:
 
+![](/tmpimg/managed_asg_diagram.png)
+
 - ASGs managed by Copilot are now converted to Mixed Instances Policy (MIP) ASGs, allowing nOps Compute Copilot to define Spot Instance Types this ASG can launch.
 - Compute Copilot Lambda keeps Managed ASG MIP in sync with the latest Spot Market recommendations by nOps, taking into account your Reserved Instances data. As a result, during scale-out events, Copilot-Managed ASG launches a Spot instance that is cheaper than the On Demand instance this ASG was launching before configuring it to Compute Copilot.
 - If there are OnDemand instances available for Spot migration running, or there are Spot instances that are at risk of interruption, Compute Copilot Lambda initiates an Instance Refresh to bring the ASG to the state approved by nOps Spot Market recommendations.

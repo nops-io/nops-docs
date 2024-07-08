@@ -16,7 +16,7 @@ When EC2 instances are frequently launched and terminated, orphaned EBS volumes 
 
 ## What is an Idle EBS Volume? ##
 
-An idle EBS volume, defined by nOps,  is an EBS volume that has been orphaned or unattached from any EC2 instance for a period exceeding 30 days. These volumes can accumulate unnoticed, consuming storage resources and contributing to unnecessary costs. Identifying and managing idle EBS volumes is crucial for optimizing cloud resource utilization and minimizing expenses.
+An idle EBS volume, defined by nOps,  is an EBS volume that has been orphaned or unattached from any EC2 instance for a period exceeding 10 days. These volumes can accumulate unnoticed, consuming storage resources and contributing to unnecessary costs. Identifying and managing idle EBS volumes is crucial for optimizing cloud resource utilization and minimizing expenses.
 
 Here’s how nOps enhances the process:
 
@@ -31,7 +31,7 @@ Here’s how nOps enhances the process:
 
 1. If you’re onboarded to nOps, data will automatically be collected from your AWS API.
 
-2.  If an EBS volume is not associated or attached with any EC2 instance for the last 30 days, it is considered orphaned.
+2.  If an EBS volume is not associated or attached with any EC2 instance for the last 10 days, it is considered orphaned.
 
 3. You have two options when cleaning up EBS volumes: you can either create a snapshot before deleting the volume to ensure a backup is available, or you can choose to delete the volume immediately without creating a snapshot for a quicker cleanup and to avoid paying the small fee of storing the snapshot.
 

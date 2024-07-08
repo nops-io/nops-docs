@@ -1,5 +1,5 @@
 ---
-title: Configure nOps Kubernetes Agent for Container Cost
+title: Configure nOps Kubernetes Agent for Container Insights
 keywords: CostContainer, integrations
 tags: [agents_integrations]
 sidebar: mydoc_sidebar
@@ -85,9 +85,9 @@ over to nOps.
             ```
         - If you need to use a custom registry (can't use public repositories directly), use the `--custom-registry` parameter. This will prompt you for the custom registry URL during the installation process.
 
-        - If you want to also collect rightsizing metrics, add the `--rightsizing` parameter:
+        - If you want to opt out of collecting rightsizing metrics, add the `--no-rightsizing` parameter:
             ```sh
-            ./install-nops-k8s-agent.sh --rightsizing
+            ./install-nops-k8s-agent.sh --no-rightsizing
             ```
 
         You can combine the parameters.

@@ -96,6 +96,36 @@ over to nOps.
 
 After successful configuration, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
+# Removing Agent
+
+To remove the agent from your cluster you just need to follow these steps:
+
+
+```bash
+# Delete nops-k8s-agent release
+helm uninstall nops-k8s-agent --namespace nops-k8s-agent
+
+# Delete nops-cost release
+helm uninstall nops-cost --namespace nops-cost
+
+# Delete nops-prometheus release
+helm uninstall nops-prometheus --namespace nops-prometheus-system
+
+# Delete nops-prometheus-crds release
+helm uninstall nops-prometheus-crds --namespace nops-prometheus-system
+
+# Delete nops-gpu-metrics-exporter release
+helm uninstall nops-gpu-metrics-exporter --namespace nops-prometheus-system
+
+# Delete the namespaces
+kubectl delete namespace nops-k8s-agent
+kubectl delete namespace nops-cost
+kubectl delete namespace nops-prometheus-system
+```
+    
+
+
+
 
 # Frequently Asked Questions
 

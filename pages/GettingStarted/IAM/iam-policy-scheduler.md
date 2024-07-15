@@ -1,6 +1,6 @@
 ---
 title: IAM permissions for Essentials
-keywords: iam policies, iam, setup, onboarding, nswitch, sharesave
+keywords: iam policies, iam, setup, onboarding, essentials, sharesave
 tags: [onboarding, iam]
 sidebar: mydoc_sidebar
 permalink: iam-policy-scheduler.html

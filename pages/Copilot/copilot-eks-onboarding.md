@@ -50,46 +50,94 @@ Compute Copilot for EKS even covers your commitments with a 100% money-back guar
 
     ![](https://lh4.googleusercontent.com/7eISgP_ZiLo_JO2zGS8dOdp7HvYLBO4N5rMK1FC-szbc668pp-pCz_ysW2NKhvPylazv_3oRIden3mwgLG09eWT0XsbXX31dfsJ_Sot5PpBSJERDAsErwjI_wQC8kRseM_ezcQZ7JxzR05e8Gtdz328)
 
-### Create Node Template: ###
+### Create EC2NodeClass/AWSNodeTemplate:
 
-1. For the selected EKS cluster, create a Node Template.
-2. Assign a unique name to the Node Template.
-3. Choose the AMI Family from the dropdown menu.
+EC2NodeClass/AWSNodeTemplate can be created in two ways-
 
-    ![](https://lh3.googleusercontent.com/PAwzhjL32w7WQnqUctFgu6vdhTZxa1k8VBeour0tuKF-3Fh8-2T8u5gcd2nzzukT7mhe12BKjkeAO9wsv9XsCjewXzfeLRngVdDevGOpii7v2pFi_l2mIWy4ldO-hSrkwJCs4HbkTV3Qs73tufsibKk)
+i. Auto Configuration
 
-4. Add Subnet IDs manually or with Search by tags. 
-5. Add Security Group IDs manually or with Search by tags 
-6. Select IAM Role or use default Karpenter IAM Role
+   - For the selected EKS cluster, Select create a EC2NodeClass/AWSNodeTemplate
 
-    ![](https://lh3.googleusercontent.com/uxZn7EekvWOJ_6ucFrNoI5A1VQIOwLVy46vYNyHdhycQIIQLxxOFsHSuoM7bp4rDToBMrK4OxJdj70aoRXgX_IfEJDz0LxuSKW8zzUEdh9WklomEBMPZ8Pp6u5BJb0850YjG_pvY8kWEL2ECeNAdIz4)
+   - Assign a unique name to it.
 
-7. Configure Metadata Options with user data to give commands after node starts \[optional].
-8. Create Device Mapping by providing necessary details \[optional].
-9. Create Node Template.
+   - Choose the AMI Family from the dropdown menu.
 
-    ![](https://lh5.googleusercontent.com/SP1sgMPmewYKjLGAK2JuOQ5HVYD6F2KFXgTbQIzrnyli_FflSsyh_AJtyv0RZQeud8c6Ns-aNK-sn1qC_O7JuNkVaoV_ackSRriFDbhqadtxc_l5InMnZpXnyFaHsGkbOnhYMob_tf3BJ3eV155g390)
+ ![](https://lh7-us.googleusercontent.com/89Q2Nu6V1qFpI6tj2li1vAo8r_GjlzIh2kjkJIcAgCpMviS6PEdHyGfzA2LVZusY484UBJ7JaNBs7-pr5MJDhFGCc3_ag9DTn4RocZ9Q1WCnAkRfTxYxQtT0ziDJlCgRMwrNjiebJx6Fd7_bcAbKSaA)
+
+   - Add Subnet IDs manually or with Search by tags. 
+   - Add Security Group IDs manually or with Search by tags 
+   - For EC2NodeClass, you have to select the IAM Role to be used. In case you're not seeing the desired role in the list, you can manually insert your role name.
+   For AWSNodeTemplate, you have the option to select the InstanceProfile you want or let Karpenter handle the defaulting
+
+![](https://lh7-us.googleusercontent.com/3juafLmLGO0a7MSHEo33PGHSZvp0zd_9f8ZsyIyw-jfL1vBMO-kklS5vv9btyZ7JYCT-8giT_E5f0UB8xDlOqC9UbzTsg7Jz0RWKbgXxvoMURkGiLv90FXqwMwSq4vEsXuSXn_agbJEUsppsZrMcU0Y)
+
+  - Configure Metadata Options with user data to give commands after node starts [optional].
+  - Create Device Mapping by providing necessary details [optional].
+  - Select Create Automatically.
+
+    ![](https://lh7-us.googleusercontent.com/8GEWVmgur5Hg2LUmtezV0qO1l7mOxUBqQPTBWaFJin_1K5o4suOvZg2rcUe52RtalCRbYVOeY1Sr9fPYqKBPZLCDLM0qHYH_THtyFQhKgwWnELsmzBsVnwHlGwnSLrJB8CCKZaGlfEaMBJgU9Y5BCPw)
 
 {%include note.html content="you can create multiple node templates"%}
 
-### Create Provisioner: ###
 
-1. Assign a unique Provisioner name.
-2. Select the created Node Template to pull configuration from.
-3. Select Availability Zones.
-4. Select Capacity Type — Spot, On Demand or both \[recommended to select both]
+ii. Manual Configuration
 
-    ![](https://lh6.googleusercontent.com/2mI3pZSbhuJE3VPcmNPJF_TYHC2_0RLC2kNP9zOvdItw5_V9HrdOlPnkVUT-v1hEdCNGXublDDLmW6n_aUdg8Vffz03EEz0c-9j1MmqY4KnqU2JQ9JUQLEJkdDyd1MiqO1N76ZeNQi-U9218KL68xHA)
+   - For the selected EKS cluster, select create a EC2NodeClass/AWSNodeTemplate.
 
-5. Select Max Limit of vCPUs & Memory.
-6. Create Taints and Labels if required \[for specific provisioner service].
-7. Choose the range of vCPUs and Memory for the instance.
-8. Select the appropriate instance family.
-9. Create Provisioners. 
+   - Insert the YAML code and validate it. Make sure you specify an unique name under metadata.name property for your resource
+   - Now select Create manually.
 
-    ![](https://lh6.googleusercontent.com/-xWeSOU5AjLrwx4766WSqXCYeKWq75IjApmZOYgPqkbqbSViB9sy1djBCEFF22cN0sS-SF7KEzyHCcO-S2tcdsZh2bFlro_GZTNTR6w9uN1yYRvS4JHvW6iWRmlKDMducQLL9yYr4V30fi2RUfGynoE)
+![](https://lh7-us.googleusercontent.com/Q5M2eifyPkPPzSvWYTf6gEyPoVIMZYzu2iDgqT0z5-zwjR8Bmqe9OJ2WI_IV68hU-Y_xZmsu4XdsigsGTUpJt5QfFV_FOvqOOLOYVAQcn0YniqXmiB-KD9GF5R0JagMBD_0J-Qgzfz9xB4m1r4921Sk)
+
+{%include note.html content="In the NodeClasses list you can find resources created without nOps if there are any. These are going to be shown without the nOps icons and will be available only in Yaml format in View Mode. When creating NodePools, you can select any NodeClass as reference, either created via nOps or directly created in the cluster by you or your team."%}
+
+![](https://lh7-us.googleusercontent.com/bxBYFqZ5p8Ynlgmxq8coQqVB-PB9TtUxT7ARjpvZK_KBAJm59bs-uJ0YT7_Pkbo1LAJRmfq_MXWlnP7ztJSRqC-lXhOwAfJymFKmD4F6O1z9UwUcW8_VmK5V1UrTtJvxVhOMK2cisjAjKSXDeOlV_Bs)
+
+### Create NodePool/Provisioner: ###
+
+i. Auto Configuration
+
+   -  For the selected EKS cluster, select create NodePool/Provisioner.
+
+   -  Check Use As Template (Optional, also a cluster may have at most 1 template)
+
+   -  Assign a unique NodePool/Provisioner name.
+
+   -  Select the created EC2NodeClass/AWSNodeTemplate to pull configuration from.
+
+   -  Select Availability Zones.
+
+   -  Select Capacity Type — Spot, On Demand or both \[recommended to select both]
+
+    ![](https://lh7-us.googleusercontent.com/XVq4_2CFUHRr2wu_QcMsI1lsbMOOllcvGKOQAej5c64ZN1LhG-_ExAgy2b7vHzzzWIItvg4Qk0Vz7i4NCQxGs99zJTXJc1mGZvkKg4SGDOkhX01HAh_4y0uP4-Zk_vom6WuxyzGTZq8IQqEwqtG3bf4)
+
+   - You have the option to select Max Limit of vCPUs & Memory. Using 0 in both fields will indicate Karpenter to apply no limits when allocating resources.
+
+   - Create Taints and Labels if required \[for specific provisioner service].
+
+   - For instance selection section, you have the option to filter the types by Architecture, Generation, Accelerator details, Networking, Storage and others. After the filtering is done, you can click Select All Eligible Instance Families for autoselection.
+
+   - Set the weight (optional)
+
+   - Now select Create Automatically.
+
+    ![](https://lh7-us.googleusercontent.com/jDc-pVoxHWLA-oHs_93L9r5BdunZD4iWWDt1C4mhAAY1BXZMHrmD-C6_lFV8DcCGD_6maKfqyExQxeKzNSuHkoOCx9DnvqRRpEToJ3huQO0GGr_H3-96o3ueLsaw1I0QrsoCvzJUCAOgR0jgSZPlo8M)
 
 {%include note.html content="You can create multiple Provisioners, but each Provisioner will have only 1 Node Template" %}
+
+ii. Manual Configuration
+
+   -  For the selected EKS cluster, select create NodePool/Provisioner.
+
+   -  Check Use As Template (Optional, also a cluster may have at most 1 template)
+
+   -  Insert the YAML code and validate it.\
+      Make sure you specify an unique name under metadata.name property for your resource and also add the correct reference to the desired NodeClass under spec.template.spec.nodeClassRef.
+
+   -  Now select Create manually.
+
+![](https://lh7-us.googleusercontent.com/83nIckfwgkYK8_biIC02LWkGEO00bGfxwcsckLCs74MompU2f2hl0FGGugk4CN3gBmg4FWn3SbyWoDP2QqVWgoceWr6UEeRknaJmftHKCQfAvlq9uoB4afQoxUNP1SOyYYSehRPS4mmAxldbXSqNoSo)
+
 
 Once the Provisioner is created, the user can again Test Connectivity to confirm that the  EKS cluster is configured correctly.
 

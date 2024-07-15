@@ -5,6 +5,7 @@ tags: [getting_started, onboarding]
 sidebar: mydoc_sidebar
 permalink: onboarding-aws-with-manual-setup.html
 folder: GettingStarted
+series: [Onboarding]
 weight: 9.0
 ---
 
@@ -69,7 +70,7 @@ In this section, you need to select the account setup method. In the scope of th
 
 When you click **Next,** you should see a screen similar to:
 <span id="externalid">
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-manual-setup-fields.png)</span>
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-manual-setup-fields.png)</span>
 
 Copy the **External ID** and save it, you will need it later on.
 
@@ -88,8 +89,9 @@ In this step you will create a Cost & Usage Report (CUR) so that nOps can analyz
 1.  Login to your AWS Management Console account.
 2.  Go to the [Cost & Usage repports](https://console.aws.amazon.com/billing/home?#/reports)
 3.  Click on **Create Report:**
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-cur-details.png)
-4.  Create a **report name** (such as _nopsbilling-daily-gzip_).
+    ![](https://lh7-us.googleusercontent.com/F9npughBt18j9fn47qiNAPI2MPmaFa5izZbMPvvCCcc4SlHfNXAQngo5WryhyeUkaJvS4HAD2PfTtdCgAA9ju8nH87KeqZa_uWsGxRDLNoF08e6IcydfLZQXULwunG0y29al4DA1sjJ6AXPIE1dFrkk)
+
+4.  Create a **report name** (such as _nopsbilling-hourly-parquet_).
 5.  In **Additional report details**, check the **Include resource IDs** checkbox (mandatory).
 6.  In the **Data refresh settings**, leave the **Refresh automatically** checkbox checked.
 7.  Click **Next**.
@@ -106,19 +108,19 @@ AWS needs a place to save your cost and usage report. In this step, you will cre
     **Select an existing bucket**: Use an existing bucket from your AWS Account.  
     or  
     **Create a new bucket:** Create a new S3 bucket to be used specifically for nOps.
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-s3-configure-name.png)
+    ![](https://lh7-us.googleusercontent.com/zCnJHNmYqly5e-JwX3vshB8TIzJU6BXOSh6IfFT0rnMEA_GfXYoUyLafm4YIuAj2_3LFm5bkasCI6yrgib8mLIB2RdwhZmSc2vO1vYl-8eteinTe8OGbNSeClMUtJCfAvnVoE72kDAJZQiFQiH7yPd0)
     
     Check the "The following default policy will be applied to your bucket" checkbox
 
 3.  Click **Save**.
 4.  In the **Report Delivery Options** details:
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-cur-delivery-details.png)
+    ![](https://lh7-us.googleusercontent.com/YYv6FnRSyooyV_6lsMXwguJHr5EkyksDGvi6dzFgyfcw520hF7prDfZIuBYS4s_zsmP9tiT07IG69C4XxUM7LL7CBOrwnyLSTcnzr1DbYj8Rqd_2yG9B1-5zzJyDNjH4XqX0I_C0SGT8yYU9MEn2DIU)
 
 
     * Enter the **report path prefix** (required) – Suggestion: _nopsbilling_
-    * Choose **Daily** (mandatory) for **Time granularity**.
-    * Select an option for **Report versioning** (optional) — Suggestion: Overwrite existing report.
-    * Select **GZIP** as **Compression type** (mandatory).  
+    * Choose **Hourly** (mandatory) for **Time granularity**.
+    * Select an option for **Report versioning** (optional) — Overwrite existing report.
+    * Select **Parquet** as **Compression type** (mandatory).  
         **Important:** You will need the **Report Path Prefix name** later when you are adding the AWS Account in nOps
 
 5. Click **Next**.
@@ -201,7 +203,7 @@ You must now add information about the AWS role, S3 bucket, and CUR information 
 6.  Enter the name of the Cost & Usage Report you created in step 4 of [Create the Cost & Usage Report](#create-the-cost--usage-report) section.
 7.  Enter the report prefix path that you created in step 6 of [Create/Select the S3 billing bucket](#createselect-the-s3-billing-bucket).
 8.  Click **Verify Details**.
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-manual-setup-fields.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-manual-setup-fields.png)
 
 
 ## Link Cloud Accounts ##

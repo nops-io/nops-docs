@@ -30,14 +30,16 @@ Category: [Copilot]
 
 ## Integrate nOps Compute Copilot with your ASGs by adding the following Tags:<a id="integrate-nops-compute-copilot-with-your-asgs-by-adding-the-following-tags"></a>
 
-|                    **Tag Key**                    |        **Tag Value**                                                                       |     **Required**         |
-| ----------------------------------- | -------------------------------------------------------------------------- | ---------- |
-|         nops\_copilot\_enabled        |                                     true                                     |       ✅      |
-| nops\_copilot\_launch\_template\_name | Name of the Launch Template you created in the Compute Copilot ASG Dashboard |       ✅      |
-|  nops\_copilot\_max\_spot\_instances  |                                 Integer (0-N)                                |       ❌      |
-|  nops\_copilot\_max\_spot\_percentage |                                Integer (0-100)                               |       ❌      |
-nops\_copilot\_replace\_protected\_instances |                                True                                |       ❌      |
-nops\_copilot\_min\_ondemand\_number |                                Integer (0-N)                               |       ❌      |
+| **Tag Key**                                  | **Tag Value**                                                                                                                   | **Required** |
+|----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|--------------|
+| nops\_copilot\_enabled                       | true                                                                                                                            | ✅            |
+| nops\_copilot\_launch\_template\_name        | Name of the Launch Template you created in the Compute Copilot ASG Dashboard                                                    | ✅            |
+| nops\_copilot\_max\_spot\_instances          | Integer (0-N)                                                                                                                   | ❌            |
+| nops\_copilot\_max\_spot\_percentage         | Integer (0-100)                                                                                                                 | ❌            |
+| nops\_copilot\_replace\_protected\_instances | true                                                                                                                            | ❌            |
+| nops\_copilot\_min\_ondemand\_number         | Integer (0-N)                                                                                                                   | ❌            |
+| nops\_copilot\_fully\_managed\_asg           | true                                                                                                                            | ❌            |
+| nops\_copilot\_spot\_strategy                | One of [`LowestPrice`, `CapacityOptimized`, `CapacityOptimizedPrioritized`, `PriceCapacityOptimized`]. Default is `LowestPrice` | ❌            |
 
 **nops\_copilot\_max\_spot\_instances:** Maximum number of Spot instances that Compute Copilot will place as part of your Auto Scaling Group
 
@@ -46,6 +48,10 @@ nops\_copilot\_min\_ondemand\_number |                                Integer (0
 **nops_copilot_replace_protected_instances:** This tag allows ASG Lambda to replace the instances that have Scale-in protection or its instances are protected from Scale-in. 
 
 **nops_copilot_min_ondemand_number:** This tag sets the minimum number of On-Demand instances that should be left in the ASG. ASG Lambda won’t do any replacements (On-Demand to Spot) if it has less number of On-Demand instances than specified in the Tag value.
+
+**nops_copilot_fully_managed_asg:** This tag makes nOps Compute Copilot [manage your ASG](https://help.nops.io/copilot-managed-asg.html).
+
+**nops_copilot_spot_strategy:** Defines the Spot Allocation Strategy Copilot Lambda is going to use when it launches a Spot instance.
 
 **Note:** if you delete the Compute Copilot Launch Template used in one or more ASGs, these ASGs will no longer be processed by nOps Compute Copilot.
 

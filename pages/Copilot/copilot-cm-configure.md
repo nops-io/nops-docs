@@ -24,9 +24,9 @@ If you'd prefer to configure on your own, please follow the steps outlined below
 
 ## Create an email address ##
 
-In order to enroll in Commitment Management, you will need to create one email address for this purpose under the company domain, such as nops-sharesave@company.com.  If your email service uses aliasing, that will work too.  We recommend yourname+sharesave@company.com in that situation.
+In order to enroll in Commitment Management, you will need to create one email address for this purpose under the company domain, such as nops-cm@company.com.  If your email service uses aliasing, that will work too.  We recommend yourname+cm@company.com in that situation.
 
-Follow your internal process to get access to your **nops-sharesave@** email account.
+Follow your internal process to get access to your **nops-cm@** email account.
 
 ## Add a new AWS account to the AWS Organization ##
 
@@ -53,7 +53,7 @@ You will need to enter 2 variables.
 
 | **Report name**: |  **Bucket**: |
 | --- | --- |
-| _company_-sharesave | _company_-sharesave |
+| _company_-cm | _company_-cm |
 
 
 
@@ -72,10 +72,10 @@ By now, you should receive confirmation the new account has been created.
 
 ### Configure the new linked account ###
 
-After logging into the linked account, run the following [CloudFormation stack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=nops-sharesave-roles&templateURL=https://s3-external-1.amazonaws.com/cf-templates-1o8svzqapyba5-us-east-1/nOpsShareSaveRoles)
+After logging into the linked account, run the following [CloudFormation stack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=nops-sharesave-roles&templateURL=https://s3-external-1.amazonaws.com/cf-templates-1o8svzqapyba5-us-east-1/2023353p12-nops_sharesavev2qp14lq7vf3)
 
 ```
-https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=nops-sharesave-roles&templateURL=https://s3-external-1.amazonaws.com/cf-templates-1o8svzqapyba5-us-east-1/nOpsShareSaveRoles
+https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=nops-sharesave-roles&templateURL=https://s3-external-1.amazonaws.com/cf-templates-1o8svzqapyba5-us-east-1/2023353p12-nops_sharesavev2qp14lq7vf3
 ```
 
 When this has completed and the stacks have run successfully, please contact nOps with the following information:
@@ -84,5 +84,6 @@ When this has completed and the stacks have run successfully, please contact nOp
 - ShareSave linked account number
 - ShareSave bucket name
 
+And we can complete the configuration process on a short call.
 
 {% include custom/series_related.html %}

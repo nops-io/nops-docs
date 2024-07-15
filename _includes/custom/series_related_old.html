@@ -1,0 +1,21 @@
+
+<table class="tagtable"><thead><tr><th><h2 class="related">Related articles</h2></th></tr></thead>
+    <tbody>
+  {% assign current_page_series = page.series | split: ',' | sort:"weight" %}
+  {% assign unique_pages = "" | split: "," %}
+  {% for series in current_page_series %}
+
+      {% for related_page in site.pages %}
+        {% if related_page.series %}
+          {% assign related_page_series = related_page.series | split: ',' %}
+          {% if related_page_series contains series and related_page.url != page.url %}
+            {% unless unique_pages contains related_page.url %}
+              {% assign unique_pages = unique_pages | push: related_page.url %}
+              <tr><td><a href="{{ related_page.url }}">{{ related_page.title }}</a></td></tr>
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  {% endfor %}
+</tbody>
+</table>

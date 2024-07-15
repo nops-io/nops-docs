@@ -101,7 +101,7 @@ You can configure linked accounts during the automatic setup process of the paye
 After your Payer Account is configured successfully, the automatic setup will then ask you if you want to onboard the linked account(s) right now. You can click on **Automatic Setup** for each linked account to start the account onboarding process:
 
 If you click on **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
@@ -122,11 +122,12 @@ You can onboard each linked account with _Automatic Setup_:
 
 ![](https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/orgSetting.png)
 
+
 Click **Automatic Setup** to start the onboarding process.
 
 Once you click **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
 

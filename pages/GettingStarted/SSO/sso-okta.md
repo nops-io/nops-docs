@@ -44,7 +44,7 @@ Before you can set up nOps as an App in Okta you will need the following informa
     * **Entity ID**
         
     
-    ![](/tmpimg/sso-settings.png)
+    ![](https://lh7-us.googleusercontent.com/wYGHhwhEpswiiBGO2bFp_vM1x_caJdr4PF87Uh1sW7HpC8RtScXiX1hAYroc8KGhsUrvW3GJX19o3d_unuoyf3ojZWoxdrbtFLl1oHv2wQEhUaFtcSsXpXmQK3rAF50hB3uArFKMr8lbr2_GCotbB7g)
     
 
 ## Step 2: Setup Okta SAML 2.0 Application ##
@@ -84,11 +84,11 @@ Before you can set up nOps as an App in Okta you will need the following informa
     
     Enter them _exactly_ as seen. Click **Add Another** if or when you need to add additional statement rows.  
     
-    ![](/tmpimg/okta-attributes.png)
+    ![](https://lh7-us.googleusercontent.com/ndAUAyBm2mNELdGCTLNt-cxNjv7KHo1zzbHKW1E-paCkwkYUYZsk666jNxJ1Sa6gwzZtmAqRqGLwzM3x67M8aEJP9jiMTlTkuyI9Jp1bq6Xi1DHZ_T4yutB57di4c1kZ0zvO7KKd3DYUe7pqgJgG65Q)
     
-    There is information on the nOps page about setting up attribute and group attribute statements. See also [How to create a group in Okta](https://help.okta.com/en/prod/Content/Topics/users-groups-profiles/usgp-view-edit-group-attributes.htm).  
-    **IMPORTANT:** A group name _cannot_ contain any spaces. You must add all potential users of nOps in the Okta group that you create.  
-    You must provide the **Okta group name** on the nOps SSC dialog to enable the group and allow access.
+    There is information on the nOps page about setting up attribute and group attribute statements. See also [How to create a group in Okta](https://help.okta.com/en/prod/Content/Topics/users-groups-profiles/usgp-view-edit-group-attributes.htm).</br>
+    **IMPORTANT:** A group name _cannot_ contain any spaces and group name must be start with **'nops-'**. You must add all potential users of nOps in the Okta group that you create.  
+    You must provide the **Okta group name** on the nOps SSO dialog to enable the group and allow access.
     
 6.  In the next step, select: **I'm an Okta customer adding an internal app.**
     

@@ -49,11 +49,11 @@ To generate your API key for use with CloudFormation Stacksets, log into the nOp
 1. Click on your email address to the top right of the platform
 1. Navigate to **Organization Settings** > **API Key**
 1. Click "Let's Generate Your API Key"
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-org-api-key-menu.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-org-api-key-menu.png)
 1. Enter a key name and a description.
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-org-api-key-name-description.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-org-api-key-name-description.png)
 1. When you click **Save** a pop-up box will display with a 1 time key. Copy the key to a notepad/text editor.
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-api-key-generated.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-api-key-generated.png)
 
 ## Enable Stacksets ##
 
@@ -61,7 +61,7 @@ To enable _CloudFormation StackSets_ in _AWS Organizations_, go to **AWS Organiz
 
 Once enabled, you should see **Access enabled**:
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-cloudformation-enabled.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-cloudformation-enabled.png)
 
 Also ensure Trusted Access is enabled for **CloudFormation** > **StackSets**.
 
@@ -82,14 +82,14 @@ The creation of a Stackset is divided into 5 steps:
     
 3.  AWS will open a navigation window for you to navigate and select the YAML template in your local machine. In your local copy of the repository navigate to **nops-cloud-account-registration/nops-aws-account-register/cloudformation-org-member-accounts-register/** and select the **_member\_consolidated\_aws\_acc\_nops\_register.yaml_** file.
 
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-stacksets-uploaded.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-stacksets-uploaded.png)
     
 4.  Click **Next**.
     
 
 ### **Step 2 (Specify Stackset details)** ###
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-stackset-details.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-stackset-details.png)
 
 1.  Provide a **StackSet name**.
     
@@ -102,7 +102,7 @@ The creation of a Stackset is divided into 5 steps:
 
 ### **Step 3 (Configure Stackset options)** ###
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/gs-aws-stacksets-execution-config.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-stacksets-execution-config.png)
 
 1.  (Optional) enter any tags for the StackSet.
 

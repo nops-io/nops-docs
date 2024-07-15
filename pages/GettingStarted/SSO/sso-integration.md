@@ -28,11 +28,11 @@ To incorporate SSO in nOps, you need to configure the SSO for your SAML provider
     or _Partner Settings > SSO_ for the partner portal_._  
     You will be prompted to enable SSO for access to the **SSO Settings** page.
     
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-not-enabled.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-not-enabled.png)
     
 2.  Copy the _Assertion Consumer Service and Entity ID_ values on the SSO Settings page and paste them into your SAML provider’s SSO configuration settings.
     
-    ![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-integration-details.png)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-integration-details.png)
     
 3.  Next you need to map some defined attributes. This should be done using the exact values as described. These attributes are called “Parameters” in OneLogin.
     
@@ -61,7 +61,7 @@ To do that, you need some key credentials from Okta or OneLogin (i.e. your provi
 
 Copy these values and paste them in their respective input fields on the nOps SSO settings page shown below.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-details-filled.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-details-filled.png)
 
 ### Assigning Users ###
 
@@ -76,7 +76,7 @@ nOps has some new features that you can activate for your SSO integration.
 
 When you enable the **Enable SSO Login** toggle shown below, users will be redirected to the SSO login for authentication the next time they try to sign in and will only need to provide their email to Sign in to nOps.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-enable-toggle.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-enable-toggle.png)
 
 Leaving this feature disabled will require users to log in with their current login password credentials. However, this is only possible for users who went through the nOps sign-up process.
 
@@ -84,13 +84,13 @@ Leaving this feature disabled will require users to log in with their current lo
 
 To enforce SSO login for **all** users, you must specify a domain in the input box and also select the **Enforce SSO login for all domain users** checkbox shown below.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-enforce.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-enforce.png)
 
 Users coming from the specified domain address, _must_ use the SSO Login process to sign in or they will be denied access.
 
 If you however want to login from another domain name, you can copy the value shown in the _Shareable Link for IDP Login_ and sign in using that.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-shareable.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-shareable.png)
 
 ### Setting User Roles ###
 
@@ -98,12 +98,12 @@ If you however want to login from another domain name, you can copy the value sh
 This feature allows you to choose a default role for users. You can choose between:  
 \- _client-member_ and _client-admin_ if you are using the Client nOps portal
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-client-role-options.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-client-role-options.png)
 
 OR  
 \- _partner-member and partner-admin_ if you are using the Partners nOps portal.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-partner-role-options.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-partner-role-options.png)
 
 **For the Partner portals**: the _partner-admin role_ can send invitations, configure SSO and access the partners’ clients. A _partner-member_ role has limited access only to clients.
 
@@ -114,7 +114,7 @@ OR
 
 You can also **control your SSO user groups** by ​​setting an nOps role based on the SAML group. This feature is currently only available for Okta.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-assign-groups.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-assign-groups.png)
 
 To enable this feature, you need to specify at least one value for admin and user groups.
 
@@ -126,7 +126,7 @@ In addition, you can also select the **_Allow SAML Group Configuration to Overri
 
 Lastly, you can update your SSO configuration or delete it entirely.
 
-![](https://nops-docs-img.s3.amazonaws.com/gettingstarted/sso-save-or-delete.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/sso-save-or-delete.png)
 
 {% include warning.html content="Deleting your SSO integration is irreversible. You cannot undo the deletion."%}
 

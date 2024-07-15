@@ -141,6 +141,10 @@ entries:
         - title: Karpenter Beta Support
           url: /copilot-eks-karpenter-beta.html
           output: web        
+        
+        - title: Commitment utilization
+          url: /copilot-eks-optimizing-commitment-utilization.html
+          output: web
 
       - title: ASG
         output: web
@@ -179,21 +183,41 @@ entries:
     output: web
     folderitems:
 
-      - title: Scheduler Using EventBridge
-        url: /scheduler-eventbridge-setup.html
+      - title: Essentials Stack
+        url: /essentials-stack.html
         output: web  
 
       - title: Scheduler Using Terraform
         url: /scheduler-terraform.html
         output: web 
 
-      - title: Storage
+      - title: EBS Volume Type Change
         url: /essentials-storage-configuration.html
         output: web                 
 
-      - title: EC2 Rightsizing with DataDog
-        url: /ec2-rightsizing-with-nops-using-datadog.html
+      - title: Essentials Summary
+        url: /essentials-summary-page.html
+        output: web    
+
+      - title: EBS Idle Cleanup
+        url: /ebs-idle-cleanup.html
+        output: web    
+
+      - title: KMS Key Management
+        url: /essentials-kms-keys.html
+        output: web        
+
+      - title: EC2 and ASG Rightsizing with DataDog
+        url: /ec2-asg-rightsizing-with-nops-using-datadog.html
         output: web 
+      
+      - title: Datadog Agent in ASG for Enhanced Rightsizing
+        url: Datadog-Agent-in-ASG-for-Enhanced-Rightsizing.html
+        output: web 
+
+      - title: Datadog agent configuration on Linux based asg
+        url: Datadog-agent-configuration-on-linux-based-asg.html
+        output: web
 
       - title: Maximizing Cost Efficiency with nOps Essentials Idle Instance Feature
         url: /Maximizing-Cost-Efficiency-with-nOps-Essentials-Idle-Instance-Feature.html
@@ -228,7 +252,7 @@ entries:
           url: /integrate-datadog-with-nops-platform.html
           output: web
 
-        - title: Eventbridge Integration
+        - title: EventBridge Integration
           url: /eventbridge-integration.html
           output: web
 
@@ -240,8 +264,12 @@ entries:
           url: /pagerduty-integration.html
           output: web
 
-        - title: Slack Integration
-          url: /slack-integration.html
+        - title: Configure the Notification Center to get scheduled alerts
+          url: /Configure-the-Notification-Center-to-get-scheduled-alerts.html
+          output: web
+
+        - title: Configure nOps Kubernetes Agent for Container Insights
+          url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
           output: web
 
         - title: Webhook Integration
@@ -280,6 +308,10 @@ entries:
 
         - title: Weekly Reports
           url: /weekly-reports.html
+          output: web
+
+        - title: DSL Query Builder
+          url: /dsl-query-builder.html
           output: web
 
       - title: Rules
@@ -335,8 +367,8 @@ entries:
     output: web
     folderitems:
 
-    - title: Automated Tagging for AWS MAP
-      url: /automated-tagging-for-aws-map.html
+    - title: AWS MAP Tracker
+      url: /aws-map-tracker.html
       output: web
 
     - title: Backfill a CUR for AWS MAP
@@ -351,13 +383,26 @@ entries:
       url: /developer-getting-started.html
       output: web
 
-    - title: Scheduler Slackbot "How To" Guide
-      url: /developer-scheduler-slackbot.html
-      output: web
+    - title: skip
+      url:
+      output: skip
 
-    - title: nOps Scheduler API Guide
-      external_url: /scheduler-api.html
-      output: web
+      subfolders:
+      - title: Essentials API
+        output: web
+        subfolderitems:
+
+        - title: Create and configure EventBridge
+          url: /create-and-configure-eventbridge.html
+          output: web
+
+        - title: Essentials Scheduler API
+          url: /essentials-scheduler-api.html
+          output: web
+
+        - title: Scheduler Slackbot "How To" Guide
+          url: /developer-scheduler-slackbot.html
+          output: web
 
     - title: nOps Application API Swagger File
       external_url: https://app.nops.io/swagger/

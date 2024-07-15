@@ -39,6 +39,7 @@ The Compute Copilot Spot Instance Reliability SLA is effective from September 6t
 
 - Does not apply in the event of an Amazon service outage impacting the region in the termination.
 - You must diversify by selecting at least five instance families as part of your node template configuration.
+- You must have at least three different availability zones included in your cluster.
 
 At nOps, we are always striving for excellence, and this SLA is another step in that direction. If you have any questions or need further clarification, please don't hesitate to reach out to our support team.
 

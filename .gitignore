@@ -4,3 +4,4 @@ _site
 gemfile
 gemfile.lock
 .idea
+.jekyll-cache

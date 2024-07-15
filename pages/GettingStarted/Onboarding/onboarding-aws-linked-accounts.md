@@ -50,19 +50,14 @@ If you have created a new nOps client you will be asked to configure AWS on the 
     <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png">
 
 
-2. Choose Setup Method:
-We provide two setup methods: 
-     1. nOps Wizard Setup
-     2. Manual Setup
-For this guide, select "nOps Wizard Setup" and click "Next".
+2. Select "nOps Wizard Setup" and click "Next".
 
-    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-2.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/add+new+account.png">
 
 3. Enter Account Details:
 Enter the AWS Account Name and S3 Bucket Name.
 Click "Set up Account". This will redirect you to the AWS Create Stack page.
 
-    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-3.png">
 
 4. Create Stack in AWS:
 The Create Stack page will have prefilled data including Stack name, ExternalId, and SystemBucketID.
@@ -82,11 +77,13 @@ To configure all child accounts at once, click on "CloudFormation Multiple Accou
 3. Create Stack for Multiple Accounts:
 A Create Stack page will open on AWS with the name "Quick Create Stack".and All details would be prefilled.
 
+
     <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png">
 
 Click on the "Create Stack" button to initiate the stack run.
 
 After successful CloudFormation execution within 30 minutes, all child accounts will be connected to nOps as Active AWS Accounts.
+
 
     <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png">
 
@@ -121,21 +118,19 @@ If you decided to skip onboarding of the linked accounts during the Automatic Se
 
 Click on your account at the top right corner of the page and go to **Organization Settings > Cloud Accounts,** there you will see a list of linked accounts that nOps detected.
 
-You can onboard each linked account with _Manual Setup_ or _Automatic Setup_:
+You can onboard each linked account with _Automatic Setup_:
 
-![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-nops-org-settings-account-list.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/orgSetting.png)
 
-Click **Automatic Setup** or **Manual Setup** to start the onboarding process.
 
-If you click **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
+Click **Automatic Setup** to start the onboarding process.
+
+Once you click **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that nOps will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
 
 ![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
 
-If you click **Manual Setup**, you will be redirected to the Account Details (Manual Setup) page. Since nOps already has the information for S3 bucket that houses the CUR, the field for the S3 bucket will be locked. Click **Update Account** to start the onboarding process:
-
-![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-linked-account-manual.png)
 
 During the onboarding process of linked accounts, nOps will not ask for the CUR since it has already been added with the AWS Organization Master Payer Account.
 

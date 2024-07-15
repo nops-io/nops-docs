@@ -56,9 +56,9 @@ entries:
           url: /onboarding-service-control-policies.html
           output: web
 
-        - title: With Manual Setup
-          url: /onboarding-aws-with-manual-setup.html
-          output: web
+        # - title: With Manual Setup
+        #   url: /onboarding-aws-with-manual-setup.html
+        #   output: web
 
         - title: Linked Accounts
           url: /onboarding-aws-linked-accounts.html

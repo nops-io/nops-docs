@@ -85,11 +85,11 @@ In the Compute Copilot Auto Scaling Groups Onboarding call, we will launch a Clo
     - Give the ASG template a unique name
     - Select the CPU architecture based on the AMIs of the ASG you are going to attach the template to
     - By default **Dynamic min VCpuCount & MemoryMiB** is checked, setting the minimum vCPU and RAM requirements based on the size of the On-Demand EC2 instance being replaced.You can disable this option and set the CPU or Memory suitable for your workload from the **Instance Requirements** list.
-    - (Optional) When selecting instance requirements, eligible instance families will be highlighted based on your criteria. To simplify the selection process, you can choose all highlighted options by clicking on the "Select All Eligible Instance Families" link. 
+    - (Optional) When selecting instance requirements, eligible instance families will be selected based on your criteria.
     - You can also directly choose instance families. Compute Copilot will select the most optimal choice for price and stability out of the provided options.
     - Now select **Create**
 
-    ![](https://lh7-us.googleusercontent.com/Q9GKw25eU6EurrlMYzWLmSFVGyZ7TsNHeshn11McNoGkgd1U2xL0GRc58OUueykpQdarSPhPBIoFqdBngCeNLDuopSM4LXqaHSKC09FiMr8zohEeot1RoHV4EBlvRHj0EPgQvNJeMAmToVS9Vl9qwHA)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/ASG/ASG+GIF+1.gif)
     
     _Note: you can also clone an existing template to fetch pre-defined configurations to apply to a new template._ 
 
@@ -108,7 +108,7 @@ In the Compute Copilot Auto Scaling Groups Onboarding call, we will launch a Clo
 1. Once values are defined, select Configure.  
 
 2. ASG status will now display **Configured.**
-    ![](https://lh7-us.googleusercontent.com/APdoXTA6S1LPpOvcrHLVg8kAZkpbJ-4Dbdmf-behnSC2Vk7J6XDvCICgIzMXEae1MmCh1KwvsgIbp7Qy4OgH-M-XNosbHqLRaJTHVeG8_GNTWNMzcSOGwlAFXfAdbYGrAH8w2hgUjfgt2_FAoPn7r9w)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/ASG/ASG+GIF+2.gif)
 
 
 ### What to expect after configuring ASG

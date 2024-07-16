@@ -158,7 +158,7 @@ entries:
           url: /copilot-asg-onboarding.html
           output: web
 
-        - title: nOps Copilot Fully Manged ASG
+        - title: nOps Copilot Fully Managed ASG
           url: /copilot-managed-asg.html
           output: web
 

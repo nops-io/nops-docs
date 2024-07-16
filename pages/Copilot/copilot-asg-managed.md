@@ -22,6 +22,8 @@ Compute Copilot for ASGs are now fully managing your ASGs for additional savings
 - Compute Copilot Lambda keeps Managed ASG MIP in sync with the latest Spot Market recommendations by nOps, taking into account your Reserved Instances data. As a result, during scale-out events, Copilot-Managed ASG launches a Spot instance that is cheaper than the On Demand instance this ASG was launching before configuring it to Compute Copilot.
 - If there are OnDemand instances available for Spot migration running, or there are Spot instances that are at risk of interruption, Compute Copilot Lambda initiates an Instance Refresh to bring the ASG to the state approved by nOps Spot Market recommendations.
 
+{% include important.html content="Within your ASG or launch template/launch configuration used for your ASG, you should have an instance type defined instead of instance requirements like just defining memory and CPU."%}
+
 
 ## Why have Copilot manage ASGs ##
 
@@ -34,4 +36,4 @@ In addition to [the benefits of the original](https://help.nops.io/copilot-asg-o
 
 ## How to make the update ##
 
-Simply follow the [process used to configure  Compute Copilot for ASG approach](https://help.nops.io/copilot-asg-onboarding.html?#steps-to-configure-your-asg-cluster).  and select **Fully Managed ASG** on the ASG Configuration Screen.
+Simply follow the [process used to configure Compute Copilot for ASG approach](https://help.nops.io/copilot-asg-onboarding.html?#steps-to-configure-your-asg-cluster).  and select **Fully Managed ASG** on the ASG Configuration Screen.

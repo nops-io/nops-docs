@@ -51,7 +51,7 @@ With service-managed permissions, you can deploy stack instances to accounts man
 - In the **Specify template** section, choose **Amazon S3 URL**. 
 
 
-Add the following S3 URL: https://nops-prd-asg-lambda-us-east-1.s3.us-east-1.amazonaws.com/v0.7.1/cloudformation/lambda-v0.7.1.yaml
+Add the following S3 URL: **https://nops-prd-asg-lambda-us-east-1.s3.us-east-1.amazonaws.com/v0.7.2/cloudformation/lambda-v0.7.2.yaml**
 
 
 ![](https://lh7-us.googleusercontent.com/BBQWD1rQA4d2DGO3dFwUgIEgBfg30PauFszqDZO4em0eGXdv3QNBFvggVJhiTVyo_J_Iz-UVxykZ2ALJ-4wGwm0mNLh5NFrKeONRmoOsOyuFomK90hs3lCmjUPzlius68Bol74rLjkrEadt8J4e8RNA)
@@ -68,12 +68,13 @@ Add the following S3 URL: https://nops-prd-asg-lambda-us-east-1.s3.us-east-1.am
 | --- | --- | --- |
 | AdditionalPolicy   | true                         | We highly recommend not modifying.This will ensure to create an additional policy for the Lambda Function Role giving access to KMS to attach the EBS volumes if the encryption is present in the Launch Configuration or Launch Template.  |
 | AutoUpdate   | true                         | We highly recommend not modifying. AutoUpdate will ensure you have the latest version of Lambda in your account at all times without the need for manual updating.  |
+| ClusterAutoScaler   | false                         | This must be set to 'true' only if you are configuring for Cluster AUtoscaler.  |
 | Environment  | prd                          | This should not be modified, as this environment has been vigorously and thoroughly tested for stability.                                                           |
+| ExcludeRegions        | comma-separated list of AWS region codes | If you don't have region based SCP's org. wide, leave it empty. The parameter 'ExcludeRegions' enables users to specify regions to be excluded from deployment by listing them, separated by commas.The value for this parameter can be blank or a comma-separated list of AWS region codes, for example, 'eu-west-2,eu-west-3'. If no value is provided during stack creation, it will default to an empty value, including all active regions by default.                                                                              |
 | MemorySize   | 1024                         | This is the total memory for the Lambda Function. We recommend that you have this at 1024 MB for stable performance.                                                |
 | ProjectID    | 0                            | NO                                                                                                                                                                  |
 | Timeout      | 240                          | This is the Lambda function timeout in seconds. The timeout must be between 120 and 900 seconds                                                                     |
 | Token        | Generated via nOps Dashboard | This is the token generated from the nOps Dashboard in **Step1**. It is not modifiable.                                                                             |
-| ExcludeRegions        | comma-separated list of AWS region codes | The parameter 'ExcludeRegions' enables users to specify regions to be excluded from deployment by listing them, separated by commas.The value for this parameter can be blank or a comma-separated list of AWS region codes, for example, 'eu-west-2,eu-west-3'. If no value is provided during stack creation, it will default to an empty value, including all active regions by default..                                                                             |
 
 
 

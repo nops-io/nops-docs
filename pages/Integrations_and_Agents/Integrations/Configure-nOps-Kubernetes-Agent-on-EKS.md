@@ -56,41 +56,42 @@ over to nOps.
 
     ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-cost-integration-check-status.gif)
 
-5. **Copy Generated Script, Configure, and Run It**
+### 5. **Install Agent**
 
-    1. Replace the cluster ARN in the script:
+1. **Click on the Install Agent Button**
+    - In the nOps platform, click on the **Install Agent** button.
+    - A script will be generated for you to execute.
+
+2. **Select Options**
+    - Before copying the script, you have the option to enable or disable:
+        - Debug mode
+        - IPv6 support
+    - Check or uncheck these options based on your requirements.
+
+3. **Copy the Installation Script**
+    - Click the **Copy** button to copy the generated installation script.
+
+4. **Modify the Installation Script**
+    - Open a text editor and paste the copied script.
+    - Replace the placeholder `<<REPLACE-CLUSTER-ARN>>` with your actual cluster ARN in the following line:
         ```sh
-        APP_NOPS_K8S_AGENT_CLUSTER_ARN="<REPLACE-YourClusterARN>" # You can find this on your EKS dashboard on AWS
+        --set nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
         ```
 
-    2. If you chose to use an IAM User, perform the following extra steps:
+5. **Add IAM User Credentials (If Applicable)**
+    - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
         ```sh
-        USE_SECRETS=false # Set this to true if you don't want to use identity provider service role
-        AGENT_AWS_ACCESS_KEY_ID="<REPLACE-YourAccessKeyId>"
-        AGENT_AWS_SECRET_ACCESS_KEY="<REPLACE-YourSecretAccessKey>"
+        --set nopsAgent.secrets.useAwsCredentials=true \
+        --set nopsAgent.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
+        --set nopsAgent.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
         ```
 
-    3. Make the script executable:
-        ```sh
-        chmod +x script_name.sh
-        ```
+6. **Execute the Installation Script**
+    - Open your Unix-like terminal.
+    - Execute the modified command by pasting it into the terminal and pressing **Enter**.
 
-    4. Run the script:
-        ```sh
-        ./install-nops-k8s-agent.sh
-        ```
-        - If you need IPv6, add the `--ipv6` parameter:
-            ```sh
-            ./install-nops-k8s-agent.sh --ipv6
-            ```
-        - If you need to use a custom registry (can't use public repositories directly), use the `--custom-registry` parameter. This will prompt you for the custom registry URL during the installation process.
+After running the script, the nOps Kubernetes agent will be installed on your cluster, allowing you to gain detailed visibility into your container costs.
 
-        - If you want to opt out of collecting rightsizing metrics, add the `--no-rightsizing` parameter:
-            ```sh
-            ./install-nops-k8s-agent.sh --no-rightsizing
-            ```
-
-        You can combine the parameters.
 
 ---
 

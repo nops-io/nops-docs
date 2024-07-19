@@ -94,12 +94,33 @@ kubectl delete namespace nops-prometheus-system
 |------|---------|
 [aws](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) | >= 5.58 |
 [helm](https://registry.terraform.io/providers/hashicorp/helm/latest) | >= 2.7 |
+[kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) | >= 2.20 |
 
 ## Usage
 
 ### Helm Release
 
 ```hcl
+provider "aws" {
+  region = "us-east-1"
+  alias  = "virginia"
+}
+
+data "aws_ecrpublic_authorization_token" "token" {
+  provider = aws.virginia
+}
+
+provider "kubernetes" {
+  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    # This requires the awscli to be installed locally where Terraform is executed
+    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
+  }
+}
+
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint # Replace it with your cluster endpoint
@@ -113,12 +134,28 @@ provider "helm" {
   }
 }
 
+### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
+resource "kubernetes_namespace" "nops_cost" {
+  metadata {
+    name = "nops-cost"
+  }
+}
+
+### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
+resource "kubernetes_namespace" "nops_prometheus_system" {
+  metadata {
+    name = "nops-prometheus-system"
+  }
+}
+
 resource "helm_release" "nops_container_insights" {
   name                = "nops-container-insights"
   namespace           = "nops-k8s-agent"
   create_namespace    = true
   
   repository          = "oci://public.ecr.aws/nops"
+  repository_username = data.aws_ecrpublic_authorization_token.token.user_name
+  repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart               = "container-insights"
   version             = "0.8.46"
   
@@ -131,12 +168,37 @@ resource "helm_release" "nops_container_insights" {
     name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
     value = "<your_s3_bucket_name>"
   }
+
+  depends_on = [
+    kubernetes_namespace.nops_cost,
+    kubernetes_namespace.nops_prometheus_system
+  ]
 }
 ```
 
 ### Create Addon ([EKS Blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints-addon))
 
 ```hcl
+provider "aws" {
+  region = "us-east-1"
+  alias  = "virginia"
+}
+
+data "aws_ecrpublic_authorization_token" "token" {
+  provider = aws.virginia
+}
+
+provider "kubernetes" {
+  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    # This requires the awscli to be installed locally where Terraform is executed
+    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
+  }
+}
+
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint # Replace it with your cluster endpoint
@@ -150,16 +212,32 @@ provider "helm" {
   }
 }
 
+### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
+resource "kubernetes_namespace" "nops_cost" {
+  metadata {
+    name = "nops-cost"
+  }
+}
+
+### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
+resource "kubernetes_namespace" "nops_prometheus_system" {
+  metadata {
+    name = "nops-prometheus-system"
+  }
+}
+
 module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
 
-  chart            = "container-insights"
-  chart_version    = "0.8.46"
-  repository       = "oci://public.ecr.aws/nops"
-  description      = "Helm Chart for nOps container insights"
-  namespace        = "nops-k8s-agent"
-  create_namespace = true
+  chart               = "container-insights"
+  chart_version       = "0.8.46"
+  repository          = "oci://public.ecr.aws/nops"
+  repository_username = data.aws_ecrpublic_authorization_token.token.user_name
+  repository_password = data.aws_ecrpublic_authorization_token.token.password
+  description         = "Helm Chart for nOps container insights"
+  namespace           = "nops-k8s-agent"
+  create_namespace    = true
 
   set = [
     {
@@ -170,6 +248,11 @@ module "eks_blueprints_addon" {
       name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
       value = "<your_s3_bucket_name>"
     }
+  ]
+
+  depends_on = [
+    kubernetes_namespace.nops_cost,
+    kubernetes_namespace.nops_prometheus_system
   ]
 }
 ```

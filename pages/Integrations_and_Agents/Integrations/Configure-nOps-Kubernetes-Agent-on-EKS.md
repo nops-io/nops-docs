@@ -111,25 +111,25 @@ data "aws_ecrpublic_authorization_token" "token" {
 }
 
 provider "kubernetes" {
-  host                   = var.cluster_endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
     # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
   }
 }
 
 provider "helm" {
   kubernetes {
-    host                   = var.cluster_endpoint
-    cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+    host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+    cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       # This requires the awscli to be installed locally where Terraform is executed
-      args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+      args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
     }
   }
 }
@@ -189,25 +189,25 @@ data "aws_ecrpublic_authorization_token" "token" {
 }
 
 provider "kubernetes" {
-  host                   = var.cluster_endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
     # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
   }
 }
 
 provider "helm" {
   kubernetes {
-    host                   = var.cluster_endpoint
-    cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+    host                   = var.cluster_endpoint # Replace it with your cluster endpoint
+    cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       # This requires the awscli to be installed locally where Terraform is executed
-      args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+      args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
     }
   }
 }

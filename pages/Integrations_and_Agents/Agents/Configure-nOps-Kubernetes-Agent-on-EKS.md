@@ -1,6 +1,6 @@
 ---
 title: Configure nOps Kubernetes Agent for Container Insights
-keywords: CostContainer, integrations
+keywords: CostContainer, integrations, agent, helm, containers, insights
 tags: [agents_integrations]
 sidebar: mydoc_sidebar
 permalink: Configure-nOps-Kubernetes-Agent-on-EKS.html

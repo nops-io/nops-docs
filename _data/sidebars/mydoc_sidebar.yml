@@ -248,6 +248,10 @@ entries:
           url: /cloudwatch-agent.html
           output: web
 
+        - title: Configure nOps Kubernetes Agent for Container Insights
+          url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
+          output: web
+
       - title: Integrations
         output: web
         subfolderitems:
@@ -270,10 +274,6 @@ entries:
 
         - title: Configure the Notification Center to get scheduled alerts
           url: /Configure-the-Notification-Center-to-get-scheduled-alerts.html
-          output: web
-
-        - title: Configure nOps Kubernetes Agent for Container Insights
-          url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
           output: web
 
         - title: Webhook Integration

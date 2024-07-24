@@ -371,8 +371,8 @@ entries:
     output: web
     folderitems:
 
-    - title: AWS MAP Tracker
-      url: /aws-map-tracker.html
+    - title: AWS MAP Tracker and Tagger
+      url: /automated-tagging-for-aws-map.html
       output: web
 
     - title: Backfill a CUR for AWS MAP

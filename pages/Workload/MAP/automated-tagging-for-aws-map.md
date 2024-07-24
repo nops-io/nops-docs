@@ -1,11 +1,11 @@
 ---
 title: AWS Migration Assistance Program Tracker
-keywords: reporting, integrations, map
+keywords: reporting, integrations, map, map tracking, map credits
 tags: [map]
 sidebar: mydoc_sidebar
-permalink: aws-map-tracker.html
+permalink: automated-tagging-for-aws-map.html
 folder: UserGuides
-series: [Visibility]
+series: [Visibility, MAP]
 weight: 9.2
 ---
 
@@ -31,7 +31,7 @@ In order to get your AWS MAP credits, all your resources must be tagged accordin
 To use the nOps MAP functionality, from the nOps dashboard go to **Workload > AWS MAP:**
 
 
-![](/tmpimg/map-menu.png)
+![](/tmpimg/map_menu.png)
 
 Defining Your Migration Projects
 --------------------------------
@@ -78,11 +78,36 @@ Once you’ve entered all the details for this MAP project, click **Create.** Th
 You can now click ➡️ in the **Action** column of the **List of Migration Projects** section for the project to see the cost, credit, and resource details.
 
 
-* * *
 
-**Note:** Creating a migration project will not tag the resources of that project, only track what is tagged.
 
-* * *
+{%include note.html content="Creating a migration project will not tag the resources of that project, only track what is tagged." %}
+
+
+## Tagging Resources Within Each Project to Earn MAP Credits ##
+nOps provides an easy automated way for you to tag any untagged resources.
+
+Once your MAP migration projects are defined, each with its associated resources via the server ID, nOps will show you all the AWS resources associated with the servers you have identified for the migration projects. As more and more resources from the servers/storage units are added, you will periodically come back to nOps to tag all untagged resources.
+
+To tag resources of a project:
+
+1. Click ➡️ in the Action column of the List of Migration Projects section:
+This will take you to the Migration Details of the migration project.
+
+2. Scroll down to the List of resources section. Each service category opens a list that contains all the resources associated with the migration project:
+    ![](/tmpimg/map_tag.png)
+
+
+3. Select the resource(s) you want to tag, and click **+ Add Migration Tag** and then click **+ Tag Now**.
+
+
+4. Click **Yes** in the prompt that pops up and follow the steps of Systems Manager to complete the tagging.
+
+
+
+{%include note.html content="Once you click Yes, nOps will redirect you to AWS, where you will tag the selected resources. nOps will pre-fill Tag Key, Tag Value, and ARN, which is some of the information required to tag the selected resource.
+
+To successfully tag a resource in AWS, you will need access to the account the resources reside in and permission to use System Manager to tag the selected resources." %}
+
 
 Managing Your Migration Projects
 ================================
@@ -136,14 +161,14 @@ Current Tagging Status
 
 This section is similar to the Current Tagging Status of the **_AWS MAP 2.0 Summary_** page_,_ which summarizes the tagging status of all your migration projects.
 
-The Current Tagging Status on this details page shows the tagging status for only this specific migration project. It shows a bar chart for how much of your spending has been credited against tagged resources in the current QTD, for this specific migration project.
+The Current Tagging Status on this details page shows the tagging status for only this specific migration project. It shows a bar chart for how much of your spending has been credited against tagged resources, and how much remains against untagged resources, in the current QTD, for this specific migration project.
 
 List of Resources
 -----------------
 
-This section shows all the resources tagged within the migration project. You can filter the resources based on the account associated with the resource. You also have the option to search any specific service with the help of the search box at the top right of the list.
+This section shows all the resources, tagged or untagged, within the migration project. You can filter the resources based on the account associated with the resource and the tagging status (tagged, untagged) of the resource. You also have the option to search any specific service with the help of the search box at the top right of the list.
 
-To view tagged resources expand the service by clicking the > icon. 
+To tag untagged resources, select the untagged resources and click the **+ Add Migration Tag** button as described above.
 
 The resource table gives:
 
@@ -158,14 +183,12 @@ The resource table gives:
 * **Total Cost** — The total cost of the resource.
     
 
-The resource table will update periodically as more resources are added. 
-* * *
+The resource table will update periodically as more resources are added. Continue visiting the List of Resources section to tag all newly added untagged resources for the duration of the migration project.
 
-**Note:**
+{%include note.html content="Once you tag untagged resources in AWS, it will take approximately one day for the change to reflect in nOps." %}
 
-Once you tag untagged resources in AWS, it will take approximately one day for the change to reflect in nOps.
 
-* * *
+
 
 Troubleshooting
 ===============
@@ -176,12 +199,11 @@ Matching Spend and Credit Numbers with AWS
 
 What to do if the numbers in nOps don’t match what shows in AWS:
 
+\- Ensure the map-migrated key is set as an active Cost Allocation tag
 
 \- Check dates of tagging vs Amazon
 
-\- Put in past dates for tagging when not tagged till later in AWS
-
-\- Vs Tag Explorer, which assumes the resource had the tag for the history of its life
+\- Use the nOps view by tag feature in Cost Analysis to see if the tag was applied at all
 
 AWS Logins for Generating Server ID and for Tagging Resources
 -------------------------------------------------------------

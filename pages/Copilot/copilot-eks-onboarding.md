@@ -108,8 +108,7 @@ i. Auto Configuration
    -  Select Availability Zones.
 
    -  Select Capacity Type — Spot, On Demand or both \[recommended to select both]
-
-    ![](https://lh7-us.googleusercontent.com/XVq4_2CFUHRr2wu_QcMsI1lsbMOOllcvGKOQAej5c64ZN1LhG-_ExAgy2b7vHzzzWIItvg4Qk0Vz7i4NCQxGs99zJTXJc1mGZvkKg4SGDOkhX01HAh_4y0uP4-Zk_vom6WuxyzGTZq8IQqEwqtG3bf4)
+      ![](/tmpimg/create_provisioner.gif)
 
    - You have the option to select Max Limit of vCPUs & Memory. Using 0 in both fields will indicate Karpenter to apply no limits when allocating resources.
 
@@ -120,8 +119,7 @@ i. Auto Configuration
    - Set the weight (optional)
 
    - Now select Create Automatically.
-
-    ![](https://lh7-us.googleusercontent.com/jDc-pVoxHWLA-oHs_93L9r5BdunZD4iWWDt1C4mhAAY1BXZMHrmD-C6_lFV8DcCGD_6maKfqyExQxeKzNSuHkoOCx9DnvqRRpEToJ3huQO0GGr_H3-96o3ueLsaw1I0QrsoCvzJUCAOgR0jgSZPlo8M)
+   ![](/tmpimg/provisioner_vcpu_mem.gif)
 
 {%include note.html content="You can create multiple Provisioners, but each Provisioner will have only 1 Node Template" %}
 
@@ -136,7 +134,7 @@ ii. Manual Configuration
 
    -  Now select Create manually.
 
-![](https://lh7-us.googleusercontent.com/83nIckfwgkYK8_biIC02LWkGEO00bGfxwcsckLCs74MompU2f2hl0FGGugk4CN3gBmg4FWn3SbyWoDP2QqVWgoceWr6UEeRknaJmftHKCQfAvlq9uoB4afQoxUNP1SOyYYSehRPS4mmAxldbXSqNoSo)
+   ![](https://lh7-us.googleusercontent.com/83nIckfwgkYK8_biIC02LWkGEO00bGfxwcsckLCs74MompU2f2hl0FGGugk4CN3gBmg4FWn3SbyWoDP2QqVWgoceWr6UEeRknaJmftHKCQfAvlq9uoB4afQoxUNP1SOyYYSehRPS4mmAxldbXSqNoSo)
 
 
 Once the Provisioner is created, the user can again Test Connectivity to confirm that the  EKS cluster is configured correctly.

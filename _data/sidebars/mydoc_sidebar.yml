@@ -84,7 +84,7 @@ entries:
           url: /iam-policy-scheduler.html
           output: web
 
-        - title: YAML file for Commitment Management Setup
+        - title: Commitment Management Permissions
           url: /iam-yaml-cm.html
           output: web
 

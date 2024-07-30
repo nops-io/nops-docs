@@ -62,12 +62,18 @@ over to nOps.
             --set nopsAgent.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
             --set nopsAgent.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
             ```
+    - **Additional Parameters**
+        - You can pass additional parameters described [here](https://help.nops.io/Configure-nOps-Kubernetes-Agent-on-EKS.html#optional-parameters):
     - **Execute the Installation Script**
         - Open your Unix-like terminal.
+        - Change/Switch context to your desired cluster.
         - Execute the modified command by pasting it into the terminal and pressing **Enter**.
 After running the script, the nOps Kubernetes agent will be installed on your cluster, allowing you to gain detailed visibility into your container costs.
 ---
-After successful configuration, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
+After a successful installation, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
+
+_Note: As part of the installation a CRD is installed, ServiceMonitors_
+
 # Removing Agent
 To remove the agent from your cluster you just need to follow these steps:
 ```bash
@@ -77,6 +83,8 @@ helm uninstall nops-k8s-agent --namespace nops-k8s-agent
 kubectl delete namespace nops-k8s-agent
 kubectl delete namespace nops-cost
 kubectl delete namespace nops-prometheus-system
+# CRD (ServiceMonitors) created by this chart is not removed by default and should be manually cleaned up if you want to.
+kubectl delete crd servicemonitors.monitoring.coreos.com
 ```
 
 # Installation using Insfrastructure as Code #
@@ -273,10 +281,14 @@ The following table lists the optional configuration parameters for Container In
 
 Parameter | Description | Default
 --------- | ----------- | -------
-`nopsAgent.debug` | Debug mode | `false`
-`opencost.loglevel` | Log level for nops-cost | `info`
-`prometheus.ipv6_enabled` | Cluster uses IPV6. | `false`
+`nopsAgent.debug` | Debug mode. | `false`
+`opencost.loglevel` | Log level for nops-cost. | `info`
+`prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
+`prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `800m`
+`prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi`
+`prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m`
+`prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `6Gi`
 
 # Frequently Asked Questions
 1. **Will the agent installation affect my existing Prometheus setup?**
-    **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, ensuring that it does not interfere with your current Prometheus deployments.
+    **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, as well running Node Exporter using a different port than the default one (9100) ensuring that it does not interfere with your current Prometheus deployment and Node exporter daemonset.

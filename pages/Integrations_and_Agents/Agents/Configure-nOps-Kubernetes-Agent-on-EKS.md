@@ -16,9 +16,11 @@ over to nOps.
 # Prerequisites
 1. You must have an active nOps account. If you do not have one, please register on <a href="https://app.nops.io/" target="_blank">nOps</a>
 2. Make sure you have access to the Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
-3. <a href="https://helm.sh/" target="_blank">Helm</a>
-4. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
-5. Unix-like terminal to execute the installation script.
+3. <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">aws cli</a>
+4. <a href="https://helm.sh/" target="_blank">Helm</a>
+5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
+6. Unix-like terminal to execute the installation script.
+7. Storage Class created for the EKS cluster (EBS gp2 or gp3)
 # Steps to Configure nOps Kubernetes Agent
 1. **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
@@ -165,7 +167,7 @@ resource "helm_release" "nops_container_insights" {
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart               = "container-insights"
-  version             = "0.8.46"
+  version             = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   set {
     name  = "nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
@@ -239,7 +241,7 @@ module "eks_blueprints_addon" {
   version = "~> 1.0"
 
   chart               = "container-insights"
-  chart_version       = "0.8.46"
+  chart_version       = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password

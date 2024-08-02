@@ -20,7 +20,8 @@ over to nOps.
 4. <a href="https://helm.sh/" target="_blank">Helm</a>
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
 6. Unix-like terminal to execute the installation script.
-7. Storage Class created for the EKS cluster (EBS gp2 or gp3)
+7. Terraform if installing via [IaC](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
+8. Storage Class created for the EKS cluster (EBS gp2 or gp3)
 # Steps to Configure nOps Kubernetes Agent
 1. **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
@@ -57,6 +58,19 @@ over to nOps.
             ```
     - **Copy the Installation Script**
         - Click the **Copy Script** button to copy the generated installation script.
+    - **Use On-Demand Node for Prometheus Server (Recommended)**
+        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries, to use an on-demand node you can make use of labels for pod placement, the following example is using a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod.
+            ```sh
+            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand
+            ```
+        - If you have taints in place rememeber to use tolerations:
+            ```sh
+            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand \
+            --set prometheus.server.tolerations[0].key="example-key" \
+            --set prometheus.server.tolerations[0].operator="Equal" \
+            --set prometheus.server.tolerations[0].value="example-value" \
+            --set prometheus.server.tolerations[0].effect="NoSchedule"
+            ```
     - **Add IAM User Credentials (If Applicable)**
         - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
             ```sh
@@ -285,11 +299,24 @@ Parameter | Description | Default
 --------- | ----------- | -------
 `nopsAgent.debug` | Debug mode. | `false`
 `opencost.loglevel` | Log level for nops-cost. | `info`
+`prometheus.server.nodeSelector` | Prometheus node selector labels to use. | `{}`
+`prometheus.server.tolerations` | Prometheus node taints to tolerate. | `[]`
 `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
 `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `800m`
 `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi`
 `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m`
 `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `6Gi`
+
+### Prometheus Resources
+
+Below is a table where you can see 3 options for Prometheus Memory assignation depending on your cluster size (number of pods), use it as a baseline and adjust it according to your needs.
+
+| No. of Pods    | Memory Request      | Memory Limits        |
+|----------------|--------------------------------------------|---------------|
+| 50 - 100       | 2Gi                 | 4Gi                  |
+| 200 - 500      | 4Gi                 | 8Gi                  |
+| 500 - 1000     | 4Gi                 | 12Gi                 |
+
 
 # Frequently Asked Questions
 1. **Will the agent installation affect my existing Prometheus setup?**

@@ -252,6 +252,10 @@ entries:
           url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
           output: web
 
+        - title: Migration nOps Kubernetes Agent for Container Insights
+          url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
+          output: web
+
       - title: Integrations
         output: web
         subfolderitems:

@@ -67,10 +67,10 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
             ```
     - **Copy the Installation Script**
         - Click the **Copy Script** button to copy the generated installation script.
-    - **Use On-Demand Node for Prometheus Server (Recommended)**
+    - **Use On-Demand Node (Recommended)**
         - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries, to use an on-demand node you can make use of labels for pod placement, the following example is using a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod.
             ```sh
-            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand
+            --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
             ```
         - If you have taints in place rememeber to use tolerations:
             ```sh

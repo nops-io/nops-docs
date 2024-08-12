@@ -9,12 +9,11 @@ series: [agents_integrations]
 weight: 6.0
 ---
 If you come from a previous installation of the Container Insights Kubernetes agent (Using a bash script), new installation method requires an update in the CloudFormation Stack which creates a Lambda that takes care of the Creation/Update of the IRSA used by the agent to push metrics into the S3 Bucket dedicated for your AWS account, and running a cleanup script to remove the old helm release and deleting the unused namespaces.
-over to nOps.
 1. TOC
 {:toc}
 # Prerequisites
 1. Make sure you have access to the Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
-2. Have a previous version of the agent installed in your cluster, you can verify this by listing the namespaces and looking for the following: nops-prometheus-system, nops-cost and nops-k8s-agent.
+2. Have a previous version of the agent installed in your cluster, you can verify this by listing the namespaces and looking for the following: **nops-prometheus-system**, **nops-cost** and **nops-k8s-agent**.
 3. <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">aws cli</a>
 4. <a href="https://helm.sh/" target="_blank">Helm</a>
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>

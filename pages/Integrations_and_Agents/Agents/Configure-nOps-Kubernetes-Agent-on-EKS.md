@@ -1,5 +1,5 @@
 ---
-title: Configure nOps Kubernetes Agent for Container Insights
+title: Configure nOps Kubernetes Agent
 keywords: CostContainer, integrations, agent, helm, containers, insights
 tags: [agents_integrations]
 sidebar: mydoc_sidebar
@@ -8,9 +8,13 @@ folder: Integrations_and_Agents
 series: [agents_integrations]
 weight: 6.0
 ---
-Installing the Container Cost Kubernetes agent is required to get access to container level visibility.
-The way it works is by collecting metrics from the cluster and storing them into a S3 bucket on your AWS account which then is copied
-over to nOps.
+If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please
+refer to this link. #TODO
+
+The nOps Kubernetes Agent is required to fully use nOps features regarding your EKS clusters.
+It's a bundle of different components that will enable you to leverage our Compute Copilot product and also give you
+container visibility into the cluster.
+
 1. TOC
 {:toc}
 # Prerequisites
@@ -21,6 +25,11 @@ over to nOps.
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
 6. Unix-like terminal to execute the installation script.
 7. Storage Class created for the EKS cluster (EBS gp2 or gp3)
+8. If you want to enable karpenOps agent, make sure Karpenter is installed in the cluster.
+
+For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
+
+
 # Steps to Configure nOps Kubernetes Agent
 1. **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
@@ -53,16 +62,16 @@ over to nOps.
     - **Modify the Installation Script**
         - Replace the placeholder `<<REPLACE-CLUSTER-ARN>>` with your actual cluster ARN in the following line:
             ```sh
-            --set nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
+            --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
             ```
     - **Copy the Installation Script**
         - Click the **Copy Script** button to copy the generated installation script.
     - **Add IAM User Credentials (If Applicable)**
         - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
             ```sh
-            --set nopsAgent.secrets.useAwsCredentials=true \
-            --set nopsAgent.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
-            --set nopsAgent.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
+            --set containerInsights.secrets.useAwsCredentials=true \
+            --set containerInsights.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
+            --set containerInsights.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
             ```
     - **Additional Parameters**
         - You can pass additional parameters described [here](https://help.nops.io/Configure-nOps-Kubernetes-Agent-on-EKS.html#optional-parameters):
@@ -80,11 +89,9 @@ _Note: As part of the installation a CRD is installed, ServiceMonitors_
 To remove the agent from your cluster you just need to follow these steps:
 ```bash
 # Delete nops-k8s-agent release
-helm uninstall nops-k8s-agent --namespace nops-k8s-agent
+helm uninstall nops-kubernetes-agent --namespace nops
 # Delete the namespaces
-kubectl delete namespace nops-k8s-agent
-kubectl delete namespace nops-cost
-kubectl delete namespace nops-prometheus-system
+kubectl delete namespace nops
 # CRD (ServiceMonitors) created by this chart is not removed by default and should be manually cleaned up if you want to.
 kubectl delete crd servicemonitors.monitoring.coreos.com
 ```
@@ -144,45 +151,39 @@ provider "helm" {
   }
 }
 
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_cost" {
-  metadata {
-    name = "nops-cost"
-  }
-}
 
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_prometheus_system" {
-  metadata {
-    name = "nops-prometheus-system"
-  }
-}
-
-resource "helm_release" "nops_container_insights" {
-  name                = "nops-container-insights"
-  namespace           = "nops-k8s-agent"
+resource "helm_release" "nops_kubernetes_agent" {
+  name                = "nops-kubernetes-agent"
+  namespace           = "nops"
   create_namespace    = true
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
-  chart               = "container-insights"
-  version             = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart               = "kubernetes-agent"
+  version             = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   
   set {
-    name  = "nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
+    name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
     value = "<your_eks_cluster_arn>"
   }
 
   set {
-    name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
+    name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
     value = "<your_s3_bucket_name>"
   }
 
-  depends_on = [
-    kubernetes_namespace.nops_cost,
-    kubernetes_namespace.nops_prometheus_system
-  ]
+  set {
+    name = "karpenops.clusterId"
+    value = "<your_cluster_id> # you can find this in ... TODO
+  }
+
+  set {
+    name = "karpenops.apiKey"
+    value = "<your_nops_apiKey> # you can find this in ... TODO
+  }
+
+  # TODO: what else is missing? is the above correct? REMOVE THIS COMMENT AFTER
 }
 ```
 
@@ -222,50 +223,48 @@ provider "helm" {
   }
 }
 
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_cost" {
-  metadata {
-    name = "nops-cost"
-  }
-}
-
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_prometheus_system" {
-  metadata {
-    name = "nops-prometheus-system"
-  }
-}
-
 module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
 
-  chart               = "container-insights"
-  chart_version       = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart               = "kubernetes-agent"
+  chart_version       = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
-  description         = "Helm Chart for nOps container insights"
-  namespace           = "nops-k8s-agent"
+  description         = "Helm Chart for nOps kubernetes agent"
+  namespace           = "nops"
   create_namespace    = true
 
   set = [
     {
-      name  = "nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
+      name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
       value = "<your_eks_cluster_arn>"
     },
     {
-      name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
+      name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
       value = "<your_s3_bucket_name>"
+    },
+    {
+      name = "karpenops.clusterId"
+      value = "<your_cluster_id> # you can find this in ... TODO
+    },
+    {
+      name = "karpenops.apiKey"
+      value = "<your_nops_apiKey> # you can find this in ... TODO
     }
+
+  # TODO: what else is missing? is the above correct? REMOVE THIS COMMENT AFTER
   ]
 
-  depends_on = [
-    kubernetes_namespace.nops_cost,
-    kubernetes_namespace.nops_prometheus_system
-  ]
+
 }
 ```
+
+
+# TODO: if you want to disable karpenops, you must set
+
+karpenos.enabled = false <-- #TODO: add this to the parameters table in a way that makes sense
 
 ### Required Parameters
 
@@ -273,8 +272,8 @@ The following table lists required configuration parameters for the Container In
 
 Parameter | Description | Default
 --------- | ----------- | -------
-`nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
-`nopsAgent.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
+`containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
+`containerInsights.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
 
 
 ### Optional Parameters
@@ -283,7 +282,7 @@ The following table lists the optional configuration parameters for Container In
 
 Parameter | Description | Default
 --------- | ----------- | -------
-`nopsAgent.debug` | Debug mode. | `false`
+`containerInsights.debug` | Debug mode. | `false`
 `opencost.loglevel` | Log level for nops-cost. | `info`
 `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
 `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `800m`

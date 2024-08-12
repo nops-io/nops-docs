@@ -55,7 +55,7 @@ If you come from a previous installation of the Container Insights Kubernetes ag
       3. Install karpenops agent (true if you are already using our Karpenter agent and want to migrate it or false)
       4. API Key (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
       5. ClusterID (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
-      ```
+     
       Example:
       ```bash
       ./nops-cleanup.sh arn:aws:eks:us-east-1:123456789101:cluster/example-cluster nops-container-cost-123456789101 true 1234.a1234a1a123ab1a01234a12a1a1ab1ab a+ABC1

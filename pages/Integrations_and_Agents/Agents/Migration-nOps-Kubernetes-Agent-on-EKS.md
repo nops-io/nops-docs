@@ -87,13 +87,14 @@ If you're migrating from a previous installation of the Container Insights Kuber
     ./nops-cleanup.sh arn:aws:eks:us-east-1:123456789101:cluster/example-cluster nops-container-cost-123456789101 true 1234.a1234a1a123ab1a01234a12a1a1ab1ab a+ABC1
     ```
     - Wait for the script to successfully finish.
-***Note: If the script gets stuck when deleting the namespaces, you can refer to [Unable to destroy namespaces](#unable-to-destroy-namespaces).***
 
     6. **Verify new agent**
         - Confirm new namespace and resources.
         ```bash
         kubectl -n nops get pods
         ```
+
+    {% include note.html content="If the script gets stuck when deleting the namespaces, you can refer to [Unable to destroy namespaces](#unable-to-destroy-namespaces)." %}
 
 ## Unable to destroy namespaces #
 In some cases, when trying to delete the namespaces (nops-prometheus-system, nops-cost, nops-k8s-agent) they may end up stuck with a "Terminating" status, for such cases you can do the following:

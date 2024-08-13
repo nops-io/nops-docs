@@ -25,7 +25,7 @@ container visibility into the cluster.
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
 6. Unix-like terminal to execute the installation script.
 7. Terraform if installing via [IaC](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
-8. Storage Class created for the EKS cluster (EBS gp2 or gp3)
+8. EBS CSI Driver installed with a Storage Class configured for the EKS cluster (To dynamically create EBS gp2/gp3 volumes)
 9. If you want to enable karpenOps agent, make sure Karpenter is installed in the cluster.
 
 For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
@@ -72,14 +72,6 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
             ```sh
             --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
             ```
-        - If you have taints in place rememeber to use tolerations:
-            ```sh
-            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand \
-            --set prometheus.server.tolerations[0].key="example-key" \
-            --set prometheus.server.tolerations[0].operator="Equal" \
-            --set prometheus.server.tolerations[0].value="example-value" \
-            --set prometheus.server.tolerations[0].effect="NoSchedule"
-            ```
     - **Add IAM User Credentials (If Applicable)**
         - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
             ```sh
@@ -93,9 +85,8 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         - Open your Unix-like terminal.
         - Change/Switch context to your desired cluster.
         - Execute the modified command by pasting it into the terminal and pressing **Enter**.
-After running the script, the nOps Kubernetes agent will be installed on your cluster, allowing you to gain detailed visibility into your container costs.
 ---
-After a successful installation, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
+After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
 _Note: As part of the installation a CRD is installed, ServiceMonitors_
 
@@ -141,17 +132,6 @@ data "aws_ecrpublic_authorization_token" "token" {
   provider = aws.virginia
 }
 
-provider "kubernetes" {
-  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
-  }
-}
-
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint # Replace it with your cluster endpoint
@@ -165,39 +145,59 @@ provider "helm" {
   }
 }
 
-
-resource "helm_release" "nops_kubernetes_agent" {
+resource "helm_release" "nops_container_insights" {
   name                = "nops-kubernetes-agent"
   namespace           = "nops"
   create_namespace    = true
   
-  repository          = "oci://public.ecr.aws/nops"
+  #repository          = "oci://public.ecr.aws/nops"    # This is Prod
+  repository          = "oci://public.ecr.aws/z8v0w1z1" # This is UAT
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
+  description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.0.52" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  
+  set {
+    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
+    name = "global.nodeSelector.karpenter\\.sh/capacity-type"
+    value = "on-demand"
+  }
+  
+  set {
+    name  = "datadog.apiKey"
+    value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
+  }
   
   set {
     name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
-    value = "<your_eks_cluster_arn>"
+    value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
   }
-
+  
   set {
     name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
-    value = "<your_s3_bucket_name>"
+    value = "<your_s3_bucket_name>"  # Get it from the nOps kubernetes agent onboarding process
   }
-
+  
   set {
-    name = "karpenops.clusterId"
-    value = "<your_cluster_id> # you can find this in ... TODO
+    name  = "karpenops.enabled"
+    value = "true" # Set it to true if you have karpenter running in your EKS Cluster and want the karpenOps agent to manage your EC2NodeTemplate/NodePool
   }
-
+  
   set {
-    name = "karpenops.apiKey"
-    value = "<your_nops_apiKey> # you can find this in ... TODO
+    name  = "karpenops.image.tag"
+    value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
   }
-
-  # TODO: what else is missing? is the above correct? REMOVE THIS COMMENT AFTER
+  
+  set {
+    name  = "karpenops.apiKey"
+    value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+  }
+  
+  set {
+    name  = "karpenops.clusterId"
+    value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
+  }
 }
 ```
 
@@ -211,17 +211,6 @@ provider "aws" {
 
 data "aws_ecrpublic_authorization_token" "token" {
   provider = aws.virginia
-}
-
-provider "kubernetes" {
-  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
-  }
 }
 
 provider "helm" {
@@ -240,71 +229,81 @@ provider "helm" {
 module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
-
   chart               = "kubernetes-agent"
-  chart_version       = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
-  repository          = "oci://public.ecr.aws/nops"
+  chart_version       = "0.0.52" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  
+  #repository          = "oci://public.ecr.aws/nops"    # This is Prod
+  repository          = "oci://public.ecr.aws/z8v0w1z1" # This is UAT
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   namespace           = "nops"
   create_namespace    = true
-
   set = [
+    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
+    {
+      name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
+      value = "on-demand"
+    },
+    {
+      name  = "datadog.apiKey" # Get it from the nOps kubernetes agent onboarding process  
+      value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
+    },
     {
       name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
-      value = "<your_eks_cluster_arn>"
+      value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
     },
     {
       name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
-      value = "<your_s3_bucket_name>"
+      value = "<your_s3_bucket_name>" # Get it from the nOps kubernetes agent onboarding process
     },
     {
-      name = "karpenops.clusterId"
-      value = "<your_cluster_id> # you can find this in ... TODO
+      name  = "karpenops.enabled"
+      value = "true" # Set it to true if you have karpenter running in your EKS Cluster and want the karpenOps agent to manage your EC2NodeTemplate/NodePool
     },
     {
-      name = "karpenops.apiKey"
-      value = "<your_nops_apiKey> # you can find this in ... TODO
+      name  = "karpenops.image.tag"
+      value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
+    },
+    {
+      name  = "karpenops.apiKey"
+      value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+    },
+    {
+      name  = "karpenops.clusterId"
+      value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
     }
-
-  # TODO: what else is missing? is the above correct? REMOVE THIS COMMENT AFTER
   ]
-
-
 }
 ```
 
-
-# TODO: if you want to disable karpenops, you must set
-
-karpenos.enabled = false <-- #TODO: add this to the parameters table in a way that makes sense
-
 ### Required Parameters
 
-The following table lists required configuration parameters for the Container Insights Helm chart and their default values.
+The following table lists required configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
 Parameter | Description | Default
 --------- | ----------- | -------
+`datadog.apiKey` | Datadog API Key. | `-`
 `containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
 `containerInsights.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
-
+`karpenops.enabled` | Wheter to install KarpenOps agent or not. | `false`
+`karpenops.apiKey` | KarpenOps agent API Key | `-`
+`karpenops.clusterId` | KarpenOps Cluster ID | `-`
 
 ### Optional Parameters
 
-The following table lists the optional configuration parameters for Container Insights Helm chart and their default values.
+The following table lists the optional configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
 Parameter | Description | Default
 --------- | ----------- | -------
+`global.nodeSelector` | Node Selector labels to use for Prometheus deployment and Container Insights cronjobs | `{}`
 `containerInsights.debug` | Debug mode. | `false`
 `opencost.loglevel` | Log level for nops-cost. | `info`
-`prometheus.server.nodeSelector` | Prometheus node selector labels to use. | `{}`
-`prometheus.server.tolerations` | Prometheus node taints to tolerate. | `[]`
 `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
-`prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `800m`
+`prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m`
 `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi`
 `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m`
-`prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `6Gi`
+`prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi`
 
 ### Prometheus Resources
 

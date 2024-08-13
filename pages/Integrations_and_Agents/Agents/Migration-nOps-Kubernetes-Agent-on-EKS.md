@@ -39,9 +39,16 @@ If you come from a previous installation of the Container Insights Kubernetes ag
     ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.51.35%E2%80%AFp.m..png)
     ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.51.24%E2%80%AFp.m..png)
     - Wait for the update to be successfully completed
-3. **Download clean up script**
+3. **Invoke Lambda to Update Trust Relationship Policy (OPTIONAL)**
+    - If you want to update the IAM role trust relationship inmediately you can invoke the management IAM role lambda (Normal Schedule is to run every 2 hours to create and/or update the neccesary IAM roles and IAM policies for container insights agent).
+    - Go to Lambda functions and search for: nops-container-cost-agent-role-management (The region needs to be the same as the CloudFormation stack was deployed to)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.26.08%E2%80%AFp.m..png)
+    - Click on the Test tab, and click on the Test Button to invoke the lambda with a test event JSON payload.
+    ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.25.52%E2%80%AFp.m..png)
+    - Lambda should be invoked and in a few seconds you should see the IAM role trust relantionship updated log messages from the Lambda execution.
+4. **Download clean up script**
     - Download clean up script from here: https://nops-help-site-assets.s3.amazonaws.com/scripts/nops-cleanup.sh
-4. **Execute clean up script**
+5. **Execute clean up script**
     - Give execution permission to the script.
       ```bash
       chmod +x nops-cleanup.sh
@@ -52,7 +59,7 @@ If you come from a previous installation of the Container Insights Kubernetes ag
       ```bash
       1. EKS Cluster ARN
       2. S3 Bucket name
-      3. Install karpenops agent (true if you are already using our Karpenter agent and want to migrate it or false)
+      3. Install karpenops agent (true if you are already using our Karpenter agent and want to migrate it or false to not install it)
       4. API Key (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
       5. ClusterID (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
       ```
@@ -62,7 +69,7 @@ If you come from a previous installation of the Container Insights Kubernetes ag
       ```
     - Wait for the script to successfully finish.
     ***Note: If the script get stuck when deleting the namespaces you can refer to [this]().***
-5. **Verify new agent**
+6. **Verify new agent**
     - Confirm new namespace and resources.
       ```bash
       kubectl -n nops get pods

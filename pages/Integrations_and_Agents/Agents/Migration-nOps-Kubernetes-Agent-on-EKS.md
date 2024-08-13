@@ -21,6 +21,7 @@ If you come from a previous installation of the Container Insights Kubernetes ag
 # Update CloudFormation Stack
 1. **Navigate to CloudFormation service**
     - Go to your container cost cloudformation stack (e.g. container-cost-setup-<your_Account_ID>, remember to change your AWS region where you initially create the stack
+    
     ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.48.50%E2%80%AFp.m..png)
 2. **Update CloudFormation Stack**
     - Click the upper right **Update** button
@@ -47,7 +48,7 @@ If you come from a previous installation of the Container Insights Kubernetes ag
     ![](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.25.52%E2%80%AFp.m..png)
     - Lambda should be invoked and in a few seconds you should see the IAM role trust relantionship updated log messages from the Lambda execution.
 4. **Download clean up script**
-    - Download clean up script from here: https://nops-help-site-assets.s3.amazonaws.com/scripts/nops-cleanup.sh
+    - Download clean up script from <a href="https://nops-help-site-assets.s3.amazonaws.com/scripts/nops-cleanup.sh" target="_blank"> here</a>.
 5. **Execute clean up script**
     - Give execution permission to the script.
       ```bash

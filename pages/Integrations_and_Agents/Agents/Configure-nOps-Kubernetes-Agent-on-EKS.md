@@ -1,5 +1,5 @@
 ---
-title: Configure nOps Kubernetes Agent for Container Insights
+title: Configure nOps Kubernetes Agent
 keywords: CostContainer, integrations, agent, helm, containers, insights
 tags: [agents_integrations]
 sidebar: mydoc_sidebar
@@ -8,9 +8,15 @@ folder: Integrations_and_Agents
 series: [agents_integrations]
 weight: 6.0
 ---
-Installing the Container Cost Kubernetes agent is required to get access to container level visibility.
-The way it works is by collecting metrics from the cluster and storing them into a S3 bucket on your AWS account which then is copied
-over to nOps.
+
+
+**Note:** If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please refer to this [migration guide](https://help.nops.io/Migration-nOps-Kubernetes-Agent-on-EKS.html).
+
+
+
+The nOps Kubernetes Agent is required to fully utilize nOps features for your EKS clusters. It's a bundle of components that will enable you to leverage our Compute Copilot product and provide container visibility into the cluster.
+
+
 1. TOC
 {:toc}
 # Prerequisites
@@ -20,8 +26,13 @@ over to nOps.
 4. <a href="https://helm.sh/" target="_blank">Helm</a>
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
 6. Unix-like terminal to execute the installation script.
-7. Terraform if installing via [IaC](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
-8. Storage Class created for the EKS cluster (EBS gp2 or gp3)
+7. Terraform if installing via [Infrastructure as Code (IaC)](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
+8. Ensure that the EBS CSI Driver is installed with a Storage Class configured for the EKS cluster to dynamically create EBS gp2/gp3 volumes.
+9. If you want to enable karpenOps agent, make sure Karpenter is installed in the cluster.
+
+For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
+
+
 # Steps to Configure nOps Kubernetes Agent
 1. **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
@@ -54,29 +65,21 @@ over to nOps.
     - **Modify the Installation Script**
         - Replace the placeholder `<<REPLACE-CLUSTER-ARN>>` with your actual cluster ARN in the following line:
             ```sh
-            --set nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
+            --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
             ```
     - **Copy the Installation Script**
         - Click the **Copy Script** button to copy the generated installation script.
-    - **Use On-Demand Node for Prometheus Server (Recommended)**
-        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries, to use an on-demand node you can make use of labels for pod placement, the following example is using a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod.
-            ```sh
-            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand
-            ```
-        - If you have taints in place rememeber to use tolerations:
-            ```sh
-            --set-string prometheus.server.nodeSelector."karpenter\.sh/capacity-type"=on-demand \
-            --set prometheus.server.tolerations[0].key="example-key" \
-            --set prometheus.server.tolerations[0].operator="Equal" \
-            --set prometheus.server.tolerations[0].value="example-value" \
-            --set prometheus.server.tolerations[0].effect="NoSchedule"
-            ```
+    - **Use On-Demand Node (Recommended)**
+        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries. To use an on-demand node, you can make use of labels for pod placement. The following example uses a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod:
+          ```sh
+          --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
+          ```
     - **Add IAM User Credentials (If Applicable)**
         - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
             ```sh
-            --set nopsAgent.secrets.useAwsCredentials=true \
-            --set nopsAgent.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
-            --set nopsAgent.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
+            --set containerInsights.secrets.useAwsCredentials=true \
+            --set containerInsights.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
+            --set containerInsights.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
             ```
     - **Additional Parameters**
         - You can pass additional parameters described [here](https://help.nops.io/Configure-nOps-Kubernetes-Agent-on-EKS.html#optional-parameters):
@@ -84,9 +87,8 @@ over to nOps.
         - Open your Unix-like terminal.
         - Change/Switch context to your desired cluster.
         - Execute the modified command by pasting it into the terminal and pressing **Enter**.
-After running the script, the nOps Kubernetes agent will be installed on your cluster, allowing you to gain detailed visibility into your container costs.
 ---
-After a successful installation, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
+After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
 _Note: As part of the installation a CRD is installed, ServiceMonitors_
 
@@ -94,16 +96,14 @@ _Note: As part of the installation a CRD is installed, ServiceMonitors_
 To remove the agent from your cluster you just need to follow these steps:
 ```bash
 # Delete nops-k8s-agent release
-helm uninstall nops-k8s-agent --namespace nops-k8s-agent
+helm uninstall nops-kubernetes-agent --namespace nops
 # Delete the namespaces
-kubectl delete namespace nops-k8s-agent
-kubectl delete namespace nops-cost
-kubectl delete namespace nops-prometheus-system
+kubectl delete namespace nops
 # CRD (ServiceMonitors) created by this chart is not removed by default and should be manually cleaned up if you want to.
 kubectl delete crd servicemonitors.monitoring.coreos.com
 ```
 
-# Installation using Insfrastructure as Code #
+# Installation using Infrastructure as Code
 
 ## Terraform ##
 ### Requirements
@@ -134,17 +134,6 @@ data "aws_ecrpublic_authorization_token" "token" {
   provider = aws.virginia
 }
 
-provider "kubernetes" {
-  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
-  }
-}
-
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint # Replace it with your cluster endpoint
@@ -158,45 +147,59 @@ provider "helm" {
   }
 }
 
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_cost" {
-  metadata {
-    name = "nops-cost"
-  }
-}
-
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_prometheus_system" {
-  metadata {
-    name = "nops-prometheus-system"
-  }
-}
-
 resource "helm_release" "nops_container_insights" {
-  name                = "nops-container-insights"
-  namespace           = "nops-k8s-agent"
+  name                = "nops-kubernetes-agent"
+  namespace           = "nops"
   create_namespace    = true
   
-  repository          = "oci://public.ecr.aws/nops"
+  #repository          = "oci://public.ecr.aws/nops"    # This is Prod
+  repository          = "oci://public.ecr.aws/z8v0w1z1" # This is UAT
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
-  chart               = "container-insights"
-  version             = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  description         = "Helm Chart for nOps kubernetes agent"
+  chart               = "kubernetes-agent"
+  version             = "0.0.52" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   set {
-    name  = "nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
-    value = "<your_eks_cluster_arn>"
+    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
+    name = "global.nodeSelector.karpenter\\.sh/capacity-type"
+    value = "on-demand"
   }
-
+  
   set {
-    name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
-    value = "<your_s3_bucket_name>"
+    name  = "datadog.apiKey"
+    value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
   }
-
-  depends_on = [
-    kubernetes_namespace.nops_cost,
-    kubernetes_namespace.nops_prometheus_system
-  ]
+  
+  set {
+    name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
+    value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
+  }
+  
+  set {
+    name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
+    value = "<your_s3_bucket_name>"  # Get it from the nOps kubernetes agent onboarding process
+  }
+  
+  set {
+    name  = "karpenops.enabled"
+    value = "true" # Set it to true if you have karpenter running in your EKS Cluster and want the karpenOps agent to manage your EC2NodeTemplate/NodePool
+  }
+  
+  set {
+    name  = "karpenops.image.tag"
+    value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
+  }
+  
+  set {
+    name  = "karpenops.apiKey"
+    value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+  }
+  
+  set {
+    name  = "karpenops.clusterId"
+    value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
+  }
 }
 ```
 
@@ -212,17 +215,6 @@ data "aws_ecrpublic_authorization_token" "token" {
   provider = aws.virginia
 }
 
-provider "kubernetes" {
-  host                   = var.cluster_endpoint # Replace it with your cluster endpoint
-  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data) # Replace it with your cluster certificate authority data
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name] # Replace it with your cluster name
-  }
-}
-
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint # Replace it with your cluster endpoint
@@ -236,80 +228,89 @@ provider "helm" {
   }
 }
 
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_cost" {
-  metadata {
-    name = "nops-cost"
-  }
-}
-
-### If this is the first time you install nOps agent you will need to create this namespace beforehand, if you come from previous script installation you can ommit this resource ###
-resource "kubernetes_namespace" "nops_prometheus_system" {
-  metadata {
-    name = "nops-prometheus-system"
-  }
-}
-
 module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
-
-  chart               = "container-insights"
-  chart_version       = "0.8.52" #ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
-  repository          = "oci://public.ecr.aws/nops"
+  chart               = "kubernetes-agent"
+  chart_version       = "0.0.52" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  
+  #repository          = "oci://public.ecr.aws/nops"    # This is Prod
+  repository          = "oci://public.ecr.aws/z8v0w1z1" # This is UAT
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
-  description         = "Helm Chart for nOps container insights"
-  namespace           = "nops-k8s-agent"
+  description         = "Helm Chart for nOps kubernetes agent"
+  namespace           = "nops"
   create_namespace    = true
-
   set = [
+    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
     {
-      name  = "nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
-      value = "<your_eks_cluster_arn>"
+      name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
+      value = "on-demand"
     },
     {
-      name  = "nopsAgent.env_variables.APP_AWS_S3_BUCKET"
-      value = "<your_s3_bucket_name>"
+      name  = "datadog.apiKey" # Get it from the nOps kubernetes agent onboarding process  
+      value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
+    },
+    {
+      name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
+      value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
+    },
+    {
+      name  = "containerInsights.env_variables.APP_AWS_S3_BUCKET"
+      value = "<your_s3_bucket_name>" # Get it from the nOps kubernetes agent onboarding process
+    },
+    {
+      name  = "karpenops.enabled"
+      value = "true" # Set it to true if you have karpenter running in your EKS Cluster and want the karpenOps agent to manage your EC2NodeTemplate/NodePool
+    },
+    {
+      name  = "karpenops.image.tag"
+      value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
+    },
+    {
+      name  = "karpenops.apiKey"
+      value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+    },
+    {
+      name  = "karpenops.clusterId"
+      value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
     }
-  ]
-
-  depends_on = [
-    kubernetes_namespace.nops_cost,
-    kubernetes_namespace.nops_prometheus_system
   ]
 }
 ```
 
 ### Required Parameters
 
-The following table lists required configuration parameters for the Container Insights Helm chart and their default values.
+The following table lists required configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
 Parameter | Description | Default
 --------- | ----------- | -------
-`nopsAgent.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
-`nopsAgent.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
-
+`datadog.apiKey` | Datadog API Key. | `-`
+`containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
+`containerInsights.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
+`karpenops.enabled` | Wheter to install KarpenOps agent or not. | `false`
+`karpenops.apiKey` | KarpenOps agent API Key | `-`
+`karpenops.clusterId` | KarpenOps Cluster ID | `-`
 
 ### Optional Parameters
 
-The following table lists the optional configuration parameters for Container Insights Helm chart and their default values.
+The following table lists the optional configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
-Parameter | Description | Default
---------- | ----------- | -------
-`nopsAgent.debug` | Debug mode. | `false`
-`opencost.loglevel` | Log level for nops-cost. | `info`
-`prometheus.server.nodeSelector` | Prometheus node selector labels to use. | `{}`
-`prometheus.server.tolerations` | Prometheus node taints to tolerate. | `[]`
-`prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
-`prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `800m`
-`prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi`
-`prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m`
-`prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `6Gi`
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `global.nodeSelector` | Node Selector labels to use for Prometheus deployment and Container Insights cronjobs. | `{}` |
+| `containerInsights.debug` | Debug mode. | `false` |
+| `opencost.loglevel` | Log level for nOps-cost. | `info` |
+| `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
+| `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
+| `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |
+| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m` |
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi` |
+
 
 ### Prometheus Resources
 
-Below is a table where you can see 3 options for Prometheus Memory assignation depending on your cluster size (number of pods), use it as a baseline and adjust it according to your needs.
+Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs.
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|

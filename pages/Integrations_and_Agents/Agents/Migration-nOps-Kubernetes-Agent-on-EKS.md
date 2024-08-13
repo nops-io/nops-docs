@@ -64,10 +64,12 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
    - You should see log messages indicating the IAM role trust relationship has been updated.
 
-4. **Download Cleanup Script**
-   - Download the cleanup script from [here](https://nops-help-site-assets.s3.amazonaws.com/scripts/nops-cleanup.sh).
+## Clean up and installation script #
 
-5. **Execute Cleanup Script**
+1. **Save Script**
+   - Save the script from [here](https://nops-help-site-assets.s3.amazonaws.com/scripts/nops-cleanup.sh)
+
+2. **Execute Script**
    - Grant execution permissions to the script.
    ```bash
    chmod +x nops-cleanup.sh
@@ -76,23 +78,25 @@ If you're migrating from a previous installation of the Container Insights Kuber
     - Change/Switch context to your desired cluster.
     - Replace positional parameters with your own and run the script.
     ```bash
-    1. EKS Cluster ARN
-    2. S3 Bucket name
-    3. Install karpenops agent (true if you are already using our Karpenter agent and want to migrate it or false to not install it)
-    4. API Key (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
-    5. ClusterID (Get it from the nOps platform in your Cluster Configuration page, required only if karpenops agent install is true)
+    1. Datadog API Key (Get it from the nOps platform onboarding process)
+    2. Install Container Insights agent (true if you are already using Container Insights agent and want to migrate it or false to not install it)
+    3. EKS Cluster ARN (Your target EKS cluster ARN to install the agent(s))
+    4. S3 Bucket name (This is the bucket created for your specific AWS Account during nOps platform onboarding process)
+    5. Install KarpenOps agent (true if you are already using Karpenter and KarpenOps agent and want to migrate it or false to not install it)
+    6. API Key (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
+    7. ClusterID (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
     ```
     Example:
     ```bash
-    ./nops-cleanup.sh arn:aws:eks:us-east-1:123456789101:cluster/example-cluster nops-container-cost-123456789101 true 1234.a1234a1a123ab1a01234a12a1a1ab1ab a+ABC1
+    ./nops-cleanup.sh a1234ab12a12abc1a123ab123a12a12a true arn:aws:eks:us-east-1:123456789101:cluster/example-cluster nops-container-cost-123456789101 true 1234.a1234a1a123ab1a01234a12a1a1ab1ab a+ABC1
     ```
     - Wait for the script to successfully finish.
 
-    6. **Verify new agent**
-        - Confirm new namespace and resources.
-        ```bash
-        kubectl -n nops get pods
-        ```
+3. **Verify new agent(s)**
+    - Confirm new namespace and resources.
+    ```bash
+    kubectl -n nops get pods
+    ```
 
     {% include note.html content="If the script gets stuck when deleting the namespaces, you can refer to [Unable to destroy namespaces](#unable-to-destroy-namespaces)." %}
 

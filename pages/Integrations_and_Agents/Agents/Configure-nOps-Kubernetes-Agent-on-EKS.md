@@ -8,12 +8,14 @@ folder: Integrations_and_Agents
 series: [agents_integrations]
 weight: 6.0
 ---
-If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please
-refer to this link. #TODO
 
-The nOps Kubernetes Agent is required to fully use nOps features regarding your EKS clusters.
-It's a bundle of different components that will enable you to leverage our Compute Copilot product and also give you
-container visibility into the cluster.
+
+**Note:** If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please refer to this [migration guide](https://help.nops.io/Migration-nOps-Kubernetes-Agent-on-EKS.html).
+
+
+
+The nOps Kubernetes Agent is required to fully utilize nOps features for your EKS clusters. It's a bundle of components that will enable you to leverage our Compute Copilot product and provide container visibility into the cluster.
+
 
 1. TOC
 {:toc}
@@ -24,8 +26,8 @@ container visibility into the cluster.
 4. <a href="https://helm.sh/" target="_blank">Helm</a>
 5. <a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank">kubectl</a>
 6. Unix-like terminal to execute the installation script.
-7. Terraform if installing via [IaC](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
-8. EBS CSI Driver installed with a Storage Class configured for the EKS cluster (To dynamically create EBS gp2/gp3 volumes)
+7. Terraform if installing via [Infrastructure as Code (IaC)](https://github.com/nops-io/nops-docs/blob/main/pages/Integrations_and_Agents/Agents/Configure-nOps-Kubernetes-Agent-on-EKS.md#installation-using-insfrastructure-as-code).
+8. Ensure that the EBS CSI Driver is installed with a Storage Class configured for the EKS cluster to dynamically create EBS gp2/gp3 volumes.
 9. If you want to enable karpenOps agent, make sure Karpenter is installed in the cluster.
 
 For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
@@ -68,10 +70,10 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
     - **Copy the Installation Script**
         - Click the **Copy Script** button to copy the generated installation script.
     - **Use On-Demand Node (Recommended)**
-        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries, to use an on-demand node you can make use of labels for pod placement, the following example is using a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod.
-            ```sh
-            --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
-            ```
+        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries. To use an on-demand node, you can make use of labels for pod placement. The following example uses a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod:
+          ```sh
+          --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
+          ```
     - **Add IAM User Credentials (If Applicable)**
         - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
             ```sh
@@ -101,7 +103,7 @@ kubectl delete namespace nops
 kubectl delete crd servicemonitors.monitoring.coreos.com
 ```
 
-# Installation using Insfrastructure as Code #
+# Installation using Infrastructure as Code
 
 ## Terraform ##
 ### Requirements
@@ -294,20 +296,21 @@ Parameter | Description | Default
 
 The following table lists the optional configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
-Parameter | Description | Default
---------- | ----------- | -------
-`global.nodeSelector` | Node Selector labels to use for Prometheus deployment and Container Insights cronjobs | `{}`
-`containerInsights.debug` | Debug mode. | `false`
-`opencost.loglevel` | Log level for nops-cost. | `info`
-`prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2`
-`prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m`
-`prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi`
-`prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m`
-`prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi`
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `global.nodeSelector` | Node Selector labels to use for Prometheus deployment and Container Insights cronjobs. | `{}` |
+| `containerInsights.debug` | Debug mode. | `false` |
+| `opencost.loglevel` | Log level for nOps-cost. | `info` |
+| `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
+| `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
+| `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |
+| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m` |
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi` |
+
 
 ### Prometheus Resources
 
-Below is a table where you can see 3 options for Prometheus Memory assignation depending on your cluster size (number of pods), use it as a baseline and adjust it according to your needs.
+Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs.
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|

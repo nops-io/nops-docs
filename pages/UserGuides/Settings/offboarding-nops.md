@@ -26,7 +26,7 @@ To roll-back the resources created by nOps, perform the following actions from t
 1. Delete the Cloudformation Stackset for linked account configuration
 1. Delete the Cloudformation Stack for the payer account configuration
 
-## Remove the AWS assets created - after July 2024##
+## Remove the AWS assets created - after July 2024 ##
 To roll-back the resources created by nOps, perform the following actions from the management account:
 1. Delete the Cloudformation Stack for linked account configuration
 1. Delete the Cloudformation Stack for the payer account configuration

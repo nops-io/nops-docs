@@ -88,7 +88,7 @@ After running the script, the nOps Kubernetes agent will be installed on your cl
 ---
 After a successful installation, you'll gain clear visibility into your workloads. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
-_Note: As part of the installation a CRD is installed, ServiceMonitors_
+{% include note.html content="As part of the installation a CRD is installed, ServiceMonitors." %}
 
 # Removing Agent
 To remove the agent from your cluster you just need to follow these steps:

@@ -10,7 +10,7 @@ weight: 6.0
 ---
 
 
-**Note:** If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please refer to this [migration guide](https://help.nops.io/Migration-nOps-Kubernetes-Agent-on-EKS.html).
+{% include note.html content="If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please refer to this [migration guide](https://help.nops.io/Migration-nOps-Kubernetes-Agent-on-EKS.html)." %}
 
 
 
@@ -90,7 +90,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
 ---
 After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
-_Note: As part of the installation a CRD is installed, ServiceMonitors_
+{% include note.html content="As part of the installation a CRD is installed, ServiceMonitors." %}
 
 # Removing Agent
 To remove the agent from your cluster you just need to follow these steps:

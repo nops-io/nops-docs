@@ -251,11 +251,12 @@ entries:
         - title: Configure nOps Kubernetes Agent for Container Insights
           url: /Configure-nOps-Kubernetes-Agent-on-EKS-container-insights.html
           output: web
-
         - title: Configure new nOps Kubernetes Agent
           url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
           output: web
-
+        - title: Migration nOps Kubernetes Agent for Container Insights
+          url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
+          output: web
 
       - title: Integrations
         output: web

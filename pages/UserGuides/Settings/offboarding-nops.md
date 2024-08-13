@@ -9,7 +9,7 @@ series: [Onboarding]
 weight: 9
 ---
 
-# Offboarding from the free nOps platform #
+## Offboarding from the free nOps platform ##
 
 When customers onboard to nOps, a Cloudformation stack is deployed within the management account that:
 1. Creates an S3 bucket

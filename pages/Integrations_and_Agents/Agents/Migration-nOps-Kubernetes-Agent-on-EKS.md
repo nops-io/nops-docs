@@ -38,7 +38,7 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
    ![Replace Existing Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.49%E2%80%AFp.m..png)
 
-   - Choose **Amazon S3 URL** and use the following template URL: [template](https://nops-rules-lambda-sources.s3.us-west-2.amazonaws.com/container_cost/container-cost-setup-migration.yaml).
+   - Choose **Amazon S3 URL** and paste the following template URL: **https://nops-rules-lambda-sources.s3.us-west-2.amazonaws.com/container_cost/container-cost-setup-migration.yaml**
 
    ![S3 URL Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.50.09%E2%80%AFp.m..png)
 

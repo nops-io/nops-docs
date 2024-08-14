@@ -20,9 +20,11 @@ allowed-tags:
   - cost_visibility
   - reporting
   - compliance
+  - bcp
   - agents_integrations
   - settings
   - well_architected
   - map
   - copilot
+  - visibility
 # end

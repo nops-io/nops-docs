@@ -5,7 +5,7 @@ tags: [cost_visibility, solutions]
 sidebar: mydoc_sidebar
 permalink: business-context-cost-analysis.html
 folder: UserGuides
-series: [Visibility]
+series: [bc]
 weight: 1.0
 ---
 

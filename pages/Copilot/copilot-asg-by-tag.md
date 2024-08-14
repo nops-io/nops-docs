@@ -12,11 +12,12 @@ Category: [Copilot]
 
 
 
-# Configuring ASGs by Tag to use the Compute Co-Pilot ASG
+# Configuring ASGs by Tag to use the Compute Co-Pilot ASG #
  <a id="configuring-asgs-by-tag-to-use-the-compute-co-pilot-asg"></a>
-=====================================================================
 
-## The new nOps feature Configure By Tag offers increased ease-of-use to users of Compute Copilot. Onboard your ASG to Copilot with Configure By Tag for the following benefits:<a id="the-new-nops-feature-configure-by-tag-offers-increased-ease-of-use-to-users-of-compute-copilot-onboard-your-asg-to-copilot-with-configure-by-tag-for-the-following-benefits"></a>
+## Introduction ## 
+
+The new nOps feature Configure By Tag offers increased ease-of-use to users of Compute Copilot. Onboard your ASG to Copilot with Configure By Tag for the following benefits:<a id="the-new-nops-feature-configure-by-tag-offers-increased-ease-of-use-to-users-of-compute-copilot-onboard-your-asg-to-copilot-with-configure-by-tag-for-the-following-benefits"></a>
 
 - **Integration with any IaC tool**, such as Terraform.
 
@@ -28,7 +29,9 @@ Category: [Copilot]
 
 1. You must have already configured the appropriate Lambda roles for Copilot as per [these instructions](/copilot-asg-stackset.html)
 
-## Integrate nOps Compute Copilot with your ASGs by adding the following Tags:<a id="integrate-nops-compute-copilot-with-your-asgs-by-adding-the-following-tags"></a>
+## Integrate ASGs by tag ##
+
+Integrate nOps Compute Copilot with your ASGs by adding the following Tags:<a id="integrate-nops-compute-copilot-with-your-asgs-by-adding-the-following-tags"></a>
 
 | **Tag Key**                                  | **Tag Value**                                                                                                                   | **Required** |
 |----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|--------------|
@@ -56,7 +59,7 @@ Category: [Copilot]
 **Note:** if you delete the Compute Copilot Launch Template used in one or more ASGs, these ASGs will no longer be processed by nOps Compute Copilot.
 
 
-## Step-by-Step guide to Configure by Tag:<a id="step-by-step-guide-to-configure-by-tag"></a>
+## Configure by Tag:<a id="step-by-step-guide-to-configure-by-tag"></a>
 
 1. Navigate to **Compute Copilot** -> **Auto Scaling Groups** -> **Manage ASG Templates**
 

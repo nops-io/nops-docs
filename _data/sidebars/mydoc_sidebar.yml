@@ -64,6 +64,10 @@ entries:
           url: /onboarding-aws-linked-accounts.html
           output: web
 
+        - title: Linked Accounts With Terrform
+          url: /onboarding-aws-with-terraform.html
+          output: web
+
         - title:  With CloudFormation
           url: /onboarding-aws-with-cloudformation.html
           output: web

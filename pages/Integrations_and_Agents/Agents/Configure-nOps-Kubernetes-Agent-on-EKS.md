@@ -157,7 +157,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.59" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  version             = "0.0.61:" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   set {
     # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
@@ -236,7 +236,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.59" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart_version       = "0.0.61" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -310,6 +310,8 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `containerInsights.debug` | Debug mode. | `false` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `karpenops.karpenops.image.tag` | Image tag for KarpenOps agent. | `latest`
+| `karpenops.karpenops.autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used by KarpenOps agent and use the latest release from https://gallery.ecr.aws/nops/karpenops . | `true`
+| `karpenops.karpenops.autoUpdater.schedule` | Cron schedule to run the Autoupdater, default is every Monday at 12:00 AM. | `0 0 * * 1`
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |

@@ -24,31 +24,23 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
 ## Updating CloudFormation Stack
 
+   ![Update gif](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.49%E2%80%AFp.m..png)
+
+
 1. **Navigate to CloudFormation service**
    - Go to your Container Cost CloudFormation stack (e.g. `container-cost-setup-<your_Account_ID>`), and ensure you're in the correct AWS region where the stack was initially created.
    
-   ![CloudFormation Stack Navigation](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.48.50%E2%80%AFp.m..png)
 
 2. **Update CloudFormation Stack**
    - Click the **Update** button in the upper right corner.
    
-   ![Update Button](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.24%E2%80%AFp.m..png)
-
    - Select **Replace existing template**.
-
-   ![Replace Existing Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.49%E2%80%AFp.m..png)
 
    - Choose **Amazon S3 URL** and paste the following template URL: **https://nops-rules-lambda-sources.s3.us-west-2.amazonaws.com/container_cost/container-cost-setup-migration.yaml**
 
-   ![S3 URL Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.50.09%E2%80%AFp.m..png)
-
    - Click **Next** and keep the parameters unchanged. Continue by clicking **Next** again.
 
-   ![Parameters](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.50.33%E2%80%AFp.m..png)
-
    - Scroll down and tick the box **"I acknowledge that AWS CloudFormation might create IAM resources with custom names."** Then click **Submit**.
-
-   ![Acknowledge IAM Resources](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.51.35%E2%80%AFp.m..png)
 
    - Wait for the update to complete successfully.
 

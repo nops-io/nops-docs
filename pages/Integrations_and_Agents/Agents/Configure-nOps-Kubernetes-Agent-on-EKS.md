@@ -55,38 +55,29 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
 4. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
-5. **Install Agent**
-    - Click on the **Install Agent** Button
-    - **Select Options**
-        - Before copying the script, you have the option to enable or disable:
-            - Enable Debug Mode
-            - Enable IPv6 
-        - Check or uncheck these options based on your requirements.
-    - **Modify the Installation Script**
-        - Replace the placeholder `<<REPLACE-CLUSTER-ARN>>` with your actual cluster ARN in the following line:
-            ```sh
-            --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=<<REPLACE-CLUSTER-ARN>>
-            ```
-    - **Copy the Installation Script**
-        - Click the **Copy Script** button to copy the generated installation script.
-    - **Use On-Demand Node (Recommended)**
-        - On-demand instances offer consistent performance, which is crucial for Prometheus when dealing with large volumes of metrics and queries. To use an on-demand node, you can make use of labels for pod placement. The following example uses a [well-known Karpenter label](https://karpenter.sh/v0.37/concepts/scheduling/#well-known-labels) to schedule the pod:
-          ```sh
-          --set-string global.nodeSelector."karpenter\.sh/capacity-type"=on-demand
-          ```
-    - **Add IAM User Credentials (If Applicable)**
-        - If you chose to use an IAM User instead of an IAM Role, you need to add the following lines to the script with your access key ID and secret access key:
-            ```sh
-            --set containerInsights.secrets.useAwsCredentials=true \
-            --set containerInsights.secrets.awsAccessKeyId=<<REPLACE-YOUR-ACCESS-KEY-ID>> \
-            --set containerInsights.secrets.awsSecretAccessKey=<<REPLACE-YOUR-SECRET-ACCESS-KEY>>
-            ```
-    - **Additional Parameters**
-        - You can pass additional parameters described [here](https://help.nops.io/Configure-nOps-Kubernetes-Agent-on-EKS.html#optional-parameters):
-    - **Execute the Installation Script**
-        - Open your Unix-like terminal.
-        - Change/Switch context to your desired cluster.
-        - Execute the modified command by pasting it into the terminal and pressing **Enter**.
+5. **Install Agent in your clusters**
+    - Now in order to install the agent in your clusters, you must go to the <a href="https://uat2.nops.io/v3/compute-copilot/eks/dashboard/">EKS section </a> in your nOps platform
+    ![EKS section](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-eks.png)
+    - Click on the cluster you want to install the agent,
+    - Click on the Cluster Configuration tab 
+    - Copy the command to install the agent for in that particular cluster (Make sure to be authenticated and having that cluster in current context of your kubectl)
+    ![Config Cluster](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-config-cluster.png)
+
+
+    Example command:
+    ```bash
+      helm upgrade -i nops-kubernetes-agent oci://public.ecr.aws/nops/kubernetes-agent \
+        --namespace nops --create-namespace \
+        --set datadog.apiKey=realkeysonlyinprod \
+        --set containerInsights.enabled=true \
+        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-west-2:844856862745:cluster/uat-container-rightsizing \
+        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-844856862745 \
+        --set karpenops.enabled=true \
+        --set karpenops.image.tag=1.23.2 \
+        --set karpenops.apiKey=*******************************a004eb \
+        --set karpenops.clusterId=D/M7Yj
+    ```
+
 ---
 After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 

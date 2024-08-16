@@ -17,9 +17,9 @@ weight: 6.0
 The nOps Kubernetes Agent is required to fully utilize nOps features for your EKS clusters. It's a bundle of components that will enable you to leverage our Compute Copilot product and provide container visibility into the cluster.
 
 
-1. TOC
-{:toc}
-# Prerequisites
+
+
+## Prerequisites
 1. You must have an active nOps account. If you do not have one, please register on <a href="https://app.nops.io/" target="_blank">nOps</a>
 2. Make sure you have access to the Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
 3. <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">aws cli</a>
@@ -33,10 +33,12 @@ The nOps Kubernetes Agent is required to fully utilize nOps features for your EK
 For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
 
 
-# Steps to Configure nOps Kubernetes Agent
-1. **Navigate to Container Cost Tab**
+## Steps to Configure nOps Kubernetes Agent
+    
+  - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/setup-containercost-buckets.gif)
+
+ **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
-    - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/integrations-container-cost.png)
 2. **Setup Container Cost Integration**
     - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
     - This step will:
@@ -51,17 +53,14 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
             If you choose this approach, you must create and store secret key credentials to replace values in the installation script.
         - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
         - Click the **Create stack** button.
-    - ![CloudFormation Stack Parameters](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-cf-parameters.png)
 4. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
 5. **Install Agent in your clusters**
-    - Now in order to install the agent in your clusters, you must go to the <a href="https://uat2.nops.io/v3/compute-copilot/eks/dashboard/">EKS section </a> in your nOps platform
-    ![EKS section](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-eks.png)
+    - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
     - Click on the cluster you want to install the agent,
     - Click on the Cluster Configuration tab 
     - Copy the command to install the agent for in that particular cluster (Make sure to be authenticated and having that cluster in current context of your kubectl)
-    ![Config Cluster](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-config-cluster.png)
 
 
     Example command:
@@ -70,8 +69,8 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         --namespace nops --create-namespace \
         --set datadog.apiKey=realkeysonlyinprod \
         --set containerInsights.enabled=true \
-        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-west-2:844856862745:cluster/uat-container-rightsizing \
-        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-844856862745 \
+        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster  \
+        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-12345678101 \
         --set karpenops.enabled=true \
         --set karpenops.image.tag=1.23.2 \
         --set karpenops.apiKey=*******************************a004eb \
@@ -83,20 +82,10 @@ After a successful installation, you'll have our Compute Copilot (KarpenOps for 
 
 {% include note.html content="As part of the installation a CRD is installed, ServiceMonitors." %}
 
-# Removing Agent
-To remove the agent from your cluster you just need to follow these steps:
-```bash
-# Delete nops-k8s-agent release
-helm uninstall nops-kubernetes-agent --namespace nops
-# Delete the namespaces
-kubectl delete namespace nops
-# CRD (ServiceMonitors) created by this chart is not removed by default and should be manually cleaned up if you want to.
-kubectl delete crd servicemonitors.monitoring.coreos.com
-```
 
-# Installation using Infrastructure as Code
 
-## Terraform ##
+## Installation via Terraform
+
 ### Requirements
 
 | Name | Version |
@@ -111,9 +100,9 @@ kubectl delete crd servicemonitors.monitoring.coreos.com
 [helm](https://registry.terraform.io/providers/hashicorp/helm/latest) | >= 2.7 |
 [kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) | >= 2.20 |
 
-## Usage
+### Usage
 
-### Helm Release
+#### Helm Release
 
 ```hcl
 provider "aws" {
@@ -198,7 +187,7 @@ resource "helm_release" "nops_kubernetes_agent" {
 }
 ```
 
-### Create Addon ([EKS Blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints-addon))
+#### Create Addon ([EKS Blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints-addon))
 
 ```hcl
 provider "aws" {
@@ -277,7 +266,7 @@ module "eks_blueprints_addon" {
 }
 ```
 
-### Required Parameters
+#### Required Parameters
 
 The following table lists required configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
@@ -291,7 +280,7 @@ Parameter | Description | Default
 `karpenops.apiKey` | KarpenOps agent API Key | `-`
 `karpenops.clusterId` | KarpenOps Cluster ID | `-`
 
-### Optional Parameters
+#### Optional Parameters
 
 The following table lists the optional configuration parameters for the KarpenOps and Container Insights agents and their default values.
 
@@ -310,7 +299,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi` |
 
 
-### Prometheus Resources
+#### Prometheus Resources
 
 Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs.
 
@@ -321,6 +310,18 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 | 500 - 1000     | 4Gi                 | 12Gi                 |
 
 
-# Frequently Asked Questions
+## Frequently Asked Questions
 1. **Will the agent installation affect my existing Prometheus setup?**
     **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, as well running Node Exporter using a different port than the default one (9100) ensuring that it does not interfere with your current Prometheus deployment and Node exporter daemonset.
+2. **How can I remove the agent?**
+
+    **Answer:** 
+      To remove the agent from your cluster you just need to follow these steps:
+      ```bash
+      # Delete nops-k8s-agent release
+      helm uninstall nops-kubernetes-agent --namespace nops
+      # Delete the namespaces
+      kubectl delete namespace nops
+      # CRD (ServiceMonitors) created by this chart is not removed by default and should be manually cleaned up if you want to.
+      kubectl delete crd servicemonitors.monitoring.coreos.com
+      ```

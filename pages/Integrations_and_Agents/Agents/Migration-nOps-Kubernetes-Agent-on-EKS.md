@@ -24,45 +24,26 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
 ## Updating CloudFormation Stack
 
+   ![Update gif](https://nops-help-site-assets.s3.amazonaws.com/images/upgrade-stack-container-cost.gif)
+
+
 1. **Navigate to CloudFormation service**
    - Go to your Container Cost CloudFormation stack (e.g. `container-cost-setup-<your_Account_ID>`), and ensure you're in the correct AWS region where the stack was initially created.
    
-   ![CloudFormation Stack Navigation](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.48.50%E2%80%AFp.m..png)
 
 2. **Update CloudFormation Stack**
    - Click the **Update** button in the upper right corner.
    
-   ![Update Button](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.24%E2%80%AFp.m..png)
-
    - Select **Replace existing template**.
-
-   ![Replace Existing Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.49%E2%80%AFp.m..png)
 
    - Choose **Amazon S3 URL** and paste the following template URL: **https://nops-rules-lambda-sources.s3.us-west-2.amazonaws.com/container_cost/container-cost-setup-migration.yaml**
 
-   ![S3 URL Template](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.50.09%E2%80%AFp.m..png)
-
    - Click **Next** and keep the parameters unchanged. Continue by clicking **Next** again.
-
-   ![Parameters](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.50.33%E2%80%AFp.m..png)
 
    - Scroll down and tick the box **"I acknowledge that AWS CloudFormation might create IAM resources with custom names."** Then click **Submit**.
 
-   ![Acknowledge IAM Resources](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.51.35%E2%80%AFp.m..png)
-
    - Wait for the update to complete successfully.
 
-3. **Invoke Lambda to Update Trust Relationship Policy (Optional)**
-   - To update the IAM role trust relationship immediately, you can manually invoke the management IAM role Lambda. By default, it runs every 2 hours to create and/or update the necessary IAM roles and policies for the Container Insights agent.
-   - Go to the Lambda functions and search for: `nops-container-cost-agent-role-management`. Ensure you are in the same AWS region as the CloudFormation stack.
-
-   ![Lambda Search](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.26.08%E2%80%AFp.m..png)
-
-   - Click on the **Test** tab, then click the **Test** button to invoke the Lambda with a test event JSON payload.
-
-   ![Invoke Lambda](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.25.52%E2%80%AFp.m..png)
-
-   - You should see log messages indicating the IAM role trust relationship has been updated.
 
 ## Clean up and installation script #
 
@@ -78,19 +59,25 @@ If you're migrating from a previous installation of the Container Insights Kuber
     - Change/Switch context to your desired cluster.
     - Replace parameters with your own and run the script.
     ```bash
-    1. --datadog-api-key=value | Datadog API Key (Get it from the nOps platform onboarding process)
-    2. --container-insights=true | Install Container Insights agent (true if you are already using Container Insights agent and want to migrate it or false to not install it)
-    3. --eks-cluster-arn=value | EKS Cluster ARN (Your target EKS cluster ARN to install the agent(s))
-    4. --s3-bucket-name=value | S3 Bucket name (This is the bucket created for your specific AWS Account during nOps platform onboarding process)
-    5. --karpenops-enabled=true | Install KarpenOps agent (true if you are already using Karpenter and KarpenOps agent and want to migrate it or false to not install it)
-    6. --api-key=value | API Key (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
-    7. --cluster-id=value | ClusterID (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
-    ```
-    Example:
-    ```bash
-    ./nops-cleanup.sh  --datadog-api-key=a1234ab12a12abc1a123ab123a12a12a --container-insights=true --eks-cluster-arn=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster --s3-bucket-name=nops-container-cost-123456789101 --karpenops-enabled=true --api-key=1234.a1234a1a123ab1a01234a12a1a1ab1ab --cluster-id=a+ABC1
-    ```
-    - Wait for the script to successfully finish.
+
+| Parameter               | Description                                                                                     |
+|-------------------------|-------------------------------------------------------------------------------------------------|
+| `--datadog-api-key`      | Datadog API Key                                                                                 |
+| `--container-insights`   | Enabling or not (true or false) container insights                                              |
+| `--eks-cluster-arn`      | Target EKS Cluster ARN                                                                          |
+| `--s3-bucket-name`       | S3 Bucket name                                                                                  |
+| `--karpenops-enabled`    | Install KarpenOps agent (true or false)                                                         |
+| `--api-key`              | API Key (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true). |
+| `--cluster-id`           | ClusterID (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true) |
+
+
+   Example:
+
+   ```bash
+   ./nops-cleanup.sh  --datadog-api-key=a1234ab12a12abc1a123ab123a12a12a --container-insights=true --eks-cluster-arn=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster --s3-bucket-name=nops-container-cost-123456789101 --karpenops-enabled=true --api-key=1234.a1234a1a123ab1a01234a12a1a1ab1ab --cluster-id=a+ABC1
+   ```
+
+   Wait for the script to successfully finish.
 
 3. **Verify new agent(s)**
     - Confirm new namespace and resources.

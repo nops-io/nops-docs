@@ -56,7 +56,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
 5. **Install Agent in your clusters**
-    - Now in order to install the agent in your clusters, you must go to the <a href="https://uat2.nops.io/v3/compute-copilot/eks/dashboard/">EKS section </a> in your nOps platform
+    - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
     ![EKS section](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-eks.png)
     - Click on the cluster you want to install the agent,
     - Click on the Cluster Configuration tab 

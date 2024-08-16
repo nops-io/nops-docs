@@ -63,7 +63,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
     - Copy the command to install the agent for in that particular cluster (Make sure to be authenticated and having that cluster in current context of your kubectl)
 
 
-    Example command:
+    Example command for Karpenter enabled clusters:
     ```bash
       helm upgrade -i nops-kubernetes-agent oci://public.ecr.aws/nops/kubernetes-agent \
         --namespace nops --create-namespace \
@@ -77,6 +77,16 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         --set karpenops.clusterId=D/M7Yj
     ```
 
+    Example command for ClusterAutoscaler enabled clusters:
+    ```bash
+      helm upgrade -i nops-kubernetes-agent oci://public.ecr.aws/nops/kubernetes-agent \
+        --namespace nops --create-namespace \
+        --set datadog.apiKey=realkeysonlyinprod \
+        --set containerInsights.enabled=true \
+        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster  \
+        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-12345678101 \
+        --set karpenops.enabled=false
+    ```
 ---
 After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
@@ -137,13 +147,13 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.61" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
-  
-  set {
-    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
-    name = "global.nodeSelector.karpenter\\.sh/capacity-type"
-    value = "on-demand"
-  }
+  version             = "0.0.62" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+
+  # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
+  #set { 
+  #  name = "global.nodeSelector.karpenter\\.sh/capacity-type"
+  #  value = "on-demand"
+  #}
   
   set {
     name  = "datadog.apiKey"
@@ -216,7 +226,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.61" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart_version       = "0.0.62" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -226,10 +236,10 @@ module "eks_blueprints_addon" {
   create_namespace    = true
   set = [
     # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
-    {
-      name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
-      value = "on-demand"
-    },
+    #{
+    #  name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
+    #  value = "on-demand"
+    #},
     {
       name  = "datadog.apiKey" # Get it from the nOps kubernetes agent onboarding process  
       value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process

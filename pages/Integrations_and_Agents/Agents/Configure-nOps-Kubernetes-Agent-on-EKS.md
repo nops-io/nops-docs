@@ -70,8 +70,8 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         --namespace nops --create-namespace \
         --set datadog.apiKey=realkeysonlyinprod \
         --set containerInsights.enabled=true \
-        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-west-2:844856862745:cluster/uat-container-rightsizing \
-        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-844856862745 \
+        --set containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster  \
+        --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-12345678101 \
         --set karpenops.enabled=true \
         --set karpenops.image.tag=1.23.2 \
         --set karpenops.apiKey=*******************************a004eb \

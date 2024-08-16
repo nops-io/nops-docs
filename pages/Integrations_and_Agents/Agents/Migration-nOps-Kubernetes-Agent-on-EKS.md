@@ -76,19 +76,19 @@ If you're migrating from a previous installation of the Container Insights Kuber
     ```
     - Open your Unix-like terminal.
     - Change/Switch context to your desired cluster.
-    - Replace positional parameters with your own and run the script.
+    - Replace parameters with your own and run the script.
     ```bash
-    1. Datadog API Key (Get it from the nOps platform onboarding process)
-    2. Install Container Insights agent (true if you are already using Container Insights agent and want to migrate it or false to not install it)
-    3. EKS Cluster ARN (Your target EKS cluster ARN to install the agent(s))
-    4. S3 Bucket name (This is the bucket created for your specific AWS Account during nOps platform onboarding process)
-    5. Install KarpenOps agent (true if you are already using Karpenter and KarpenOps agent and want to migrate it or false to not install it)
-    6. API Key (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
-    7. ClusterID (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
+    1. --datadog-api-key=value | Datadog API Key (Get it from the nOps platform onboarding process)
+    2. --container-insights=true | Install Container Insights agent (true if you are already using Container Insights agent and want to migrate it or false to not install it)
+    3. --eks-cluster-arn=value | EKS Cluster ARN (Your target EKS cluster ARN to install the agent(s))
+    4. --s3-bucket-name=value | S3 Bucket name (This is the bucket created for your specific AWS Account during nOps platform onboarding process)
+    5. --karpenops-enabled=true | Install KarpenOps agent (true if you are already using Karpenter and KarpenOps agent and want to migrate it or false to not install it)
+    6. --api-key=value | API Key (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
+    7. --cluster-id=value | ClusterID (Get it from the nOps platform onboarding process, required only if KarpenOps agent install is true)
     ```
     Example:
     ```bash
-    ./nops-cleanup.sh a1234ab12a12abc1a123ab123a12a12a true arn:aws:eks:us-east-1:123456789101:cluster/example-cluster nops-container-cost-123456789101 true 1234.a1234a1a123ab1a01234a12a1a1ab1ab a+ABC1
+    ./nops-cleanup.sh  --datadog-api-key=a1234ab12a12abc1a123ab123a12a12a --container-insights=true --eks-cluster-arn=arn:aws:eks:us-east-1:123456789101:cluster/example-cluster --s3-bucket-name=nops-container-cost-123456789101 --karpenops-enabled=true --api-key=1234.a1234a1a123ab1a01234a12a1a1ab1ab --cluster-id=a+ABC1
     ```
     - Wait for the script to successfully finish.
 

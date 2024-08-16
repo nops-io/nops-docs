@@ -24,7 +24,7 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
 ## Updating CloudFormation Stack
 
-   ![Update gif](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-05+at+1.49.49%E2%80%AFp.m..png)
+   ![Update gif](https://nops-help-site-assets.s3.amazonaws.com/images/upgrade-stack-container-cost.gif)
 
 
 1. **Navigate to CloudFormation service**

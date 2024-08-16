@@ -52,17 +52,6 @@ If you're migrating from a previous installation of the Container Insights Kuber
 
    - Wait for the update to complete successfully.
 
-3. **Invoke Lambda to Update Trust Relationship Policy (Optional)**
-   - To update the IAM role trust relationship immediately, you can manually invoke the management IAM role Lambda. By default, it runs every 2 hours to create and/or update the necessary IAM roles and policies for the Container Insights agent.
-   - Go to the Lambda functions and search for: `nops-container-cost-agent-role-management`. Ensure you are in the same AWS region as the CloudFormation stack.
-
-   ![Lambda Search](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.26.08%E2%80%AFp.m..png)
-
-   - Click on the **Test** tab, then click the **Test** button to invoke the Lambda with a test event JSON payload.
-
-   ![Invoke Lambda](https://nops-help-site-assets.s3.amazonaws.com/images/container-insights-migration/Screenshot+2024-08-12+at+10.25.52%E2%80%AFp.m..png)
-
-   - You should see log messages indicating the IAM role trust relationship has been updated.
 
 ## Clean up and installation script #
 

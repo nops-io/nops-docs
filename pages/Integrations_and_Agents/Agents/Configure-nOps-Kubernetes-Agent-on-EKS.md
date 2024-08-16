@@ -52,17 +52,14 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
             If you choose this approach, you must create and store secret key credentials to replace values in the installation script.
         - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
         - Click the **Create stack** button.
-    - ![CloudFormation Stack Parameters](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-cf-parameters.png)
 4. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
 5. **Install Agent in your clusters**
     - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
-    ![EKS section](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-eks.png)
     - Click on the cluster you want to install the agent,
     - Click on the Cluster Configuration tab 
     - Copy the command to install the agent for in that particular cluster (Make sure to be authenticated and having that cluster in current context of your kubectl)
-    ![Config Cluster](https://nops-help-site-assets.s3.amazonaws.com/images/integration-container-cost-config-cluster.png)
 
 
     Example command:

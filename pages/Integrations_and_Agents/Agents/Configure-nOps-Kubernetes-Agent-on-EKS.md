@@ -137,7 +137,7 @@ provider "helm" {
   }
 }
 
-resource "helm_release" "nops_kubernetes_agent" 
+resource "helm_release" "nops_kubernetes_agent" {
   name                = "nops-kubernetes-agent"
   namespace           = "nops"
   create_namespace    = true
@@ -194,7 +194,7 @@ resource "helm_release" "nops_kubernetes_agent"
     name  = "karpenops.clusterId"
     value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
   }
-
+}
 ```
 
 #### Create Addon ([EKS Blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints-addon))

@@ -34,9 +34,10 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
 
 
 ## Steps to Configure nOps Kubernetes Agent
+    
+  - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/setup-containercost-buckets.gif)
 1. **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
-    - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/integrations-container-cost.png)
 2. **Setup Container Cost Integration**
     - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
     - This step will:

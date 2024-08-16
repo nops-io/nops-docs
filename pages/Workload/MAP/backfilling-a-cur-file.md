@@ -32,13 +32,16 @@ For each Payer account, log into your [Amazon Support Console](https://support.c
 <td> <b>Item</b> </td><td> <b>What to enter</b> </td>
 </tr>
 <tr>
-<td> <b>Type</b> </td><td> Billing </td>
+<td> <b>Type</b> </td><td> Billing</td>
 </tr>
 <tr>
-<td> <b>Category</b> </td><td> Invoices and Reports </td>
+<td> <b>Category</b> </td><td> Other Billing Questions</td>
 </tr>
 <tr>
-<td> <b>Subject</b>: </td><td> Backfill CUR reports </td>
+<td> <b>Severity</b>: </td><td> General question</td>
+</tr>
+<tr>
+<td> <b>Subject</b>: </td><td> Backfill CUR reports</td>
 </tr>
 <tr>
 <td> <b>Description</b>: </td>
@@ -71,13 +74,16 @@ For each Payer account, log into your [Amazon Support Console](https://support.c
 <td> <b>Item</b> </td><td> <b>What to enter</b> </td>
 </tr>
 <tr>
-<td> <b>Type</b> </td><td> Billing </td>
+<td> <b>Type</b> </td><td> Billing</td>
 </tr>
 <tr>
-<td> <b>Category</b> </td><td> Invoices and Reports </td>
+<td> <b>Category</b> </td><td> Other Billing Questions</td>
 </tr>
 <tr>
-<td> <b>Subject</b>: </td><td> Backfill CUR reports </td>
+<td> <b>Severity</b>: </td><td> General question</td>
+</tr>
+<tr>
+<td> <b>Subject</b>: </td><td> Backfill CUR reports</td>
 </tr>
 <tr>
 <td> <b>Description</b>: </td>

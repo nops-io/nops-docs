@@ -116,6 +116,22 @@ entries:
           url: /sso-azure.html
           output: web
 
+  - title: Business Contexts
+    output: web
+    folderitems:
+
+    - title: Cost Analysis
+      url: /business-context-cost-analysis.html
+      output: web
+
+    - title: Pre-Built & Customizable Reports
+      url: /bc-global-reports.html
+      output: web      
+
+    - title: Cost Analysis With Role-based Access Control
+      url: /business-contexts-rbac.html
+      output: web 
+
 
   - title: Compute Copilot
     output: web
@@ -296,14 +312,6 @@ entries:
       output: skip
 
       subfolders:
-      - title: Business Context
-        output: web
-        subfolderitems:
-
-        - title: Cost Analysis
-          url: /business-context-cost-analysis.html
-          output: web   
-
       - title: Data Explorer
         output: web
         subfolderitems:

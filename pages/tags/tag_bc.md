@@ -1,8 +1,8 @@
 ---
-title: "Business Contexts+"
-tagName: bcp
+title: "Business Contexts"
+tagName: bc
 search: exclude
-permalink: tag_bcp.html
+permalink: tag_bc.html
 sidebar: mydoc_sidebar
 folder: tags
 ---

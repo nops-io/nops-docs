@@ -68,7 +68,13 @@ To get started, you will need to be logged in as an admin in the nOps platform.
     ![](/tmpimg/CF-multiple-menu.png)
 1. Confirm you are logged into your AWS Management account with admin rights, then click **_Proceed_**.
     ![](/tmpimg/cfmas_proceed.png)
-1. In the new tab that opens, everything is pre-filled for you in the Cloudformation Stack.  Scroll down to the bottom and click **_Create Stack_**.
+
+### Within the nOps Platform ###
+In the new tab that opens, everything is pre-filled for you in the Cloudformation Stack.  
+1. Confirm the account you are logged into is the management account the Stack is deploying in.
+1. Scroll down to the bottom and click **_Create Stack_**.
+
+This process can take several minutes to complete.
 
 
 {% include note.html content="It can take up to 24 hours before you start seeing the different nOps dashboards and compliance views populated with data from your workloads." %}

@@ -147,7 +147,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.63" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  version             = "0.0.64" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
 
   # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -226,7 +226,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.63" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart_version       = "0.0.64" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -262,7 +262,7 @@ module "eks_blueprints_addon" {
     },
     {
       name  = "karpenops.image.tag"
-      value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
+      value = "1.23.2" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/karpenops)
     },
     {
       name  = "karpenops.apiKey"
@@ -283,7 +283,7 @@ The following table lists required configuration parameters for the KarpenOps an
 Parameter | Description | Default
 --------- | ----------- | -------
 `datadog.apiKey` | Datadog API Key. | `-`
-`containerInsights.enabled` | Wheter to install Container Insights agent or not. | `false`
+`containerInsights.enabled` | Wheter to install Container Insights agent or not. | `true`
 `containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
 `containerInsights.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
 `karpenops.enabled` | Wheter to install KarpenOps agent or not. | `false`
@@ -296,11 +296,11 @@ The following table lists the optional configuration parameters for the KarpenOp
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `global.nodeSelector` | Node Selector labels to use for Prometheus deployment and Container Insights cronjobs. | `{}` |
+| `global.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 | `containerInsights.debug` | Debug mode. | `false` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `karpenops.karpenops.image.tag` | Image tag for KarpenOps agent. | `latest`
-| `karpenops.karpenops.autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used by KarpenOps agent and use the latest release from https://gallery.ecr.aws/nops/karpenops . | `true`
+| `karpenops.karpenops.autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used by KarpenOps agent and use the latest release from [here](https://gallery.ecr.aws/nops/karpenops). | `true`
 | `karpenops.karpenops.autoUpdater.schedule` | Cron schedule to run the Autoupdater, default is every Monday at 12:00 AM. | `0 0 * * 1`
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
@@ -315,9 +315,9 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|
-| 50 - 100       | 2Gi                 | 4Gi                  |
-| 200 - 500      | 4Gi                 | 8Gi                  |
-| 500 - 1000     | 4Gi                 | 12Gi                 |
+| 50 - 100       | 2Gi                 | 8Gi                  |
+| 200 - 500      | 4Gi                 | 12Gi                  |
+| 500 - 1000     | 4Gi                 | 16Gi                 |
 
 
 ## Frequently Asked Questions

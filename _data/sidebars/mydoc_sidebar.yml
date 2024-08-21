@@ -64,7 +64,7 @@ entries:
           url: /onboarding-aws-linked-accounts.html
           output: web
 
-        - title: Linked Accounts With Terrform
+        - title: Linked Accounts With Terraform
           url: /onboarding-aws-with-terraform.html
           output: web
 
@@ -150,9 +150,9 @@ entries:
           url: /copilot-eks-onboarding.html
           output: web
 
-        - title: Onboarding EKS with Cluster Autoscaler
-          url: /copilot-eks-cas-guide.html
-          output: web       
+#        - title: Onboarding EKS with Cluster Autoscaler
+#          url: /copilot-eks-cas-guide.html
+#          output: web       
 
         - title: Managing Karpenter Configurations With nOps IaC support
           url: /Managing-Karpenter-Configurations-With-nOps-IaC-support.html

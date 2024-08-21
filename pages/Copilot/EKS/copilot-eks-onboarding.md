@@ -129,19 +129,23 @@ ii. Manual Configuration
 
    -  Check Use As Template (Optional, also a cluster may have at most 1 template)
 
-   -  Insert the YAML code and validate it.\
+   -  Insert the YAML code and validate it.
       Make sure you specify an unique name under metadata.name property for your resource and also add the correct reference to the desired NodeClass under spec.template.spec.nodeClassRef.
 
    -  Now select Create manually.
 
    ![](https://lh7-us.googleusercontent.com/83nIckfwgkYK8_biIC02LWkGEO00bGfxwcsckLCs74MompU2f2hl0FGGugk4CN3gBmg4FWn3SbyWoDP2QqVWgoceWr6UEeRknaJmftHKCQfAvlq9uoB4afQoxUNP1SOyYYSehRPS4mmAxldbXSqNoSo)
 
+### Use As Base ###
+By checking “Use As Base,” this signals the platform to prioritize On-Demand capacity and prevents underutilization of discount commitments.  You can read more about that [functionality here](/copilot-eks-karpenter-commitments.html).
 
-Once the Provisioner is created, the user can again Test Connectivity to confirm that the  EKS cluster is configured correctly.
+
+### Test Connectivity ###
+Once the Provisioner is created, the user can again Test Connectivity to confirm that the EKS cluster is configured correctly.
 
 ![](https://lh5.googleusercontent.com/1XtlFL95uQrrw0ZVXZqXixK67rP3TkHd6C7nC6t-1_yoCHhtRtk72cWk1axUaY1O4jCptHt_fU65qUun0wB2UGS7QdWhUwdvZ50_YCpPCAuRGZ9Ccvr6UJVYk1Onca79LysK6gudT4WA8Tj2SV5NL4c)
 
-     
+
 
 As soon as cluster status displays **Configured**, Compute Copilot for EKS will start its magic to generate savings on the connected EKS cluster. 
 

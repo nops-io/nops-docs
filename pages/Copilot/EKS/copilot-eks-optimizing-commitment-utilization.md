@@ -9,11 +9,11 @@ series: [Copilot]
 weight: 1.0
 ---
 
-### About Commitment Optimization
+## About Commitment Optimization
 
 Commitment optimization is a feature of Compute Copilot for Karpenter, which allows it to effectively optimize utilization of pre-purchased commitments, such as Reserved Instances or Savings Plans, across an organization. In order to enable it on onboarded clusters, one of the NodePools for each cluster has to be marked as a template. This can be done by selecting the ‘Use as template’ option during or after creation of the NodePool.
 
-### Input data 
+## Input data 
 
 nOps continuously monitors usage, Compute Savings Plans, Savings Plans and Reserved Instances across all configured accounts of an organization. We run hourly metadata ingest jobs and build a point-in-time representation of usage and commitment utilization in an organization. This allows us to find cases of commitment underutilization and overutilization. Underutilization happens when more commitments are purchased than used. Overutilization is the opposite case and is a potential candidate for divestment to Spot.
 

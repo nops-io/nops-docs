@@ -60,9 +60,9 @@ entries:
         #   url: /onboarding-aws-with-manual-setup.html
         #   output: web
 
-        - title: Linked Accounts
-          url: /onboarding-aws-linked-accounts.html
-          output: web
+#        - title: Linked Accounts
+#          url: /onboarding-aws-linked-accounts.html
+#          output: web
 
         - title: Linked Accounts With Terraform
           url: /onboarding-aws-with-terraform.html

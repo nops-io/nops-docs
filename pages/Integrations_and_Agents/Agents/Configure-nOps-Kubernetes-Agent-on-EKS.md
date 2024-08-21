@@ -149,7 +149,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   chart               = "kubernetes-agent"
   version             = "0.0.64" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
 
-  # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
+  # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
   #  name = "global.nodeSelector.karpenter\\.sh/capacity-type"
   #  value = "on-demand"
@@ -235,7 +235,7 @@ module "eks_blueprints_addon" {
   namespace           = "nops"
   create_namespace    = true
   set = [
-    # Example to place Prometheus deployment and nOps cronjobs in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
+    # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
     #{
     #  name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
     #  value = "on-demand"
@@ -315,9 +315,9 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|
-| 50 - 100       | 2Gi                 | 8Gi                  |
-| 200 - 500      | 4Gi                 | 12Gi                  |
-| 500 - 1000     | 4Gi                 | 16Gi                 |
+| 100 - 500      | 2Gi                 | 8Gi                  |
+| 500 - 1000     | 4Gi                 | 12Gi                 |
+| 1000 or more   | 4Gi                 | 16Gi                 |
 
 
 ## Frequently Asked Questions

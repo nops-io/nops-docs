@@ -1,3 +1,5 @@
+<!--
+
 ---
 title: Onboarding your EKS clusters to Copilot for EKS Cluster Autoscaler
 keywords: savings, recommendations, sharesave, nks, karpenter, compute copilot
@@ -127,3 +129,5 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
 
 
 {% include custom/series_related.html %}
+
+-->

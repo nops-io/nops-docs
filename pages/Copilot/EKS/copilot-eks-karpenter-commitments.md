@@ -1,3 +1,4 @@
+<!--
 ---
 title: Compute Copilot for EKS - Karpenter with Commitments
 keywords: savings, recommendations, karpenter, compute copilot, commitments
@@ -56,3 +57,5 @@ Here’s an example of how you can monitor your instances via the nOps Visibilit
 
 In the below picture you can find one On-Demand instance launched by the Auto-Created NodePool.
     ![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXerFmXjikFrcVgCxQHlyFzI1EeTWwwXSzcf6Khyk2RkeyCNWx3_8xaV-0WpiezbJRnAd3748o6jMi73_FkAyldry-LVLTJbfPB5jlq64GotMZBroGxnpjyOMJbOZvJJ9GhBpZ71pq76xdgrEsTwdVxekr_W?key=RYEeNWmiHRSBCVEVTH-zpA)
+
+-->

@@ -273,6 +273,9 @@ entries:
         - title: Migration nOps Kubernetes Agent for Container Insights
           url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
           output: web
+        - title: Support for External Secrets Operator
+          url: /Support-for-External-Secrets-Operator.html
+          output: web
 
       - title: Integrations
         output: web

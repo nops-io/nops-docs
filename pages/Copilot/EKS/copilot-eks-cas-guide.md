@@ -1,5 +1,3 @@
-
-
 ---
 title: Onboarding your EKS clusters to Copilot for EKS Cluster Autoscaler
 keywords: savings, recommendations, sharesave, nks, karpenter, compute copilot
@@ -81,10 +79,9 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
 
 ![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c.gif)
 
-# **** What to Expect After Configuring your Cluster ****
+# What to Expect After Configuring your Cluster
 
 Compute Copilot will start running your workloads in Spot Instances. You can navigate to the clusters's dashboard and check the instances being launched by Compute Copilot.
     
 
 {% include custom/series_related.html %}
-

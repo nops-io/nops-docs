@@ -147,7 +147,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.65" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  version             = "0.0.65" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -226,7 +226,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.65" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/container-insights
+  chart_version       = "0.0.65" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -300,17 +300,40 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `externalSecrets.enabled` | External Secrets integration, more info [here](https://help.nops.io/Support-for-External-Secrets-Operator.html). | `false` |
 | `externalSecrets.secretStoreRef.name` | Name of the ClusterSecretStore. | `-` |
 | `externalSecrets.data.apiKeys.remoteRef.key` | Name of the secret in AWS Secrets Manager. | `-` |
+| `autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used for each component (Opencost, Prometheus, Kube State Metrics, Node Exporter, nOps Container Insights, KarpenOps, Datadog, etc.) | `true` |
+| `autoUpdater.schedule` | Cron schedule to run the Autoupdater, default is every Monday at 12:00 AM. | `0 0 * * 1` |
+| `autoUpdater.repository` | Repository for the AutoUpdater container image | `public.ecr.aws/nops/alpine/k8s` |
+| `autoUpdater.imageTag` | Image tag for the autoUpdater container image | `1.30.4` |
+| `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
+| `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |
 | `containerInsights.debug` | Debug mode. | `false` |
+| `containerInsights.repository` | Repository for the nOps Container Insights Agent container image | `public.ecr.aws/nops/container-insights-agent` |
+| `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.1` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
-| `karpenops.karpenops.image.tag` | Image tag for KarpenOps agent. | `1.23.2`
-| `karpenops.karpenops.autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used by KarpenOps agent and use the latest release from [here](https://gallery.ecr.aws/nops/karpenops). | `true`
-| `karpenops.karpenops.autoUpdater.schedule` | Cron schedule to run the Autoupdater, default is every Monday at 12:00 AM. | `0 0 * * 1`
+| `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
+| `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |
+| `opencost.opencost.exporter.image.tag` | Image tag for the Opencost Exporter container image | `1.111.0` |
+| `karpenops.image.repository` | Repository for the KarpenOps Agent container image | `public.ecr.aws/nops/karpenops` |
+| `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
+| `dcgmExporter.image.repository` | Repository for the DCGM Exporter container image | `public.ecr.aws/nops/nvidia/dcgm-exporter` |
+| `dcgmExporter.image.tag` | Image tag for the DCGM Exporter container image | `3.3.6-3.4.2-ubuntu22.04` |
+| `prometheus.deleteLogFile.repository` | Repository for the Busybox container image | `public.ecr.aws/docker/library/busybox` |
+| `prometheus.deleteLogFile.imageTag` | Image tag for the Busybox container image | `1.36.1` |
+| `prometheus.configmapReload.prometheus.image.repository` | Repository for the Prometheus Config Reloader container image | `public.ecr.aws/nops/prom/config-reloader` |
+| `prometheus.configmapReload.prometheus.image.tag` | Image tag for the Prometheus Config Reloader container image | `v0.76.0` |
+| `prometheus.kubeStateMetrics.image.registry` | Registry for the Kube State Metrics container image | `public.ecr.aws` |
+| `prometheus.kubeStateMetrics.image.repository` | Repository for the Kube State Metrics container image | `nops/kube-state-metrics` |
+| `prometheus.kubeStateMetrics.image.tag` | Image tag for the Kube State Metrics container image | `2.13.0` |
+| `prometheus.nodeExporter.image.registry` | Registry for the Node Exporter container image | `public.ecr.aws` |
+| `prometheus.nodeExporter.image.repository` | Repository for the Node Exporter container image | `nops/prom/node-exporter` |
+| `prometheus.nodeExporter.image.tag` | Image tag for the Node Exporter container image | `v1.8.2` |
+| `prometheus.server.image.repository` | Repository for the Prometheus Server container image | `public.ecr.aws/nops/prom/prometheus` |
+| `prometheus.server.image.tag` | Image tag for the Prometheus Server container image | `v2.54.0` |
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |
 | `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m` |
-| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `4Gi` |
-
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `8Gi` |
 
 #### Prometheus Resources
 

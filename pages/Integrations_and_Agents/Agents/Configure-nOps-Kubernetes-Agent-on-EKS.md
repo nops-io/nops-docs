@@ -164,7 +164,12 @@ resource "helm_release" "nops_kubernetes_agent" {
     name  = "containerInsights.enabled"
     value = "true" # Set it to true to install container insights agent to gain cost visibility in your EKS cluster
   }
-  
+
+  set {
+    name  = "containerInsights.imageTag"
+    value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+  }
+
   set {
     name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
     value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
@@ -249,6 +254,10 @@ module "eks_blueprints_addon" {
       value = "true" # Set it to true to install container insights agent to gain cost visibility in your EKS cluster
     },
     {
+      name  = "containerInsights.imageTag"
+      value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+    },
+    {
       name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
       value = "<your_eks_cluster_arn>" # Get it from the nOps kubernetes agent onboarding process
     },
@@ -300,9 +309,6 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `externalSecrets.enabled` | External Secrets integration, more info [here](https://help.nops.io/Support-for-External-Secrets-Operator.html). | `false` |
 | `externalSecrets.secretStoreRef.name` | Name of the ClusterSecretStore. | `-` |
 | `externalSecrets.data.apiKeys.remoteRef.key` | Name of the secret in AWS Secrets Manager. | `-` |
-| `autoUpdater.enabled` | Wether to enable the Autoupdater CronJob to update the image used for each component (Opencost, Prometheus, Kube State Metrics, Node Exporter, nOps Container Insights, KarpenOps, Datadog, etc.) | `true` |
-| `autoUpdater.schedule` | Cron schedule to run the Autoupdater, default is every Monday at 12:00 AM. | `0 0 * * 1` |
-| `autoUpdater.repository` | Repository for the AutoUpdater container image | `public.ecr.aws/nops/alpine/k8s` |
 | `autoUpdater.imageTag` | Image tag for the autoUpdater container image | `1.30.4` |
 | `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |

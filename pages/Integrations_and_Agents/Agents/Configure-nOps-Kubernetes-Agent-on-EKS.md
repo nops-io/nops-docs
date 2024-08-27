@@ -151,7 +151,7 @@ resource "helm_release" "nops_kubernetes_agent" {
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
-  #  name = "global.nodeSelector.karpenter\\.sh/capacity-type"
+  #  name = "prometheus.server.nodeSelector.karpenter\\.sh/capacity-type"
   #  value = "on-demand"
   #}
   
@@ -242,7 +242,7 @@ module "eks_blueprints_addon" {
   set = [
     # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type)  
     #{
-    #  name  = "global.nodeSelector.karpenter\\.sh/capacity-type"
+    #  name  = "prometheus.server.nodeSelector.karpenter\\.sh/capacity-type"
     #  value = "on-demand"
     #},
     {
@@ -305,7 +305,6 @@ The following table lists the optional configuration parameters for the KarpenOp
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `global.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 | `externalSecrets.enabled` | External Secrets integration, more info [here](https://help.nops.io/Support-for-External-Secrets-Operator.html). | `false` |
 | `externalSecrets.secretStoreRef.name` | Name of the ClusterSecretStore. | `-` |
 | `externalSecrets.data.apiKeys.remoteRef.key` | Name of the secret in AWS Secrets Manager. | `-` |
@@ -340,6 +339,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |
 | `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m` |
 | `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `8Gi` |
+| `prometheus.server.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 
 #### Prometheus Resources
 

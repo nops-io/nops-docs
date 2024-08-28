@@ -150,9 +150,9 @@ entries:
           url: /copilot-eks-onboarding.html
           output: web
 
-#        - title: Onboarding EKS with Cluster Autoscaler
-#          url: /copilot-eks-cas-guide.html
-#          output: web       
+        - title: Onboarding EKS with Cluster Autoscaler
+          url: /copilot-eks-cas-guide.html
+          output: web       
 
         - title: Managing Karpenter Configurations With nOps IaC support
           url: /Managing-Karpenter-Configurations-With-nOps-IaC-support.html

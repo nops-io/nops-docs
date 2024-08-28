@@ -147,7 +147,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.66" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.0.67" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -231,7 +231,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.66" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.0.67" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -322,6 +322,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
 | `dcgmExporter.image.repository` | Repository for the DCGM Exporter container image | `public.ecr.aws/nops/nvidia/dcgm-exporter` |
 | `dcgmExporter.image.tag` | Image tag for the DCGM Exporter container image | `3.3.6-3.4.2-ubuntu22.04` |
+| `prometheus.ipv6_enabled` | Wether IPv6 is configured for the EKS cluster | `false` |
 | `prometheus.deleteLogFile.repository` | Repository for the Busybox container image | `public.ecr.aws/docker/library/busybox` |
 | `prometheus.deleteLogFile.imageTag` | Image tag for the Busybox container image | `1.36.1` |
 | `prometheus.configmapReload.prometheus.image.repository` | Repository for the Prometheus Config Reloader container image | `public.ecr.aws/nops/prom/config-reloader` |

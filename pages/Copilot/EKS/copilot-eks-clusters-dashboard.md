@@ -149,3 +149,5 @@ To set up your EKS clusters, follow the guides below based on your preferred too
 * [Configure Compute Copilot for Cluster Autoscaler](https://help.nops.io/copilot-eks-cas-guide.html): Instructions for setting up Compute Copilot with Cluster Autoscaler.
 
 Ensure you have Karpenter or Cluster Autoscaler configured as prerequisites before following these guides.
+
+{% include custom/series_related.html %}

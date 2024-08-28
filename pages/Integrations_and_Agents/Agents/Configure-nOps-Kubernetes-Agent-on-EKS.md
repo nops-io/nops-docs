@@ -322,6 +322,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
 | `dcgmExporter.image.repository` | Repository for the DCGM Exporter container image | `public.ecr.aws/nops/nvidia/dcgm-exporter` |
 | `dcgmExporter.image.tag` | Image tag for the DCGM Exporter container image | `3.3.6-3.4.2-ubuntu22.04` |
+| `prometheus.ipv6_enabled` | Wether IPv6 is configured for the EKS cluster | `false` |
 | `prometheus.deleteLogFile.repository` | Repository for the Busybox container image | `public.ecr.aws/docker/library/busybox` |
 | `prometheus.deleteLogFile.imageTag` | Image tag for the Busybox container image | `1.36.1` |
 | `prometheus.configmapReload.prometheus.image.repository` | Repository for the Prometheus Config Reloader container image | `public.ecr.aws/nops/prom/config-reloader` |

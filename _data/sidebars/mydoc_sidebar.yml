@@ -150,9 +150,9 @@ entries:
           url: /copilot-eks-onboarding.html
           output: web
 
-#        - title: Onboarding EKS with Cluster Autoscaler
-#          url: /copilot-eks-cas-guide.html
-#          output: web       
+        - title: Onboarding EKS with Cluster Autoscaler
+          url: /copilot-eks-cas-guide.html
+          output: web       
 
         - title: Managing Karpenter Configurations With nOps IaC support
           url: /Managing-Karpenter-Configurations-With-nOps-IaC-support.html
@@ -272,6 +272,9 @@ entries:
           output: web
         - title: Migration nOps Kubernetes Agent for Container Insights
           url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
+          output: web
+        - title: Support for External Secrets Operator
+          url: /Support-for-External-Secrets-Operator.html
           output: web
 
       - title: Integrations

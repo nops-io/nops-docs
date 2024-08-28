@@ -310,6 +310,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `externalSecrets.data.apiKeys.remoteRef.key` | Name of the secret in AWS Secrets Manager. | `-` |
 | `autoUpdater.enabled` | Wether to enable the Auto Update CronJob that updates the latest image tag for KarpenOps, Container Insights and Opencost kubernetes resources, defaults to true | `true` |
 | `autoUpdater.schedule` | Schedule to run the Auto Update CronJob, defaults to run every Monday at 12:00 AM | `0 0 * * 1` |
+| `autoUpdater.repository` | Repository for the Auto Update container image | `public.ecr.aws/nops/alpine/k8s` |
 | `autoUpdater.imageTag` | Image tag for the autoUpdater container image | `1.30.4` |
 | `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |

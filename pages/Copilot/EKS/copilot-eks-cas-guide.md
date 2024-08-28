@@ -81,7 +81,6 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
 
 # What to Expect After Configuring your Cluster
 
-Compute Copilot will start running your workloads in Spot Instances. You can navigate to the clusters's dashboard and check the instances being launched by Compute Copilot.
-    
+Compute Copilot will start running your workloads on Spot Instances. You can navigate to the cluster's dashboard to view the instances being launched by Compute Copilot.
 
 {% include custom/series_related.html %}

@@ -110,6 +110,8 @@ The Cost Over Time chart visualizes the cost trends for your EKS clusters with t
 
 ### Cluster List Table ###
 
+{%include note.html content=" The table is updated by a background job that runs every 3 hours. Therefore, newly created clusters or updates to existing clusters (such as EKS version changes) may not appear immediately. You might need to wait up to 3 hours for these changes to be reflected in the table."%}
+
 ![copilot-eks-list-of-clusters.png](/tmpimg/copilot-eks-list-of-clusters.png)
 
 The Cluster List Table provides a comprehensive overview of your EKS clusters, displaying key information and metrics to help you manage and monitor your clusters efficiently. The table includes the following columns:

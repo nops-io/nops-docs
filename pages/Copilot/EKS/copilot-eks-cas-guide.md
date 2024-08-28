@@ -62,6 +62,10 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
     - Open Configure Modal. The details section of Auto Scaling Group will be prefilled. 
     - The AWS Lambda configuration section will show the version detail and current status of the Lambda Stack to confirm it is properly configured on the AWS account.
     - You can create or choose an existing ASG template in the Spot detail section.
+
+
+{%include note.html content="Unlike Compute Copilot for Karpenter, Compute Copilot for Cluster Autoscaler does not require an agent. The Helm command for installing an agent, which you can find in the configuration tab for clusters using the Cluster Autoscaler, is for installing the BC+ agent required for container utilization metrics and rightsizing."%}
+
 6. Create an ASG Template:
     - Give the ASG template a unique name.
     - Select the CPU architecture based on the AMIs of the ASG you are going to attach the template to.
@@ -75,12 +79,14 @@ For instrunctions on how to install Compute Copilot Lambda, please, refer to [th
     - **Max Spot Instances** defines the maximum number of Spot instances to be created by Compute Copilot.
 9. Select **Fully Mananged ASG**.
     - Compute Copilot for Cluster Autoscaler only works when **Fully Mananged ASG** is selected.
-10. Click **Configured** and repeat these steps for all ASGs in the cluster.
+10. Click **Configure** and repeat these steps for all ASGs in the cluster.
 
-![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c.gif)
+![onboarding-ca.gif](/tmpimg/onboarding-ca.gif)
 
 # What to Expect After Configuring your Cluster
 
 Compute Copilot will start running your workloads on Spot Instances. You can navigate to the cluster's dashboard to view the instances being launched by Compute Copilot.
+
+![dashboard-ca.gif](/tmpimg/dashboard-ca.gif)
 
 {% include custom/series_related.html %}

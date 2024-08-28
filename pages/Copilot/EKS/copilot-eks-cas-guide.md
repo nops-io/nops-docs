@@ -1,5 +1,3 @@
-<!--
-
 ---
 title: Onboarding your EKS clusters to Copilot for EKS Cluster Autoscaler
 keywords: savings, recommendations, sharesave, nks, karpenter, compute copilot
@@ -20,17 +18,24 @@ Compute Copilot is a powerful service designed to automatically optimize compute
 
 *Cluster Autoscaler* is a key feature that dynamically adjusts the number of nodes in a node group within an EKS cluster to accommodate changes in resource requirements for pods. When a scaling decision is made, Cluster Autoscaler communicates with the associated Auto Scaling Group (ASG) to adjust the **`DesiredCapacity`**, prompting the ASG to automatically scale the cluster nodes.
 
-Here's how it works:
+Compute Copilot for Cluster Autoscaler fully manages the ASGs that belong to your cluster for additional savings and reliability. Here’s how it works:
 
-1. **Scaling Operation:** Cluster Autoscaler triggers a scaling operation by adjusting the **`DesiredCapacity`** of the ASG.
-2. **Compute Copilot Lambda Activation:** Whenever the ASG launches a new on-demand instance (e.g., in response to a desired capacity change), the Compute Copilot Lambda is activated.
-3. **Spot Instance Launch:** The Compute Copilot Lambda responds by automatically launching a Spot instance configured to mirror the settings of the on-demand instance.
-4. **Attachment to ASG:** The Spot instance is seamlessly attached to the ASG, confirming its serviceability.
-5. **On-Demand Instance Removal:** Simultaneously, the Compute Copilot Lambda removes the corresponding on-demand instance, completing the migration process.
+![](/tmpimg/managed_asg_diagram.png)
 
-Moreover, when Compute Copilot Lambda needs to replace an on-demand instance associated with an EKS Cluster, it communicates with the Compute Copilot Agent running in the cluster. This ensures a graceful removal of pods from the node before termination, preserving the integrity of your EKS environment.
+- ASGs managed by Copilot are now converted to Mixed Instances Policy (MIP) ASGs, allowing nOps Compute Copilot to define Spot Instance Types this ASG can launch.
+- Compute Copilot Lambda keeps Managed ASG MIP in sync with the latest Spot Market recommendations by nOps, taking into account your Reserved Instances data. As a result, during scale-out events, Copilot-Managed ASG launches a Spot instance that is cheaper than the On Demand instance this ASG was launching before configuring it to Compute Copilot.
+- If there are OnDemand instances available for Spot migration running, or there are Spot instances that are at risk of interruption, Compute Copilot Lambda initiates an Instance Refresh to bring the ASG to the state approved by nOps Spot Market recommendations.
 
 By combining the automation capabilities of Cluster Autoscaler with the intelligent instance management of Compute Copilot, this solution offers a seamless and cost-effective approach to optimizing AWS EKS workloads and reduce costs.
+
+# Why Use Copilot to Manage EKS ASGs
+
+- Compute Copilot uses AI-driven decision making to provision and run auto scaling group instances at the cheapest price in real time, without manual effort.
+- Compute Copilot allows you to benefit from Spot savings with the same reliability as on-demand. By analyzing historical data and Spot Termination events, it ensures your critical workloads remain safe from interruption. 
+- Compute Copilot does not require your workload to be transferred to a proprietary system, but works directly with AWS ASG.
+- By utilizing an ASG Mixed Instance Policy, instances are typically not replaced after they are launched, reducing the amount of unnecessary noise your Application experiences.
+- Since Compute Copilot for Cluster Autoscaler integrates directly with AWS Instance Refresh and MIP, it supports complicated use cases like **AWS CodeDeploy** and any other **Life Cycle Hook** specific cases.
+- Setting a strict MaxSpotPrice setting within the ASG MIP ensures the price of Managed Spot is always cheaper than the OnDemand that was initially defined, even if Spot Market Prices are changing frequently.
 
 # Prerequisites
 
@@ -48,86 +53,40 @@ The EKS Dashboard distinguishes clusters utilizing Cluster Autoscaler by represe
 
 For instrunctions on how to install Compute Copilot Lambda, please, refer to [the Compute Copilot for Auto Scaling Groups (ASG) documentation](https://help.nops.io/copilot-asg-onboarding.html?#prerequisites).
 
-## Install Compute Copilot Agent
+## Configure ASGs associated with the Cluster
 
 1. Navigate to Compute Copilot → EKS from the nOps dashboard.
 2. Choose the EKS cluster you want to cost-optimize.
-3. Open detail view by clicking on →.
-4. Generate a new API key for nOps Agent.
-5. Copy the custom command and run it in your command line.
-6. Test Connectivity of Compute Copilot Agent in the Compute Copilot for EKS Dashboard.
-
-    ![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c.gif)
-
-## Configure ASGs associated with the Cluster
-
-1. Navigate to the EKS Dashboard and select an EKS cluster that uses Cluster Autoscaler.
-    - Open Configure Model of the ASG you want to configure. The details section of Auto Scaling Group will be prefilled.
+3. Navigate to the Cluster Configuration TAB.
+5. Select the ASG you want to configure:
+    - Open Configure Modal. The details section of Auto Scaling Group will be prefilled. 
     - The AWS Lambda configuration section will show the version detail and current status of the Lambda Stack to confirm it is properly configured on the AWS account.
     - You can create or choose an existing ASG template in the Spot detail section.
-2. Create an ASG Template.
-    - Give the ASG template a unique name
-    - Choose the instance families, vCPU, and Memory suitable for your workload. From this pool, Compute Copilot will select the most optimal choice for price and stability.
-    - It is recommended to select as many instance families as possible, to provide Compute Copilot with a wider recommendations pool.
-
-    ![ezgif-2-c7f3b8d28c.gif](/tmpimg/ezgif-2-c7f3b8d28c%201.gif)
 
 
-## FAQ
+{%include note.html content="Unlike Compute Copilot for Karpenter, Compute Copilot for Cluster Autoscaler does not require an agent. The Helm command for installing an agent, which you can find in the configuration tab for clusters using the Cluster Autoscaler, is for installing the BC+ agent required for container utilization metrics and rightsizing."%}
 
+6. Create an ASG Template:
+    - Give the ASG template a unique name.
+    - Select the CPU architecture based on the AMIs of the ASG you are going to attach the template to.
+    - By default Dynamic min VCpuCount & MemoryMiB is checked, setting the minimum vCPU and RAM requirements based on the size of the On-Demand EC2 instance being replaced.You can disable this option and set the CPU or Memory suitable for your workload from the Instance Requirements list.
+    - You can also directly choose instance families. Compute Copilot will select the most optimal choice for price and stability out of the provided options.
+    - Now click **Create**
+7. (Optional) Set the **Minimum Number of On-demand Instances**
+**Minimum Number of On-Demand Instances** defines the number of On-Demand instances that should be left in the ASG and not replaced with Spot. ASG Lambda won’t do any On-Demand to Spot replacement if it has fewerf On-Demands instances than specified in this config setting.
+8. (Optional) Set the **Spot percentage** and **Max Spot Instances** using the draggable bars.
+    - **Spot percentage** defines the desired percentage of spot instances.
+    - **Max Spot Instances** defines the maximum number of Spot instances to be created by Compute Copilot.
+9. Select **Fully Mananged ASG**.
+    - Compute Copilot for Cluster Autoscaler only works when **Fully Mananged ASG** is selected.
+10. Click **Configure** and repeat these steps for all ASGs in the cluster.
 
-1. **How does Compute Copilot for CA replace on-demand instances?**
+![onboarding-ca.gif](/tmpimg/onboarding-ca.gif)
 
-    ![compute-copilot-for-ca-architecture-diagram.png](/tmpimg/compute-copilot-for-ca-architecture-diagram.png)
+# What to Expect After Configuring your Cluster
 
-    As you can see in the above diagram, Compute Copilot for Cluster Autoscaler consists of two main components: the Compute Copilot Lambda and the Compute Copilot Agent.
+Compute Copilot will start running your workloads on Spot Instances. You can navigate to the cluster's dashboard to view the instances being launched by Compute Copilot.
 
-    Both the CC Agent and CC Lambda are installed in the user’s cloud. The agent runs in the EKS cluster. Therefore, a user with 10 clusters would have 10 agents running. However, only one Lambda is required, regardless of the number of clusters, AWS regions, or AWS accounts.
-
-
-2. **What are the responsibilities of the Compute Copilot Lambda?**
-
-    The Compute Copilot Lambda is the brain of our solution for Cluster Autoscaler. As the diagram illustrates, the Lambda is triggered when an instance is launched by the ASG. Its main responsibilities are to:
-
-    1. Validate whether an instance can or should be replaced.
-    2. Launch the new Spot instance.
-    3. Attach the new Spot instance to the ASG/cluster.
-    4. Communicate with the Compute Copilot Agent when an instance needs to be drained, marked as unschedulable (cordon), or marked as schedulable (uncordon).
-    5. Revert changes when something fails to keep the cluster stable.
-
-3. **What are the responsibilities of the Compute Copilot Agent?**
-
-    The agent is responsible for all necessary communications with the Kubernetes API. When the Lambda needs to drain, cordon, or uncordon a node, it communicates with the agent to trigger these operations. Therefore, the agent does not perform any action in the EKS cluster without being triggered by the Lambda.
-
-4. **How does the Lambda know if an instance should be replaced by Spot?**
-
-    The Lambda should try to replace an instance only if:
-
-        1. The Auto Scaling Group (ASG) is configured in the nOps UI.
-        2. The instance was not launched by nOps.
-        3. The instance is not covered by Compute Plans that cannot be freed up.
-        4. The instance is not covered by a Reserved Instance or Savings Plan.
-
-5. **How does the Lambda know if it’s safe to replace an instance with Spot?**
-
-    Once the instance passes the initial validations and is marked as unschedulable, there are more validations to ensure that it is safe to replace the instance. 
-
-    It's safe to replace an instance with a Spot instance only if:
-
-        1. Replacing the instance will not exceed the configured Spot percent threshold.
-        2. The instance is not protected from termination.
-        3. The instance is active (InService, Pending, Pending:Proceed or Pending:Wait)
-        4. The instance is not protected from Scale-In.
-        5. The Auto Scaling Group does not have Weighted Capacity.
-        6. The Auto Scaling Groups have not had any rebalancing in the past 10 minutes.
-        7. A reliable Spot option is found.
-
-6. **What does it mean to Lock the ASG and Suspend Processes?**
-
-    1. **Lock the ASG:** In order to maintain the stability of the cluster, we avoid replacing instances within the same Auto Scaling Group (ASG) or Amazon EKS cluster simultaneously. This is why the Lambda function 'locks' the ASG, ensuring that concurrent Lambda executions do not attempt to replace instances simultaneously. Therefore, if the Lambda is triggered while the ASG or the cluster is already locked, the Lambda completes its execution without replacing the instance. Additionally, the lock is always released before the Lambda execution is complete, regardless of errors or successful replacements.
-    2. **Suspend Processes:** The Lambda needs to ensure that AWS won’t make changes to the ASG while an instance is being replaced. That’s why the Lambda makes a request to [the suspend processes API](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/suspend_processes.html) to suspend the following processes: Terminate and AZRebalance. Additionally, the processes are resumed before the Lambda execution is complete, regardless of errors or successful replacements.
-
+![dashboard-ca.gif](/tmpimg/dashboard-ca.gif)
 
 {% include custom/series_related.html %}
-
--->

@@ -357,6 +357,7 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 
 
 ## Frequently Asked Questions
+
 1. **Will the agent installation affect my existing Prometheus setup?**
     **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, as well running Node Exporter using a different port than the default one (9100) ensuring that it does not interfere with your current Prometheus deployment and Node exporter daemonset.
 2. **How can I remove the agent?**

@@ -146,6 +146,10 @@ entries:
         output: web
         subfolderitems:
 
+        - title: EKS Insights Dashboard
+          url: /copilot-eks-clusters-dashboard.html
+          output: web
+
         - title: Onboarding EKS with Karpenter
           url: /copilot-eks-onboarding.html
           output: web

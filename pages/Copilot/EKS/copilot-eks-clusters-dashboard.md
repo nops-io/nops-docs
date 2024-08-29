@@ -1,5 +1,5 @@
 ---
-title: Get insights and metrics for all your EKS clusters on the EKS Clusters page in Compute Copilot.
+title: EKS Insights Dashboard
 keywords: savings, recommendations, sharesave, eks, karpenter, cluster autoscaler, compute copilot, container utilization, container rightsizing
 tags: [copilot, eks]
 sidebar: mydoc_sidebar
@@ -12,7 +12,7 @@ weight: 1.0
 
 # Getting Started with Compute Copilot's EKS Page: Metrics & Management
 
-The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps for Compute Copilot and Business Context+ (BC+), view container utilization metrics, and access rightsizing recommendations. This documentation will guide you through how to use the EKS page.
+Get insights and metrics for all your EKS clusters on the EKS Clusters page in Compute Copilot to understand your cluster efficiency.  The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps for Compute Copilot and Business Context+ (BC+), view container utilization metrics, and access rightsizing recommendations. This documentation will guide you through how to use the EKS page.
 
 ## What is Compute Copilot?
 

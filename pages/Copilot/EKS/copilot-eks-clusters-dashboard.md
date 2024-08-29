@@ -12,13 +12,17 @@ weight: 1.0
 
 # Getting Started with Compute Copilot's EKS Page: Metrics & Management
 
-The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps, view container utilization metrics, and access rightsizing recommendations. In this documentation, you'll learn how to use the EKS page.
+The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps for Compute Copilot and Business Context+ (BC+), view container utilization metrics, and access rightsizing recommendations. This documentation will guide you through how to use the EKS page.
 
 ## What is Compute Copilot?
 
 Compute Copilot is a powerful service designed to automatically optimize compute-based workloads, reducing costs on AWS EKS by intelligently migrating EC2 instances to Spot instances using machine learning algorithms.
 
 Learn more about how Compute Copilot for EKS can help you to put your EKS cost optimization on auto-pilot [here](https://www.nops.io/compute-copilot/).
+
+## What is Business Context+ (BC+)?
+
+BC+ helps you understand and allocate 100% of your AWS costs, from your largest resources down to individual container costs. Click [here](https://www.nops.io/blog/introducing-business-contexts/) to learn more about BC+."%
 
 ### How to Access the EKS Page for Compute Copilot?  ###
 
@@ -28,12 +32,11 @@ You can also see how to access the page in the screen recording below:
 
 ![copilot-eks-page.gif](/tmpimg/copilot-eks-page.gif)
 
-
 ### Metrics Available in the EKS Page ###
 
 As shown in the screen recording above, the EKS page features various cards and charts displaying key information about your EKS clusters. This page aggregates metrics across all your clusters that are correctly configured.
 
-{%include important.html content="Cost Breakdown, Cost Over Time, and Container Utilization metrics require Business Contexts+ (BC+). BC+ helps you understand and allocate 100% of your AWS costs, from your largest resources down to individual container costs. Click [here](https://www.nops.io/blog/introducing-business-contexts/) to learn more about BC+."%}
+{%include important.html content="Cost Breakdown, Cost Over Time, and Container Utilization metrics require [Business Contexts+ (BC+)](https://www.nops.io/blog/introducing-business-contexts/)."%}
 
 Here's an explanation of each card:
 

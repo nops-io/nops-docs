@@ -339,9 +339,9 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.image.repository` | Repository for the Prometheus Server container image | `public.ecr.aws/nops/prom/prometheus` |
 | `prometheus.server.image.tag` | Image tag for the Prometheus Server container image | `v2.54.0` |
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
-| `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
+| `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `1000m` |
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `4Gi` |
-| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1500m` |
+| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `3000m` |
 | `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `16Gi` |
 | `prometheus.server.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 

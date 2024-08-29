@@ -340,9 +340,9 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.image.tag` | Image tag for the Prometheus Server container image | `v2.54.0` |
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `500m` |
-| `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `2Gi` |
-| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1000m` |
-| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `8Gi` |
+| `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `4Gi` |
+| `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `1500m` |
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `16Gi` |
 | `prometheus.server.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 
 #### Prometheus Resources
@@ -351,9 +351,9 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|
-| 100 - 500      | 2Gi                 | 12Gi                  |
-| 500 - 1000     | 4Gi                 | 16Gi                 |
-| 1000 or more   | 4Gi                 | 24Gi                 |
+| 100 - 500      | 4Gi                 | 16Gi                  |
+| 500 - 1000     | 4Gi                 | 24Gi                 |
+| 1000 or more   | 4Gi                 | 32Gi                 |
 
 
 ## Frequently Asked Questions

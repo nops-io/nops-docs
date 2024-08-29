@@ -147,7 +147,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.67" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.0.68" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -231,7 +231,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.67" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.0.68" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -351,9 +351,9 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|
-| 100 - 500      | 2Gi                 | 8Gi                  |
-| 500 - 1000     | 4Gi                 | 12Gi                 |
-| 1000 or more   | 4Gi                 | 16Gi                 |
+| 100 - 500      | 2Gi                 | 12Gi                  |
+| 500 - 1000     | 4Gi                 | 16Gi                 |
+| 1000 or more   | 4Gi                 | 24Gi                 |
 
 
 ## Frequently Asked Questions

@@ -10,21 +10,21 @@ weight: 1.0
 ---
 
 
-# Getting Started with Compute Copilot's EKS Page: Metrics & Management
+# Getting Started with Compute Copilot's EKS Page: Metrics & Management #
 
 Get insights and metrics for all your EKS clusters on the EKS Clusters page in Compute Copilot to understand your cluster efficiency.  The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps for Compute Copilot and Business Context+ (BC+), view container utilization metrics, and access rightsizing recommendations. This documentation will guide you through how to use the EKS page.
 
-## What is Compute Copilot?
+## What is Compute Copilot? ##
 
 Compute Copilot is a powerful service designed to automatically optimize compute-based workloads, reducing costs on AWS EKS by intelligently migrating EC2 instances to Spot instances using machine learning algorithms.
 
 Learn more about how Compute Copilot for EKS can help you to put your EKS cost optimization on auto-pilot [here](https://www.nops.io/compute-copilot/).
 
-## What is Business Context+ (BC+)?
+## What is Business Context+ (BC+)? ##
 
 BC+ helps you understand and allocate 100% of your AWS costs, from your largest resources down to individual container costs. Click [here](https://www.nops.io/blog/introducing-business-contexts/) to learn more about BC+."%
 
-## How to Access the EKS Page for Compute Copilot?
+## How to Access the EKS Page for Compute Copilot? ##
 
 To access the EKS page, **navigate to Compute Copilot → EKS from the nOps dashboard**.
 
@@ -32,7 +32,7 @@ You can also see how to access the page in the screen recording below:
 
 ![copilot-eks-page.gif](/tmpimg/copilot-eks-page.gif)
 
-## Metrics Available in the EKS Page
+## Metrics Available in the EKS Page ##
 
 As shown in the screen recording above, the EKS page features various cards and charts displaying key information about your EKS clusters. This page aggregates metrics across all your clusters that are correctly configured.
 
@@ -40,7 +40,7 @@ As shown in the screen recording above, the EKS page features various cards and 
 
 Here's an explanation of each card:
 
-### **Cost Breakdown**
+### Cost Breakdown ###
 
 ![copilot-eks-cost-breakdown.png](/tmpimg/copilot-eks-cost-breakdown.png)
 
@@ -60,7 +60,7 @@ The Cost Breakdown chart on the EKS page provides a clear view of how costs are 
 
 * **Control Plane**: This section includes costs not classified under the above categories. It covers miscellaneous expenses related to the management and operation of your clusters.
 
-### **Number of Clusters**
+### Number of Clusters ###
 
 ![copilot-eks-number-of-clusters.png](/tmpimg/copilot-eks-number-of-clusters.png)
 
@@ -72,7 +72,7 @@ The Number of Clusters card on the EKS page provides an overview of your cluster
 * **Not Configured**: Represents clusters that have no configuration or agents installed. These clusters are not yet set up for monitoring or management.
 
 
-### **Container Utilization**
+### Container Utilization ###
 
 {%include note.html content="Container Utilization metrics are available only for clusters with the [BC+ agent](https://www.nops.io/blog/introducing-business-contexts/) installed."%}
 
@@ -84,7 +84,7 @@ The Container Utilization card on the EKS page provides an overview of how effic
 
 * **Memory Utilization**: A similar line graph for memory, showing the utilization percentage and excess. The blue line's length represents the memory utilization percentage. Hovering over the line shows requested memory, used memory, and excess memory.
 
-### **Compute Copilot Opportunities**
+### Compute Copilot Opportunities ###
 
 ![copilot-eks-opportunities.png](/tmpimg/copilot-eks-opportunities.png)
 
@@ -96,7 +96,7 @@ The Compute Copilot Opportunities card provides insights into potential cost sav
 
 * **Estimated 30 Days Net Savings**: Calculates the net savings by subtracting the estimated fees from the estimated savings. This figure represents the overall financial benefit you can expect after accounting for the costs of using Compute Copilot.
 
-### **Compute Copilot Realizations**
+### Compute Copilot Realizations ###
 
 ![copilot-eks-realizations.png](/tmpimg/copilot-eks-realizations.png)
 
@@ -108,7 +108,7 @@ The Compute Copilot Realizations card offers a summary of the actual financial i
 
 * **Effective 30 Days Net Savings**: Calculates the net savings by subtracting the effective fees from the effective savings. This net figure represents the actual financial benefit after accounting for the costs of using Compute Copilot, allowing you to see the true impact on your budget.
 
-### **Cost Over Time**
+### Cost Over Time ###
 
 {%include note.html content="The Cost Over Time Chart only considers clusters with the [BC+ agent](https://www.nops.io/blog/introducing-business-contexts/) installed."%}
 
@@ -116,7 +116,7 @@ The Compute Copilot Realizations card offers a summary of the actual financial i
 
 The Cost Over Time chart visualizes the cost trends for your EKS clusters with the BC+ agent installed. It provides a historical view of your cluster costs, allowing you to track how expenses change over time. This chart helps you identify cost patterns and make informed decisions to optimize your spending.
 
-## Cluster List Table
+## Cluster List Table ##
 
 {%include note.html content=" The table is updated by a background job that runs every 3 hours. Therefore, newly created clusters or updates to existing clusters (such as EKS version changes) may not appear immediately. You might need to wait up to 3 hours for these changes to be reflected in the table."%}
 
@@ -149,7 +149,7 @@ The Cluster List Table provides a comprehensive overview of your EKS clusters, d
 * **Action**: Contains a button that opens a modal for configuring the cluster. This allows users to view and modify the cluster's settings.
 
 
-## How to Configure Your Cluster
+## How to Configure Your Cluster ##
 
 To set up your EKS clusters, follow the guides below based on your preferred tool:
 

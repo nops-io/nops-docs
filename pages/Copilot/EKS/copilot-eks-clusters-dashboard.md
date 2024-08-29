@@ -12,8 +12,13 @@ weight: 1.0
 
 # Getting Started with Compute Copilot's EKS Page: Metrics & Management
 
-The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them, view container utilization metrics, and access rightsizing recommendations. In this documentation, you'll learn how to use the EKS page.
+The Compute Copilot's EKS page provides quick access to key metrics for all your EKS clusters. From this page, you can navigate to individual clusters to configure them on nOps, view container utilization metrics, and access rightsizing recommendations. In this documentation, you'll learn how to use the EKS page.
 
+## What is Compute Copilot?
+
+Compute Copilot is a powerful service designed to automatically optimize compute-based workloads, reducing costs on AWS EKS by intelligently migrating EC2 instances to Spot instances using machine learning algorithms.
+
+Learn more about how Compute Copilot for EKS can help you to put your EKS cost optimization on auto-pilot [here](https://www.nops.io/compute-copilot/).
 
 ### How to Access the EKS Page for Compute Copilot?  ###
 
@@ -58,7 +63,7 @@ The Cost Breakdown chart on the EKS page provides a clear view of how costs are 
 
 The Number of Clusters card on the EKS page provides an overview of your clusters and their configuration status. This card helps you quickly assess how many clusters you have and their current setup. Here’s a breakdown of what each status means:
 * **Configured**:
-    - **Fully**: Displays the number of clusters where all necessary agents and configurations are installed. For example, "Fully 5" indicates that 5 clusters have complete setup with all required agents and configurations.
+    - **Fully**: Displays the number of clusters where all necessary nOps agents and configurations are installed. For example, "Fully 5" indicates that 5 clusters have complete setup with all required agents and configurations on nOps Compute Copilot.
     - **BC+ Only**: Shows the number of clusters that have only the BC+ agent installed. For instance, "BC+ only 3" means that 3 clusters have the BC+ agent but do not have the Compute Copilot agent installed. 
     - **CC Only**: Represents clusters where Compute Copilot is configured, regardless of whether they use the Compute Copilot agent or not. For example, "CC Only 4" means that 4 clusters have Compute Copilot configured. Note that an agent is required only for clusters using Karpenter, not for those using Cluster Autoscaler.
 * **Not Configured**: Represents clusters that have no configuration or agents installed. These clusters are not yet set up for monitoring or management.

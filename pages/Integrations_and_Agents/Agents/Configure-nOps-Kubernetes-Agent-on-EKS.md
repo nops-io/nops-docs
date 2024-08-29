@@ -352,8 +352,8 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|
 | 100 - 500      | 4Gi                 | 16Gi                  |
-| 500 - 1000     | 4Gi                 | 24Gi                 |
-| 1000 or more   | 4Gi                 | 32Gi                 |
+| 500 - 1000     | 8Gi                 | 24Gi                 |
+| 1000 or more   | 16Gi                 | 32Gi                 |
 
 
 ## Frequently Asked Questions

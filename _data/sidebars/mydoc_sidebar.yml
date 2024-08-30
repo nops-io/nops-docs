@@ -48,12 +48,8 @@ entries:
         output: web
         subfolderitems:
 
-        - title: With Automatic Setup
+        - title: Payer Account With Automatic Setup
           url: /onboarding-aws-with-automatic-setup.html
-          output: web
-
-        - title: Service Control Policies
-          url: /onboarding-service-control-policies.html
           output: web
 
         # - title: With Manual Setup
@@ -64,12 +60,16 @@ entries:
 #          url: /onboarding-aws-linked-accounts.html
 #          output: web
 
-        - title: Linked Accounts With Terraform
+        - title: All Accounts With Terraform
           url: /onboarding-aws-with-terraform.html
           output: web
 
-        - title:  With CloudFormation
+        - title:  Linked Accounts With CloudFormation
           url: /onboarding-aws-with-cloudformation.html
+          output: web
+
+        - title: Service Control Policies
+          url: /onboarding-service-control-policies.html
           output: web
 
       - title: IAM

@@ -54,7 +54,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
         - Click the **Create stack** button.
 4. **Create resources via Terraform *(Optional)***
-    - If your prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
+    - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
 5. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.

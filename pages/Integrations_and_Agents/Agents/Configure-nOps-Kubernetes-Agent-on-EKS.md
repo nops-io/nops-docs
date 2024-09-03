@@ -338,7 +338,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.nodeExporter.image.registry` | Registry for the Node Exporter container image | `public.ecr.aws` |
 | `prometheus.nodeExporter.image.repository` | Repository for the Node Exporter container image | `nops/prom/node-exporter` |
 | `prometheus.nodeExporter.image.tag` | Image tag for the Node Exporter container image | `v1.8.2` |
-| `prometheus.nodeExporter.resources` | Node Exporter resources | `{}` |
+| `prometheus.nodeExporter.resources` | Node Exporter CPU and Memory limits and requests resources | `{}` |
 | `prometheus.server.image.repository` | Repository for the Prometheus Server container image | `public.ecr.aws/nops/prom/prometheus` |
 | `prometheus.server.image.tag` | Image tag for the Prometheus Server container image | `v2.54.0` |
 | `prometheus.server.persistentVolume.storageClass` | StorageClass Name. | `gp2` |

@@ -345,12 +345,12 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `1000m` |
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `4Gi` |
 | `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `3000m` |
-| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `16Gi` |
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `32Gi` |
 | `prometheus.server.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 
 #### Prometheus Resources
 
-Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs.
+Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs. {% include note.html content="Prometheus memory limit default is 32Gi" %}
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|

@@ -231,6 +231,10 @@ entries:
         url: /ebs-idle-cleanup.html
         output: web    
 
+      - title: Snapshot Migration from Standard to Archive
+        url: /Snapshot-Migration-from-Standard-to-Archive.html
+        output: web 
+
       - title: KMS Key Management
         url: /essentials-kms-keys.html
         output: web        

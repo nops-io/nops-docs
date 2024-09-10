@@ -422,9 +422,9 @@ entries:
         output: web
         subfolderitems:
 
-        - title: Create and configure EventBridge
-          url: /create-and-configure-eventbridge.html
-          output: web
+#        - title: Create and configure EventBridge
+#          url: /create-and-configure-eventbridge.html
+#          output: web
 
         - title: Essentials Scheduler API
           url: /essentials-scheduler-api.html

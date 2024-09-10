@@ -1,3 +1,4 @@
+<!--
 ---
 title: Cost Analysis for Cloud Resources
 keywords: cost reporting, cost history, cost allocation, business context, cost analysis
@@ -131,3 +132,4 @@ The **Tags** tab gives the spend for all tags by key name. Note that:
 <br/><br/>
 
 {% include custom/series_related.html %}
+-->

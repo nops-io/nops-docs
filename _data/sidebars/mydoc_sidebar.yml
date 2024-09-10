@@ -116,13 +116,13 @@ entries:
           url: /sso-azure.html
           output: web
 
-  - title: Business Contexts
+  - title: Business Contexts+
     output: web
     folderitems:
 
-    - title: Cost Analysis
-      url: /business-context-cost-analysis.html
-      output: web
+#    - title: Cost Analysis
+#      url: /business-context-cost-analysis.html
+#      output: web
 
     - title: Pre-Built & Customizable Reports
       url: /bc-global-reports.html
@@ -132,6 +132,12 @@ entries:
       url: /business-contexts-rbac.html
       output: web 
 
+    - title: Configure new nOps Kubernetes Agent
+      url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
+      output: web
+    - title: Migration nOps Kubernetes Agent for Container Insights
+      url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
+      output: web
 
   - title: Compute Copilot
     output: web
@@ -275,12 +281,7 @@ entries:
         - title: Cloudwatch Agent
           url: /cloudwatch-agent.html
           output: web
-        - title: Configure new nOps Kubernetes Agent
-          url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
-          output: web
-        - title: Migration nOps Kubernetes Agent for Container Insights
-          url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
-          output: web
+
         - title: Support for External Secrets Operator
           url: /Support-for-External-Secrets-Operator.html
           output: web

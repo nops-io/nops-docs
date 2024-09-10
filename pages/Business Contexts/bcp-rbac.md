@@ -1,5 +1,5 @@
 ---
-title: Cost Analysis With Role-based Access Control
+title: Cost Analysis With Role-Based Access Control
 keywords: cost reporting, cost history, cost allocation, business context, cost analysis, rbac
 tags: [cost_visibility, bc]
 sidebar: mydoc_sidebar

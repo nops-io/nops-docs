@@ -169,7 +169,7 @@ resource "helm_release" "nops_kubernetes_agent" {
 
   set {
     name  = "containerInsights.imageTag"
-    value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+    value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
   }
 
   set {
@@ -257,7 +257,7 @@ module "eks_blueprints_addon" {
     },
     {
       name  = "containerInsights.imageTag"
-      value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+      value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
     },
     {
       name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
@@ -318,7 +318,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |
 | `containerInsights.debug` | Debug mode. | `false` |
 | `containerInsights.repository` | Repository for the nOps Container Insights Agent container image | `public.ecr.aws/nops/container-insights-agent` |
-| `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.1` |
+| `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.4` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
 | `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |

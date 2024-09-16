@@ -149,7 +149,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.70" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -233,7 +233,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.70" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
@@ -314,11 +314,15 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `autoUpdater.schedule` | Schedule to run the Auto Update CronJob, defaults to run every Monday at 12:00 AM | `0 0 * * 1` |
 | `autoUpdater.repository` | Repository for the Auto Update container image | `public.ecr.aws/nops/alpine/k8s` |
 | `autoUpdater.imageTag` | Image tag for the autoUpdater container image | `1.30.4` |
+| `autoUpdater.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the Auto Update | `0` |
+| `autoUpdater.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the Auto Update | `0` |
 | `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |
 | `containerInsights.debug` | Debug mode. | `false` |
 | `containerInsights.repository` | Repository for the nOps Container Insights Agent container image | `public.ecr.aws/nops/container-insights-agent` |
 | `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.4` |
+| `containerInsights.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the nOps Container Insights Agent | `2` |
+| `containerInsights.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the nOps Container Insights Agent | `2` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
 | `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |

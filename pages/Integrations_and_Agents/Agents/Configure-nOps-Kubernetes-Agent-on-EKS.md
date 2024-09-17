@@ -39,26 +39,29 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
 
  **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
-2. **Setup Container Cost Integration**
+1. **Setup Container Cost Integration**
     - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
     - This step will:
         - Create an S3 bucket in your AWS account.
         - Grant writing permissions to the agent for writing files to that bucket.
         - Use either your OIDC Identity Provider to create a service role or an IAM User with permissions to write to the S3 bucket.
         - Allow nOps to copy those files.
-3. **Configure CloudFormation Stack**
+2. **Create AWS Infrastructure**
+  - **Configure CloudFormation Stack**
     - On the CloudFormation stack creation page:
-        - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
-        - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`.
-            If you choose this approach, you must create and store secret key credentials to replace values in the installation script.
-        - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
-        - Click the **Create stack** button.
-4. **Create resources via Terraform *(Optional)***
-    - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
-5. **Check Integration Status**
+    - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
+    - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`. {% include note.html content="If you choose this approach, you must create and store secret key credentials to replace and add them to the helm values." %}
+    - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
+    - Click the **Create stack** button.
+
+*OR*
+
+  - **Create resources via Terraform**
+      - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
+4. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
-6. **Install Agent in your clusters**
+5. **Install Agent in your clusters**
     - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
     - Click on the cluster you want to install the agent,
     - Click on the Cluster Configuration tab 
@@ -149,7 +152,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.70" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -169,7 +172,7 @@ resource "helm_release" "nops_kubernetes_agent" {
 
   set {
     name  = "containerInsights.imageTag"
-    value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+    value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
   }
 
   set {
@@ -233,8 +236,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.70" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
-  
+  chart_version       = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
@@ -257,7 +259,7 @@ module "eks_blueprints_addon" {
     },
     {
       name  = "containerInsights.imageTag"
-      value = "2.0.1" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+      value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
     },
     {
       name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
@@ -314,11 +316,15 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `autoUpdater.schedule` | Schedule to run the Auto Update CronJob, defaults to run every Monday at 12:00 AM | `0 0 * * 1` |
 | `autoUpdater.repository` | Repository for the Auto Update container image | `public.ecr.aws/nops/alpine/k8s` |
 | `autoUpdater.imageTag` | Image tag for the autoUpdater container image | `1.30.4` |
+| `autoUpdater.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the Auto Update | `0` |
+| `autoUpdater.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the Auto Update | `0` |
 | `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |
 | `containerInsights.debug` | Debug mode. | `false` |
 | `containerInsights.repository` | Repository for the nOps Container Insights Agent container image | `public.ecr.aws/nops/container-insights-agent` |
-| `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.1` |
+| `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.4` |
+| `containerInsights.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the nOps Container Insights Agent | `2` |
+| `containerInsights.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the nOps Container Insights Agent | `2` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
 | `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |
@@ -345,12 +351,12 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `prometheus.server.resources.requests.cpu` | Prometheus CPU resource requests. | `1000m` |
 | `prometheus.server.resources.requests.memory` | Prometheus Memory resource requests. | `4Gi` |
 | `prometheus.server.resources.limits.cpu` | Prometheus CPU resource limits. | `3000m` |
-| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `16Gi` |
+| `prometheus.server.resources.limits.memory` | Prometheus Memory resource limits. | `32Gi` |
 | `prometheus.server.nodeSelector` | Node Selector labels to use for Prometheus deployment. | `{}` |
 
 #### Prometheus Resources
 
-Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs.
+Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs. {% include note.html content="Prometheus memory limit default is 32Gi" %}
 
 | No. of Pods    | Memory Request      | Memory Limits        |
 |----------------|--------------------------------------------|---------------|

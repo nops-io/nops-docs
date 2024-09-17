@@ -237,7 +237,6 @@ module "eks_blueprints_addon" {
   version = "~> 1.0"
   chart               = "kubernetes-agent"
   chart_version       = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
-  
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password

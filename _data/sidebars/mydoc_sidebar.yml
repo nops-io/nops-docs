@@ -430,6 +430,10 @@ entries:
           url: /essentials-scheduler-api.html
           output: web
 
+        - title: Essentials Storage API
+          url: /essentials-storage-api.html
+          output: web
+
         - title: Scheduler Slackbot "How To" Guide
           url: /developer-scheduler-slackbot.html
           output: web

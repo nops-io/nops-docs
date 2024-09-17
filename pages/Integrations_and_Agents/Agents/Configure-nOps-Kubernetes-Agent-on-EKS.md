@@ -39,26 +39,29 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
 
  **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
-2. **Setup Container Cost Integration**
+1. **Setup Container Cost Integration**
     - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
     - This step will:
         - Create an S3 bucket in your AWS account.
         - Grant writing permissions to the agent for writing files to that bucket.
         - Use either your OIDC Identity Provider to create a service role or an IAM User with permissions to write to the S3 bucket.
         - Allow nOps to copy those files.
-3. **Configure CloudFormation Stack**
+2. **Create AWS Infrastructure**
+  - **Configure CloudFormation Stack**
     - On the CloudFormation stack creation page:
-        - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
-        - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`.
-            If you choose this approach, you must create and store secret key credentials to replace values in the installation script.
-        - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
-        - Click the **Create stack** button.
-4. **Create resources via Terraform *(Optional)***
-    - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
-5. **Check Integration Status**
+    - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
+    - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`. {% include note.html content="If you choose this approach, you must create and store secret key credentials to replace and add them to the helm values." %}
+    - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
+    - Click the **Create stack** button.
+
+*OR*
+
+  - **Create resources via Terraform**
+      - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
+4. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
-6. **Install Agent in your clusters**
+5. **Install Agent in your clusters**
     - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
     - Click on the cluster you want to install the agent,
     - Click on the Cluster Configuration tab 

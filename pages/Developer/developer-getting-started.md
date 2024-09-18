@@ -19,7 +19,7 @@ To create a signed request, you must complete the following steps.
 
 1.  **Configure an API key in nOps** through the nOps app.
 2.  **Create a public/private key pair.** Configure nOps with the public key to validate the signature.
-3.  **Compose your request.**
+3.  **Compose your request.** You can get some help with our [Public Swagger](https://app.nops.io/public_swagger/)
 
 ## **Create a public/private key pair**. ##
 

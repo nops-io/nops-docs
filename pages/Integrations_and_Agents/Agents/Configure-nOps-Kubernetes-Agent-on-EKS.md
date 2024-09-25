@@ -325,6 +325,10 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.4` |
 | `containerInsights.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the nOps Container Insights Agent | `2` |
 | `containerInsights.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the nOps Container Insights Agent | `2` |
+| `containerInsights.resources.limits.cpu` | CronJob CPU Limit | `500m` |
+| `containerInsights.resources.limits.memory` | CronJob Memory Limit | `4Gi` |
+| `containerInsights.resources.requests.cpu` |CronJob CPU Request | `500m` |
+| `containerInsights.resources.requests.memory` | CronJob Memory Request | `2Gi` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
 | `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |

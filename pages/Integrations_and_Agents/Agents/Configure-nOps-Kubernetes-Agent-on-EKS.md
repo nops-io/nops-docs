@@ -152,14 +152,19 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.1.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
   #  name = "prometheus.server.nodeSelector.karpenter\\.sh/capacity-type"
   #  value = "on-demand"
   #}
-  
+
+  set {
+    name  = "nops.apiKey"
+    value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+  }
+
   set {
     name  = "datadog.apiKey"
     value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
@@ -193,11 +198,6 @@ resource "helm_release" "nops_kubernetes_agent" {
   set {
     name  = "karpenops.image.tag"
     value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
-  }
-  
-  set {
-    name  = "karpenops.apiKey"
-    value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
   }
   
   set {
@@ -236,7 +236,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.0.71" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.1.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
@@ -249,6 +249,10 @@ module "eks_blueprints_addon" {
     #  name  = "prometheus.server.nodeSelector.karpenter\\.sh/capacity-type"
     #  value = "on-demand"
     #},
+    {
+      name  = "nops.apiKey"
+      value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
+    },
     {
       name  = "datadog.apiKey" # Get it from the nOps kubernetes agent onboarding process  
       value = "<datadog_api_key>" # Get it from the nOps kubernetes agent onboarding process
@@ -278,10 +282,6 @@ module "eks_blueprints_addon" {
       value = "1.23.2" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/karpenops)
     },
     {
-      name  = "karpenops.apiKey"
-      value = "<your_karpenops_api_key" # Get it from the nOps kubernetes agent onboarding process
-    },
-    {
       name  = "karpenops.clusterId"
       value = "<your_karpenops_cluster_id>"  # Get it from the nOps kubernetes agent onboarding process
     }
@@ -295,12 +295,12 @@ The following table lists required configuration parameters for the KarpenOps an
 
 Parameter | Description | Default
 --------- | ----------- | -------
+`nops.apiKey` | nOps agent API Key | `-`
 `datadog.apiKey` | Datadog API Key. | `-`
 `containerInsights.enabled` | Wheter to install Container Insights agent or not. | `true`
 `containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN` | EKS Cluster ARN. | `-`
 `containerInsights.env_variables.APP_AWS_S3_BUCKET` | S3 Bucket name. | `-`
 `karpenops.enabled` | Wheter to install KarpenOps agent or not. | `false`
-`karpenops.apiKey` | KarpenOps agent API Key | `-`
 `karpenops.clusterId` | KarpenOps Cluster ID | `-`
 
 #### Optional Parameters
@@ -331,6 +331,15 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `opencost.opencost.exporter.image.tag` | Image tag for the Opencost Exporter container image | `1.111.0` |
 | `karpenops.image.repository` | Repository for the KarpenOps Agent container image | `public.ecr.aws/nops/karpenops` |
 | `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
+| `heartbeat.image.repository` | Repository for the Heartbeat Agent container image | `public.ecr.aws/nops/k8s-heartbeat-agent` |
+| `heartbeat.image.tag` | Image tag for the Heartbeat Agent container image | `0.1.4` |
+| `dataFetcher.image.repository` | Repository for the Data Fetcher Agent container image | `public.ecr.aws/z8v0w1z1/k8s-data-fetcher-agent` |
+| `dataFetcher.image.tag` | Image tag for the Data Fetcher Agent container image | `0.1.2` |
+| `dataFetcher.replicaCount` | Number of replicas for Data Fetcher Agent. | `2` |
+| `dataFetcher.resources.requests.cpu` | Data Fetcher CPU resource requests. | `200m` |
+| `dataFetcher.resources.requests.memory` | Data Fetcher Memory resource requests. | `1Gi` |
+| `dataFetcher.resources.limits.cpu` | Data Fetcher CPU resource limits. | `1000m` |
+| `dataFetcher.resources.limits.memory` | Data Fetcher Memory resource limits. | `3Gi` |
 | `dcgmExporter.image.repository` | Repository for the DCGM Exporter container image | `public.ecr.aws/nops/nvidia/dcgm-exporter` |
 | `dcgmExporter.image.tag` | Image tag for the DCGM Exporter container image | `3.3.6-3.4.2-ubuntu22.04` |
 | `prometheus.ipv6_enabled` | Wether IPv6 is configured for the EKS cluster | `false` |

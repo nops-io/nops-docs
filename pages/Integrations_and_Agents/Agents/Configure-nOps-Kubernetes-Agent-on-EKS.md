@@ -333,7 +333,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
 | `heartbeat.image.repository` | Repository for the Heartbeat Agent container image | `public.ecr.aws/nops/k8s-heartbeat-agent` |
 | `heartbeat.image.tag` | Image tag for the Heartbeat Agent container image | `0.1.4` |
-| `dataFetcher.image.repository` | Repository for the Data Fetcher Agent container image | `public.ecr.aws/z8v0w1z1/k8s-data-fetcher-agent` |
+| `dataFetcher.image.repository` | Repository for the Data Fetcher Agent container image | `public.ecr.aws/nops/k8s-data-fetcher-agent` |
 | `dataFetcher.image.tag` | Image tag for the Data Fetcher Agent container image | `0.1.2` |
 | `dataFetcher.replicaCount` | Number of replicas for Data Fetcher Agent. | `2` |
 | `dataFetcher.resources.requests.cpu` | Data Fetcher CPU resource requests. | `200m` |

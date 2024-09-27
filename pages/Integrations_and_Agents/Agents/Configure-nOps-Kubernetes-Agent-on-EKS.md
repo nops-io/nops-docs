@@ -78,7 +78,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-12345678101 \
         --set karpenops.enabled=true \
         --set karpenops.image.tag=1.23.2 \
-        --set karpenops.apiKey=*******************************a004eb \
+        --set nops.apiKey=*******************************a004eb \
         --set karpenops.clusterId=D/M7Yj
     ```
 
@@ -152,7 +152,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.1.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.1.4" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -236,7 +236,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.1.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.1.4" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password

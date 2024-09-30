@@ -433,6 +433,14 @@ entries:
         - title: Scheduler Slackbot "How To" Guide
           url: /developer-scheduler-slackbot.html
           output: web
+      
+      - title: MAP API
+        output: web
+        subfolderitems:
+
+        - title: MAP Migration API
+          url: /map-migration-api.html
+          output: web
 
     - title: nOps Application API Swagger File
       external_url: https://app.nops.io/swagger/

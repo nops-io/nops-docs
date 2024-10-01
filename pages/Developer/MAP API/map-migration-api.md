@@ -183,7 +183,7 @@ None.
 
 #### Response Format
 
-The response is a JSON array containing a list of map migration projects grouped by clients. Each project has the following fields:
+The response is a JSON array containing a list of map migration projects. Each project has the following fields:
 
 - `id`: The ID of the MAP Migration project. This ID is nOps specific. nOps assigns a unique ID to each project you onboard to the MAP Dashboard.
 - `on_prem_non_commercial_db_entity`: Specific incentives related to on-premises non-commercial database.

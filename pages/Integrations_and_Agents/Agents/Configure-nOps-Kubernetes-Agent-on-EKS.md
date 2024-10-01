@@ -152,7 +152,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.1.4" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.1.6" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -236,7 +236,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.1.4" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.1.6" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
@@ -329,6 +329,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `containerInsights.resources.limits.memory` | Container Insights Agent Memory Limit | `4Gi` |
 | `containerInsights.resources.requests.cpu` | Container Insights Agent CPU Request | `500m` |
 | `containerInsights.resources.requests.memory` | Container Insights Agent Memory Request | `2Gi` |
+| `containerInsights.backoffLimit` | Number of retries for failed Container Insights cronjobs | `3` |
 | `opencost.loglevel` | Log level for nOps-cost. | `info` |
 | `opencost.opencost.exporter.image.registry` | Registry for the Opencost Exporter container image | `public.ecr.aws` |
 | `opencost.opencost.exporter.image.repository` | Repository for the Opencost Exporter container image | `nops/opencost` |

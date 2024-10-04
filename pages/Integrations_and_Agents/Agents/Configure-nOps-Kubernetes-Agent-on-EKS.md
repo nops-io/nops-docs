@@ -12,14 +12,10 @@ weight: 6.0
 
 {% include note.html content="If you have previously installed the container-insights (nops-k8s-agent) and want to migrate to the unified installation of agents, please refer to this [migration guide](https://help.nops.io/Migration-nOps-Kubernetes-Agent-on-EKS.html)." %}
 
-
-
 The nOps Kubernetes Agent is required to fully utilize nOps features for your EKS clusters. It's a bundle of components that will enable you to leverage our Compute Copilot product and provide container visibility into the cluster.
 
-
-
-
 ## Prerequisites
+
 1. You must have an active nOps account. If you do not have one, please register on <a href="https://app.nops.io/" target="_blank">nOps</a>
 2. Make sure you have access to the Kubernetes cluster (recommended version v1.23.6 or later) to deploy the agent.
 3. <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">aws cli</a>
@@ -32,13 +28,13 @@ The nOps Kubernetes Agent is required to fully utilize nOps features for your EK
 
 For karpenOps specific documentation, please click <a href="https://help.nops.io/copilot-eks-onboarding.html" target="_blank">here</a>.
 
-
 ## Steps to Configure nOps Kubernetes Agent
-    
-  - ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/setup-containercost-buckets.gif)
+
+- ![Organization Settings](https://nops-help-site-assets.s3.amazonaws.com/images/setup-containercost-buckets.gif)
 
  **Navigate to Container Cost Tab**
     - Go to your [Container Cost Integrations Settings](https://app.nops.io/v3/settings?tab=Integrations&subTab=Container-Cost).
+
 1. **Setup Container Cost Integration**
     - Click the **Setup** button for the desired account. Ensure you are authenticated into that account.
     - This step will:
@@ -47,28 +43,30 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         - Use either your OIDC Identity Provider to create a service role or an IAM User with permissions to write to the S3 bucket.
         - Allow nOps to copy those files.
 2. **Create AWS Infrastructure**
-  - **Configure CloudFormation Stack**
-    - On the CloudFormation stack creation page:
-    - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
-    - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`. {% include note.html content="If you choose this approach, you must create and store secret key credentials to replace and add them to the helm values." %}
-    - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
-    - Click the **Create stack** button.
 
-*OR*
+- **Configure CloudFormation Stack**
+  - On the CloudFormation stack creation page:
+  - List the regions where your clusters for that specific account are located, separated by commas (e.g., `us-east-1,us-east-2,us-west-1,us-west-2`).
+  - *(Optional)* If you don't have an IAM OIDC provider configured, you can create an IAM User to grant the agent permissions to write to the S3 bucket. To do this, set `CreateIAMUser` to `true`. {% include note.html content="If you choose this approach, you must create and store secret key credentials to replace and add them to the helm values." %}
+  - Select the **I acknowledge that AWS CloudFormation might create IAM resources with custom names** checkbox.
+  - Click the **Create stack** button.
 
-  - **Create resources via Terraform**
-      - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
-4. **Check Integration Status**
+      ##### OR
+
+- **Create resources via Terraform**
+  - If you prefer you can create the infrastructure using Terraform, use the instructions from the following [repo](https://github.com/nops-io/nops-containercost-S3-terraform).
+
+3. **Check Integration Status**
     - After the creation is complete, return to the nOps platform.
     - Click the **Check Status** button to verify the integration status.
-5. **Install Agent in your clusters**
+4. **Install Agent in your clusters**
     - Now in order to install the agent in your clusters, you must go to the EKS section in your nOps platform
     - Click on the cluster you want to install the agent,
-    - Click on the Cluster Configuration tab 
+    - Click on the Cluster Configuration tab
     - Copy the command to install the agent for in that particular cluster (Make sure to be authenticated and having that cluster in current context of your kubectl)
 
-
     Example command for Karpenter enabled clusters:
+
     ```bash
       helm upgrade -i nops-kubernetes-agent oci://public.ecr.aws/nops/kubernetes-agent \
         --namespace nops --create-namespace \
@@ -83,6 +81,7 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
     ```
 
     Example command for ClusterAutoscaler enabled clusters:
+
     ```bash
       helm upgrade -i nops-kubernetes-agent oci://public.ecr.aws/nops/kubernetes-agent \
         --namespace nops --create-namespace \
@@ -92,12 +91,11 @@ For karpenOps specific documentation, please click <a href="https://help.nops.io
         --set containerInsights.env_variables.APP_AWS_S3_BUCKET=nops-container-cost-12345678101 \
         --set karpenops.enabled=false
     ```
+
 ---
 After a successful installation, you'll have our Compute Copilot (KarpenOps for Karpenter clusters) efficiently managing your node lifecycle, enhancing cost efficiency, and ensuring high availability. While EKS costs are often unclear, nOps helps by automatically finding waste through CPU and memory metrics. This lets you optimize resources and save money quickly.
 
 {% include note.html content="As part of the installation a CRD is installed, ServiceMonitors." %}
-
-
 
 ## Installation via Terraform
 
@@ -378,15 +376,15 @@ Below is a table where you can see 3 options for Prometheus memory allocation de
 | 500 - 1000     | 8Gi                 | 24Gi                 |
 | 1000 or more   | 16Gi                 | 32Gi                 |
 
-
 ## Frequently Asked Questions
 
 1. **Will the agent installation affect my existing Prometheus setup?**
     **Answer:** No, the agent installs its own Prometheus instance in a separate namespace, as well running Node Exporter using a different port than the default one (9100) ensuring that it does not interfere with your current Prometheus deployment and Node exporter daemonset.
 2. **How can I remove the agent?**
 
-    **Answer:** 
+    **Answer:**
       To remove the agent from your cluster you just need to follow these steps:
+
       ```bash
       # Delete nops-k8s-agent release
       helm uninstall nops-kubernetes-agent --namespace nops

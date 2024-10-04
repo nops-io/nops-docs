@@ -44,6 +44,7 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `tagged_resources`: Information about tagged resources, including resource count and cost.
 - `untagged_resources`: Information about untagged resources, including resource count and cost.
 - `credits`: Information about received credits, including records of credit details.
+- `client`: The client associated with the MAP project. Name, website and the client ID, which is another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
 - `created`: The creation date of the project.
 - `modified`: The last update date of the project.
 - `name`: The name of the MAP project. This is also something you specify while onboarding the MAP project in nOps MAP Dashboard and it can be renamed later as well.
@@ -57,7 +58,6 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `migration_period`: The migration period in months.
 - `windows_optimization`: Indicates if Windows optimization is enabled.
 - `map_credit_cap`: The MAP credit cap (default is 1.000.000USD).
-- `client`: The client ID associated with the MAP project. Another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
 
 ---
 
@@ -197,6 +197,7 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `tagged_resources`: Information about tagged resources, including resource count and cost.
 - `untagged_resources`: Information about untagged resources, including resource count and cost.
 - `credits`: Information about received credits, including records of credit details.
+- `client`: The client associated with the MAP project. Name, website and the client ID, which is another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
 - `created`: The creation date of the project.
 - `modified`: The last update date of the project.
 - `name`: The name of the MAP project. This is also something you specify while onboarding the MAP project in nOps MAP Dashboard and it can be renamed later as well.
@@ -210,4 +211,4 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `migration_period`: The migration period in months.
 - `windows_optimization`: Indicates if Windows optimization is enabled.
 - `map_credit_cap`: The MAP credit cap (default is 1.000.000USD).
-- `client`: The client ID associated with the MAP project. Another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
+- 

@@ -13,7 +13,7 @@ weight: 1.0
 
 ### Why use Compute Copilot EKS? ###
 
-Learn more about how Compute Copilot for EKS can help you to put your EKS cost optimization on auto-pilot [here](https://www.nops.io/nks/).
+Learn more about how Compute Copilot for EKS can help you to put your EKS cost optimization on auto-pilot [here](https://www.nops.io/compute-copilot/).
 
 ### Pre-requisites: ###
 
@@ -43,12 +43,12 @@ Compute Copilot for EKS even covers your commitments with a 100% money-back guar
 
 1. Navigate to Compute Copilot → EKS from the nOps dashboard.
 2. Choose the EKS cluster you want to cost-optimize.
-3. Open detail view by clicking on →.
+3. Open detail view by clicking on configure button or click on cluster name and use cluster configuration section.
 4. Generate a new API key for nOps Agent. 
 5. Copy the custom command and run it in your command line. 
 6. Test Connectivity of nOps Agent in the Compute Copilot for EKS Dashboard.
 
-    ![](https://lh4.googleusercontent.com/7eISgP_ZiLo_JO2zGS8dOdp7HvYLBO4N5rMK1FC-szbc668pp-pCz_ysW2NKhvPylazv_3oRIden3mwgLG09eWT0XsbXX31dfsJ_Sot5PpBSJERDAsErwjI_wQC8kRseM_ezcQZ7JxzR05e8Gtdz328)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Agent+Installation+new+.gif)
 
 ### Create EC2NodeClass/AWSNodeTemplate:
 
@@ -62,20 +62,21 @@ i. Auto Configuration
 
    - Choose the AMI Family from the dropdown menu.
 
- ![](https://lh7-us.googleusercontent.com/89Q2Nu6V1qFpI6tj2li1vAo8r_GjlzIh2kjkJIcAgCpMviS6PEdHyGfzA2LVZusY484UBJ7JaNBs7-pr5MJDhFGCc3_ag9DTn4RocZ9Q1WCnAkRfTxYxQtT0ziDJlCgRMwrNjiebJx6Fd7_bcAbKSaA)
+ ![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Auto+Node+class+Part1+.gif)
 
    - Add Subnet IDs manually or with Search by tags. 
    - Add Security Group IDs manually or with Search by tags 
    - For EC2NodeClass, you have to select the IAM Role to be used. In case you're not seeing the desired role in the list, you can manually insert your role name.
    For AWSNodeTemplate, you have the option to select the InstanceProfile you want or let Karpenter handle the defaulting
 
-![](https://lh7-us.googleusercontent.com/3juafLmLGO0a7MSHEo33PGHSZvp0zd_9f8ZsyIyw-jfL1vBMO-kklS5vv9btyZ7JYCT-8giT_E5f0UB8xDlOqC9UbzTsg7Jz0RWKbgXxvoMURkGiLv90FXqwMwSq4vEsXuSXn_agbJEUsppsZrMcU0Y)
+
+![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Auto+Node+class+Part2.gif)
 
   - Configure Metadata Options with user data to give commands after node starts [optional].
   - Create Device Mapping by providing necessary details [optional].
   - Select Create Automatically.
 
-    ![](https://lh7-us.googleusercontent.com/8GEWVmgur5Hg2LUmtezV0qO1l7mOxUBqQPTBWaFJin_1K5o4suOvZg2rcUe52RtalCRbYVOeY1Sr9fPYqKBPZLCDLM0qHYH_THtyFQhKgwWnELsmzBsVnwHlGwnSLrJB8CCKZaGlfEaMBJgU9Y5BCPw)
+    ![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Auto+Node+class+Part3.gif)
 
 {%include note.html content="you can create multiple node templates"%}
 
@@ -87,11 +88,11 @@ ii. Manual Configuration
    - Insert the YAML code and validate it. Make sure you specify an unique name under metadata.name property for your resource
    - Now select Create manually.
 
-![](https://lh7-us.googleusercontent.com/Q5M2eifyPkPPzSvWYTf6gEyPoVIMZYzu2iDgqT0z5-zwjR8Bmqe9OJ2WI_IV68hU-Y_xZmsu4XdsigsGTUpJt5QfFV_FOvqOOLOYVAQcn0YniqXmiB-KD9GF5R0JagMBD_0J-Qgzfz9xB4m1r4921Sk)
+![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Manual++Node+class+.gif)
 
 {%include note.html content="In the NodeClasses list you can find resources created without nOps if there are any. These are going to be shown without the nOps icons and will be available only in Yaml format in View Mode. When creating NodePools, you can select any NodeClass as reference, either created via nOps or directly created in the cluster by you or your team."%}
 
-![](https://lh7-us.googleusercontent.com/bxBYFqZ5p8Ynlgmxq8coQqVB-PB9TtUxT7ARjpvZK_KBAJm59bs-uJ0YT7_Pkbo1LAJRmfq_MXWlnP7ztJSRqC-lXhOwAfJymFKmD4F6O1z9UwUcW8_VmK5V1UrTtJvxVhOMK2cisjAjKSXDeOlV_Bs)
+
 
 ### Create NodePool/Provisioner: ###
 
@@ -108,8 +109,8 @@ i. Auto Configuration
    -  Select Availability Zones.
 
    -  Select Capacity Type — Spot, On Demand or both \[recommended to select both]
-
-    ![](https://lh7-us.googleusercontent.com/XVq4_2CFUHRr2wu_QcMsI1lsbMOOllcvGKOQAej5c64ZN1LhG-_ExAgy2b7vHzzzWIItvg4Qk0Vz7i4NCQxGs99zJTXJc1mGZvkKg4SGDOkhX01HAh_4y0uP4-Zk_vom6WuxyzGTZq8IQqEwqtG3bf4)
+   
+   ![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Auto+Node+Pool+Part+1.gif)
 
    - You have the option to select Max Limit of vCPUs & Memory. Using 0 in both fields will indicate Karpenter to apply no limits when allocating resources.
 
@@ -121,7 +122,7 @@ i. Auto Configuration
 
    - Now select Create Automatically.
 
-    ![](https://lh7-us.googleusercontent.com/jDc-pVoxHWLA-oHs_93L9r5BdunZD4iWWDt1C4mhAAY1BXZMHrmD-C6_lFV8DcCGD_6maKfqyExQxeKzNSuHkoOCx9DnvqRRpEToJ3huQO0GGr_H3-96o3ueLsaw1I0QrsoCvzJUCAOgR0jgSZPlo8M)
+   ![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Auto+Node+Pool+Part+2.gif)
 
 {%include note.html content="You can create multiple Provisioners, but each Provisioner will have only 1 Node Template" %}
 
@@ -136,16 +137,16 @@ ii. Manual Configuration
 
    -  Now select Create manually.
 
-![](https://lh7-us.googleusercontent.com/83nIckfwgkYK8_biIC02LWkGEO00bGfxwcsckLCs74MompU2f2hl0FGGugk4CN3gBmg4FWn3SbyWoDP2QqVWgoceWr6UEeRknaJmftHKCQfAvlq9uoB4afQoxUNP1SOyYYSehRPS4mmAxldbXSqNoSo)
+![](https://nops-help-site-assets.s3.amazonaws.com/EKS/Manual+Node+Pool+.gif)
 
 
 Once the Provisioner is created, the user can again Test Connectivity to confirm that the  EKS cluster is configured correctly.
 
-![](https://lh5.googleusercontent.com/1XtlFL95uQrrw0ZVXZqXixK67rP3TkHd6C7nC6t-1_yoCHhtRtk72cWk1axUaY1O4jCptHt_fU65qUun0wB2UGS7QdWhUwdvZ50_YCpPCAuRGZ9Ccvr6UJVYk1Onca79LysK6gudT4WA8Tj2SV5NL4c)
+![](https://nops-help-site-assets.s3.amazonaws.com/EKS/test+connectivity+new.gif)
 
      
 
-As soon as cluster status displays **Configured**, Compute Copilot for EKS will start its magic to generate savings on the connected EKS cluster. 
+As soon as cluster status displays **CC Configured**, Compute Copilot for EKS will start its magic to generate savings on the connected EKS cluster. 
 
 ## FAQ ##
 

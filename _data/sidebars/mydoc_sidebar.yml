@@ -48,24 +48,28 @@ entries:
         output: web
         subfolderitems:
 
-        - title: With Automatic Setup
+        - title: Payer Account With Automatic Setup
           url: /onboarding-aws-with-automatic-setup.html
-          output: web
-
-        - title: Service Control Policies
-          url: /onboarding-service-control-policies.html
           output: web
 
         # - title: With Manual Setup
         #   url: /onboarding-aws-with-manual-setup.html
         #   output: web
 
-        - title: Linked Accounts
-          url: /onboarding-aws-linked-accounts.html
+#        - title: Linked Accounts
+#          url: /onboarding-aws-linked-accounts.html
+#          output: web
+
+        - title: All Accounts With Terraform
+          url: /onboarding-aws-with-terraform.html
           output: web
 
-        - title:  With CloudFormation
+        - title:  Linked Accounts With CloudFormation
           url: /onboarding-aws-with-cloudformation.html
+          output: web
+
+        - title: Service Control Policies
+          url: /onboarding-service-control-policies.html
           output: web
 
       - title: IAM
@@ -84,7 +88,7 @@ entries:
           url: /iam-policy-scheduler.html
           output: web
 
-        - title: YAML file for Commitment Management Setup
+        - title: Commitment Management Permissions
           url: /iam-yaml-cm.html
           output: web
 
@@ -112,6 +116,28 @@ entries:
           url: /sso-azure.html
           output: web
 
+  - title: Business Contexts+
+    output: web
+    folderitems:
+
+#    - title: Cost Analysis
+#      url: /business-context-cost-analysis.html
+#      output: web
+
+    - title: Pre-Built & Customizable Reports
+      url: /bc-global-reports.html
+      output: web      
+
+    - title: Cost Analysis With Role-based Access Control
+      url: /business-contexts-rbac.html
+      output: web 
+
+    - title: Configure new nOps Kubernetes Agent
+      url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
+      output: web
+    - title: Migration nOps Kubernetes Agent for Container Insights
+      url: /Migration-nOps-Kubernetes-Agent-on-EKS.html
+      output: web
 
   - title: Compute Copilot
     output: web
@@ -126,6 +152,10 @@ entries:
         output: web
         subfolderitems:
 
+        - title: EKS Insights Dashboard
+          url: /copilot-eks-clusters-dashboard.html
+          output: web
+
         - title: Onboarding EKS with Karpenter
           url: /copilot-eks-onboarding.html
           output: web
@@ -134,8 +164,8 @@ entries:
           url: /copilot-eks-cas-guide.html
           output: web       
 
-        - title: Managing Karpenter Configurations With nOps GitOps support
-          url: /Managing-Karpenter-Configurations-With-nOps-GitOps-support.html
+        - title: Managing Karpenter Configurations With nOps IaC support
+          url: /Managing-Karpenter-Configurations-With-nOps-IaC-support.html
           output: web    
 
         - title: Karpenter Beta Support
@@ -252,6 +282,10 @@ entries:
           url: /cloudwatch-agent.html
           output: web
 
+        - title: Support for External Secrets Operator
+          url: /Support-for-External-Secrets-Operator.html
+          output: web
+
       - title: Integrations
         output: web
         subfolderitems:
@@ -276,10 +310,6 @@ entries:
           url: /Configure-the-Notification-Center-to-get-scheduled-alerts.html
           output: web
 
-        - title: Configure nOps Kubernetes Agent for Container Insights
-          url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
-          output: web
-
         - title: Webhook Integration
           url: /webhook-integration.html
           output: web
@@ -294,14 +324,6 @@ entries:
       output: skip
 
       subfolders:
-      - title: Business Context
-        output: web
-        subfolderitems:
-
-        - title: Cost Analysis
-          url: /business-context-cost-analysis.html
-          output: web   
-
       - title: Data Explorer
         output: web
         subfolderitems:
@@ -375,8 +397,8 @@ entries:
     output: web
     folderitems:
 
-    - title: AWS MAP Tracker
-      url: /aws-map-tracker.html
+    - title: AWS MAP Tracker and Tagger
+      url: /automated-tagging-for-aws-map.html
       output: web
 
     - title: Backfill a CUR for AWS MAP
@@ -400,9 +422,9 @@ entries:
         output: web
         subfolderitems:
 
-        - title: Create and configure EventBridge
-          url: /create-and-configure-eventbridge.html
-          output: web
+#        - title: Create and configure EventBridge
+#          url: /create-and-configure-eventbridge.html
+#          output: web
 
         - title: Essentials Scheduler API
           url: /essentials-scheduler-api.html
@@ -410,6 +432,14 @@ entries:
 
         - title: Scheduler Slackbot "How To" Guide
           url: /developer-scheduler-slackbot.html
+          output: web
+      
+      - title: MAP API
+        output: web
+        subfolderitems:
+
+        - title: MAP Migration API
+          url: /map-migration-api.html
           output: web
 
     - title: nOps Application API Swagger File

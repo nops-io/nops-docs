@@ -18,7 +18,7 @@ nOps requires safe, secure, and AWS-approved cross account access to your AWS ac
 
 1.  AWS managed [ReadOnlyAccess](https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/ReadOnlyAccess) policy, which is completely managed by AWS and is updated periodically as AWS adds new services.
 2.  Since the AWS managed ReadOnlyAccess policy contains some read access to sensitive data, nOps uses an explicit deny list which can be easily update for your own security requires. – [Explicit Deny List](#explicit-deny)
-3.  Lastly, few other policies that are necessary to create the Cost and Usage Report for Cost Visibility, Well-Architected Review and placeholders to support automating the setup for nOps ShareSave Program. [CUR](#cur),  [S3](#s3bucket), [Well-Architected](#well-architected), [EventBridge](#eventbridge), and [Organization](#organizations)
+3.  Lastly, few other policies that are necessary to create the Cost and Usage Report for Cost Visibility, Well-Architected Review and placeholders to support automating the setup for nOps Commitment Management Program. [CUR](#cur),  [S3](#s3bucket), [Well-Architected](#well-architected), [EventBridge](#eventbridge), and [Organization](#organizations)
 
 
 **IAM Policy JSON** – [Policy – JSON](#IAM-Policy-JSON)
@@ -45,13 +45,13 @@ The following tables describe each permission within the IAM policy:
 
 | <span id="eventbridge">**EventBridge**</span> | **What** | **Why** | **Access(Limited: Write)** |
 | --- | --- | --- | --- |
-| CreateEventBus | Creates a new event bus within your account. | Allows nOps to create EventBridge integrations for automation. Required for ShareSave program. | Write: All resources |
+| CreateEventBus | Creates a new event bus within your account. | Allows nOps to create EventBridge integrations for automation. Required for the Commitment Management program. | Write: All resources |
 
 
 
 | <span id="organizations">**Organizations**</span> | **What** | **Why** | **Access (Limited: Write, Full: List, Read)** |
 | --- | --- | --- | --- |
-| InviteAccountToOrganization | Sends an invitation to another AWS account, asking it to join your organization as a member account. | Required for onboarding child accounts via CloudFormation stack during Automatic Setup and the ShareSave program. | Write: All resources |
+| InviteAccountToOrganization | Sends an invitation to another AWS account, asking it to join your organization as a member account. | Required for onboarding child accounts via CloudFormation stack during Automatic Setup and the Commitment Management program. | Write: All resources |
 
 
 | <span id="S3">**S3**</span>  | **What** | **Why** | **Access (Limited: Read)** |

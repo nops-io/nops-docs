@@ -12,14 +12,14 @@ weight: 2.0
 # Commitment Management Configuration #
 
 
-If you're prefer to walk through configuring **Commitment Management** with nOps, please contact your nOps Sales representative.
+If you're prefer to walk through configuring **Commitment Management** (CM) with nOps, please contact your nOps Sales representative.
 
 If you'd prefer to configure on your own, please follow the steps outlined below.
 
 ## Prerequisites ##
 
 1. Access to the management account of the AWS Organization
-1. Ability to create and access a new email account or address
+1. Ability to create and access a new email account or address (using an alias will work)
 
 
 ## Create an email address ##
@@ -37,7 +37,7 @@ Login to your AWS management/payer account and follow the steps.
 
 ![](https://lh7-us.googleusercontent.com/TiMSUjBRAHGYowheZ0HyR_hpucdPL8pPQCN6R3zjKIFnws3CUrzQn0YuuBfA48VcFaJ5B3ts3VJxL6n7cb8_7PJlsjqD_i9X7rvMpxnrpSdCqRJ6YRfZt8hNtItLs3BV1GAtkd6ckLAHSTDd1XSCA38)
 
-3. Add account information (we recommend ShareSave or Commitments for the name) using the new email address and click **Create AWS account**
+3. Add account information (we recommend _Company_ nOps CM for the name) using the new email address and click **Create AWS account**
 
 ![](https://lh7-us.googleusercontent.com/YEUNG3gXDprDLEYQQiDp_T7jBKTIbpApqE8QAE1TuM5XPpS4DdgPHm6xbilOOFEk8G6ruP34roFXl2neHQYVMwMThMP3AttDQX8pW6V8Eyi-Ms0OYUCVTuybOPvhqeQVR5TcwtlazPiwo6j3aagZpjw)
 
@@ -64,7 +64,7 @@ By now, you should receive confirmation the new account has been created.
 
 1. Open [aws.amazon.com](https://aws.amazon.com)
 1. Log in as a root user email
-    1. Enter your nops-sharesave@company.com email
+    1. Enter your nops-cm@company.com (or yourname+cm@company.com) email
     1. Click **Next**
     1. Click the _Forgot password?_ link
 1. Reset your password
@@ -81,8 +81,8 @@ https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/crea
 When this has completed and the stacks have run successfully, please contact nOps with the following information:
 
 - Payer account number
-- ShareSave linked account number
-- ShareSave bucket name
+- CM linked account number
+- CM bucket name
 
 And we can complete the configuration process on a short call.
 

@@ -34,7 +34,7 @@ Utilizing nOps’ certified integration with Amazon EventBridge, nSwitch Essenti
 - When size is lower that 170gb it's 20%.
 - When size is bigger it can be around 10%.
 - When size is between 170 to 334 -- GP2 to GP3 migration is not cost-effective -- hence in nOps platform, volume of these sizes would not show up as recommendations.
-- Lastly, nOps recommednations engine considers volume with a minimum 7 days of lifespan, and no attachment to eks/asg/etc. Only vanilla EC2 volumes are considered for this feature.
+- Lastly, nOps recommendations engine considers volume with a minimum 7 days of lifespan, and no attachment to eks/asg/etc. Only vanilla EC2 volumes are considered for this feature.
 
 
 ## Steps to Configure Your nSwitch to Optimize Costs ##

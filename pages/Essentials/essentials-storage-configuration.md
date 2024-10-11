@@ -27,7 +27,14 @@ That’s why we added a new feature to [Essentials for Storage](https://www.nops
 If your resources are controlled by Infrastructure as Code (IaC), nSwitch Essentials integrates with Git and Terraform to streamline the process of identifying and fixing code related to storage optimization. This reduces manual work, making it fast and easy for engineers to take action on implementing cost-saving measures.
 
 
-Utilizing nOps’ certified integration with Amazon EventBridge, nSwitch Essentials can also intelligently update configurations on resources that are not controlled by IaC. This can result in up to 20% cost savings and enables organizations to efficiently enact bulk automated updates of storage.
+Utilizing nOps’ certified integration with Amazon EventBridge, nSwitch Essentials can also intelligently update configurations on resources that are not controlled by IaC. 
+
+- This can result in up to 20% cost savings and enables organizations to efficiently enact bulk automated updates of storage.
+- The savings depends on the size of GP2 volume. Not all volumes come with same amount of savings.
+- When size is lower that 170gb it's 20%.
+- When size is bigger it can be around 10%.
+- When size is between 170 to 334 -- GP2 to GP3 migration is not cost-effective -- hence in nOps platform, volume of these sizes would not show up as recommendations.
+- Lastly, nOps recommednations engine considers volume with a minimum 7 days of lifespan, and no attachment to eks/asg/etc. Only vanilla EC2 volumes are considered for this feature.
 
 
 ## Steps to Configure Your nSwitch to Optimize Costs ##

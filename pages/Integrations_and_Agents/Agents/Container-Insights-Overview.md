@@ -165,7 +165,12 @@ The template uses conditions to control resource creation based on the `CreateIA
 2. **Where can I find the CloudFormation template for inspection?**  
    You can find the template [here](https://nops-rules-lambda-sources.s3.us-west-2.amazonaws.com/container_cost/container-cost-setup-service-account.yaml).
 
-3. **Which images are used in the deployment, and are they digitally signed?**  
+3. **Do containers run as root?**
+  
+    Most containers run as nobody with the exception of the datadog agent, which is non root but privileged, and the DCGM exporter which runs as root.
+   
+
+4. **Which images are used in the deployment, and are they digitally signed?**  
    Yes, the following images are used in our full deployment, and all of them have been digitally signed in our public ECR:
 
    - [**container-insights-agent**](https://gallery.ecr.aws/nops/container-insights-agent)

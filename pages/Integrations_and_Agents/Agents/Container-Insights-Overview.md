@@ -167,7 +167,7 @@ The template uses conditions to control resource creation based on the `CreateIA
 
 3. **Do containers run as root?**
   
-    Most containers run as nobody with the exception of the datadog agent, which is non root but privileged, and the DCGM exporter which runs as root.
+    Most containers run as **nobody** with the exception of the datadog agent, which is non root but privileged, and the DCGM exporter which runs as root.
    
 
 4. **Which images are used in the deployment, and are they digitally signed?**  

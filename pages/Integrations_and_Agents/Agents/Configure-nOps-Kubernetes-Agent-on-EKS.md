@@ -370,11 +370,11 @@ The following table lists the optional configuration parameters for the KarpenOp
 
 Below is a table where you can see 3 options for Prometheus memory allocation depending on your cluster size (number of pods). Use it as a baseline and adjust it according to your needs. {% include note.html content="Prometheus memory limit default is 32Gi" %}
 
-| No. of Pods    | Memory Request      | Memory Limits        |
-|----------------|--------------------------------------------|---------------|
-| 100 - 500      | 4Gi                 | 16Gi                  |
-| 500 - 1000     | 8Gi                 | 24Gi                 |
-| 1000 or more   | 16Gi                 | 32Gi                 |
+| No. of Pods    | CPU Request      | CPU Limits      | Memory Request      | Memory Limits        |
+|----------------|-----------------------------------------|------------|--------------------------------------------|---------------|
+| 100 - 500      | 1 vCPU              | 2 vCPU              | 4Gi                 | 16Gi                  |
+| 500 - 1000     | 2 vCPU              | 4 vCPU              | 8Gi                 | 24Gi                 |
+| 1000 or more   | 2 vCPU              | 6 vCPU              | 16Gi                 | 32Gi                 |
 
 ## Frequently Asked Questions
 

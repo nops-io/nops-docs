@@ -157,7 +157,7 @@ The template uses conditions to control resource creation based on the `CreateIA
   - Outputs the name of the S3 bucket created in the stack.
 
 ---
-## FAQ
+### FAQ
 
 1. **Where can I get information about Security and Compliance?**  
    You can find detailed reports on our stack and policies in [this folder](https://drive.google.com/drive/folders/1pe2raNVzLIHw7cXzpf1s7uIRkiUk9yPL?usp=drive_link).

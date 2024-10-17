@@ -285,6 +285,9 @@ entries:
         - title: Support for External Secrets Operator
           url: /Support-for-External-Secrets-Operator.html
           output: web
+        - title: Container Insights Overview
+          url: /Container-Insights-Overview.html
+          output: web
 
       - title: Integrations
         output: web

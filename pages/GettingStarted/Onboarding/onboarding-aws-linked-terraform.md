@@ -56,21 +56,16 @@ At this point, it's time to move to Terraform to finish the process.
 
 ## Terraform for AWS Linked Accounts ##
 
-nOps AWS Integration Terraform Module
-
-[https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#nops-aws-integration-terraform-module](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#nops-aws-integration-terraform-module)
-
+The nOps provided public Terraform module contains the complete logic to quickly and seamlessly onboard AWS accounts into the nOps platform. 
+Customers using Terraform as the IaC of choice can quickly integrate their account into nOps by calling this module.
+The module can be found in the ![Terraform registry](https://registry.terraform.io/modules/nops-io/nops-integration/aws/latest), refer to it for additional details.
 
 ## Description ##
-
-[https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#description](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#description)
 
 This Terraform module automates the process of integrating your AWS account(s) with nOps, a cloud management and optimization platform. It streamlines the setup of necessary AWS resources and permissions, enhancing the onboarding experience for nOps users.
 
 
 ## Features ##
-
-[https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#features](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#features)
 
 - Automatic detection of existing nOps projects for the AWS accounts
 - Creation of new nOps projects if none exist
@@ -82,25 +77,37 @@ This Terraform module automates the process of integrating your AWS account(s) w
 
 ## Prerequisites ##
 
-[https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#prerequisites](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#prerequisites)
-
-- Terraform v0.13+
+- Terraform v1.0+
 - AWS CLI configured with appropriate permissions
 - nOps API key
 
 
-## Usage ##
+## Onboarding Management account ##
 
-[https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#usage](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform#usage)
+The example below shows how to add the management (root) AWS account integration:
 
-1. Clone [this repository](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform):
 
-2. Create a `terraform.tfvars` file with your specific variables:
-
+1. Being authenticated on the Payer account of the AWS organization, add the following code:
     ```hcl
-    aws_region = "us-west-2"
-    api_key    = "your-nops-api-key"
-    system_bucket_id = "your-system-bucket-id"
+    provider "aws" {
+      alias  = "root"
+      region = "us-east-1"
+      assume_role {
+        role_arn = "arn:aws:iam::123456789012:role/admin-role"
+      }
+    }
+    
+    module tf_onboarding {
+      providers = {
+        aws = aws.root
+      }
+    
+      source             = "nops-io/nops-integration/aws"
+      # This bucket will be created by the module with the name provided here, make sure its globally unique.
+      system_bucket_name = "example"
+      # nOps API key that will be used to authenticate with the nOps platform to onboard the account.
+      api_key            = "nops_api_key"
+    }
     ```
 
 3. Initialize Terraform:
@@ -115,13 +122,57 @@ This Terraform module automates the process of integrating your AWS account(s) w
     terraform apply
     ```
 
-5. If you want to allow the role to be reconfigured:
+5. If you want to reconfigure an existing nOps account:
     ```hcl
     terraform apply -var="reconfigure=true"
     ```
 
+    or
 
-After your Terraform apply has finished, your accounts should list within the nOps platform.
+    ```hcl
+    module tf_onboarding {
+      providers = {
+        aws = aws.root
+      }
+    
+      source             = "nops-io/nops-integration/aws"
+      system_bucket_name = "example"
+      api_key            = "nops_api_key"
+      reconfigure        = true
+    }
+    ```
+
+{% include note.html content="The `reconfigure` flag is required after the first onboarding flow with the master account, this flag is used to allow updates to the current project. Make sure to add this flag after the first run." %}
+
+After your Terraform apply has finished, your account should list within the nOps platform as payer.
+
+## Onboarding Child accounts ##
+
+Onboarding child accounts is achieved using the same module, it already contains the logic to react when its being applied on any account that is not root.
+
+    ```hcl
+    provider "aws" {
+      alias  = "child"
+      region = "us-east-1"
+      assume_role {
+        role_arn = "arn:aws:iam::xxxxxxxx:role/admin-role"
+      }
+    }
+    
+    module tf_onboarding {
+      providers = {
+        aws = aws.child
+      }
+    
+      source             = "nops-io/nops-integration/aws"
+      # This bucket will be created by the module with the name provided here, make sure its globally unique.
+      system_bucket_name = "example"
+      # nOps API key that will be used to authenticate with the nOps platform to onboard the account.
+      api_key            = "nops_api_key"
+      # Flag required to update the nOps project.
+      reconfigure        = "true"
+    }
+    ```
 
 ## Troubleshooting ##
 

@@ -58,11 +58,7 @@ At this point, it's time to move to Terraform to finish the process.
 
 The nOps provided public Terraform module contains the complete logic to quickly and seamlessly onboard AWS accounts into the nOps platform. 
 Customers using Terraform as the IaC of choice can quickly integrate their account into nOps by calling this module.
-The module can be found in the ![Terraform registry](https://registry.terraform.io/modules/nops-io/nops-integration/aws/latest), refer to it for additional details.
-
-## Description ##
-
-This Terraform module automates the process of integrating your AWS account(s) with nOps, a cloud management and optimization platform. It streamlines the setup of necessary AWS resources and permissions, enhancing the onboarding experience for nOps users.
+The module can be found in the [Terraform registry](https://registry.terraform.io/modules/nops-io/nops-integration/aws/latest), refer to it for additional details.
 
 
 ## Features ##
@@ -150,29 +146,29 @@ After your Terraform apply has finished, your account should list within the nOp
 
 Onboarding child accounts is achieved using the same module, it already contains the logic to react when its being applied on any account that is not root.
 
-    ```hcl
-    provider "aws" {
-      alias  = "child"
-      region = "us-east-1"
-      assume_role {
-        role_arn = "arn:aws:iam::xxxxxxxx:role/admin-role"
-      }
-    }
-    
-    module tf_onboarding {
-      providers = {
-        aws = aws.child
-      }
-    
-      source             = "nops-io/nops-integration/aws"
-      # This bucket will be created by the module with the name provided here, make sure its globally unique.
-      system_bucket_name = "example"
-      # nOps API key that will be used to authenticate with the nOps platform to onboard the account.
-      api_key            = "nops_api_key"
-      # Flag required to update the nOps project.
-      reconfigure        = "true"
-    }
-    ```
+```hcl
+provider "aws" {
+  alias  = "child"
+  region = "us-east-1"
+  assume_role {
+    role_arn = "arn:aws:iam::xxxxxxxx:role/admin-role"
+  }
+}
+
+module tf_onboarding {
+  providers = {
+    aws = aws.child
+  }
+
+  source             = "nops-io/nops-integration/aws"
+  # This bucket will be created by the module with the name provided here, make sure its globally unique.
+  system_bucket_name = "example"
+  # nOps API key that will be used to authenticate with the nOps platform to onboard the account.
+  api_key            = "nops_api_key"
+  # Flag required to update the nOps project.
+  reconfigure        = "true"
+}
+```
 
 ## Troubleshooting ##
 

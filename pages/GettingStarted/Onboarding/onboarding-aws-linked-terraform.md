@@ -20,8 +20,6 @@ nOps requires safe, secure, and AWS-approved access to your AWS accounts in orde
 
 
 * Admin role permissions in AWS in order to add the AWS Payer and/or linked accounts to nOps using _Terraform_.
-  
-* Access to the nOps public Github repository [nOps Cloud Account Registration](https://github.com/nops-io/nops-integration/tree/main/platform/aws_setup_terraform).
 
 * And API key generated from the nOps platform.
   

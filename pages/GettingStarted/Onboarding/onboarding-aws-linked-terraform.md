@@ -76,7 +76,7 @@ The module can be found in the [Terraform registry](https://registry.terraform.i
 - nOps API key
 
 
-## Onboarding Management account ##
+## Onboarding Management Account ##
 
 The example below shows how to add the management (root) AWS account integration:
 
@@ -113,12 +113,14 @@ The example below shows how to add the management (root) AWS account integration
 4. Plan and apply the Terraform configuration:
 
     ```hcl
-    terraform apply
+    terraform plan -out=plan
+   
+    terraform apply plan
     ```
 
 5. If you want to reconfigure an existing nOps account:
     ```hcl
-    terraform apply -var="reconfigure=true"
+    terraform apply plan -var="reconfigure=true"
     ```
 
     or
@@ -140,7 +142,7 @@ The example below shows how to add the management (root) AWS account integration
 
 After your Terraform apply has finished, your account should list within the nOps platform as payer.
 
-## Onboarding Child accounts ##
+## Onboarding Child Accounts ##
 
 Onboarding child accounts is achieved using the same module, it already contains the logic to react when its being applied on any account that is not root.
 
@@ -170,18 +172,28 @@ module tf_onboarding {
 
 ## Troubleshooting ##
 
-- If you run this with an existing role, you may see an error like:
+If you want to reinstall the stack you might get an error
 
-{% include warning.html content="Error: creating IAM Role (NopsIntegrationRole-xxxxx): EntityAlreadyExists: Role with name NopsIntegrationRole-xxxxx already exists." %}
+```
+│ Error: creating IAM Role (NopsIntegrationRole-xxxxx): EntityAlreadyExists: Role with name NopsIntegrationRole-xxxxx already exists.
+```
 
-At which point you can run the command with the reconfigure variable set to true.
+You can import the role to terraform state by running the following command
+```
+terraform import module.tf_onboarding.aws_iam_role.nops_integration_role NopsIntegrationRole-xxxxx
+```
 
-- You can import the role to terraform state by running the following command
+If the above yields the following error
+```
+│ Error: Resource already managed by Terraform
+│
+│ Terraform is already managing a remote object for aws_iam_role.nops_integration_role. To import to this address you must first remove the existing object from the state.
+```
 
-    ```hcl
-    terraform import aws_iam_role.nops_integration_role NopsIntegrationRole-xxxxx
-    ```
-
+Then execute the following command to remove the failed resource from the state, and then import
+```
+terraform state rm module.tf_onboarding.aws_iam_role.nops_integration_role
+```
 
 <br/><br/>
 

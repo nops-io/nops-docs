@@ -1,7 +1,7 @@
 ---
 title: Offboarding from the nOps platform
 keywords: setup, offboarding, tutorials, walkthrough, cancel
-tags: [getting_started, offboarding]
+tags: [offboarding]
 sidebar: mydoc_sidebar
 permalink: offboarding-nops.html
 folder: GettingStarted

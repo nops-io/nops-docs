@@ -19,9 +19,9 @@ nOps requires safe, secure, and AWS-approved access to your AWS accounts in orde
 **Prerequisites**
 
 
-* Admin role permissions in AWS in order to add the AWS Payer and/or linked accounts to nOps using _Terraform_.
+* Admin role permissions in AWS in order to add the AWS Payer and/or linked accounts to `nOps` using `Terraform`.
 
-* And API key generated from the nOps platform.
+* An API key generated from the `nOps` platform.
   
 
 
@@ -33,19 +33,15 @@ When you log in to your nOps account for the first time, a pop-up screen will ap
 
 1. Select the IaaC Multiple Accounts Setup option and click **Next**.
     ![](/tmpimg/terraform_radio.png)
-1. This section informs you of the prerequisites needed to complete the process. To generate an API key, click **Proceed to Create API Key**.
+2. This section informs you of the prerequisites needed to complete the process. To generate an API key, click **Proceed to Create API Key**.
 
     ![](/tmpimg/terraform_intro.png)
 
-1.  In the **Generate new API key** section
+3. In the **Generate new API key** section
     ![](/tmpimg/terraform_generatingkey.png)
-    
-    Enter:
-    * An API key name
+
   
-    * API Key description
-  
-1. After you add all the information, click **Generate**.
+4. After you add all the information, click **Generate**.
 
 
 {% include note.html content="nOps will generate and display an API key for you. Copy and save the API key for future use, and click **OK**." %}
@@ -54,26 +50,26 @@ At this point, it's time to move to Terraform to finish the process.
 
 ## Terraform for AWS Linked Accounts ##
 
-The nOps provided public Terraform module contains the complete logic to quickly and seamlessly onboard AWS accounts into the nOps platform. 
-Customers using Terraform as the IaC of choice can quickly integrate their account into nOps by calling this module.
+The `nOps` provided public Terraform module contains the complete logic to quickly and seamlessly onboard AWS accounts into the `nOps` platform. 
+Customers using Terraform as the IaC of choice can quickly integrate their account into `nOps` by calling this module.
 The module can be found in the [Terraform registry](https://registry.terraform.io/modules/nops-io/nops-integration/aws/latest), refer to it for additional details.
 
 
 ## Features ##
 
-- Automatic detection of existing nOps projects for the AWS accounts
-- Creation of new nOps projects if none exist
+- Automatic detection of existing `nOps` projects for the AWS accounts
+- Creation of new `nOps` projects if none exist
 - Handling of payer and linked AWS accounts
-- Automatic setup of IAM roles and [policies](iam-policy-nops-free-platform.html) for nOps integration
+- Automatic setup of IAM roles and [policies](iam-minimum-platform-permissions.html) for `nOps` integration
 - S3 bucket creation and configuration for payer accounts
-- Integration with nOps API for secure token exchange
+- Integration with `nOps` API for secure token exchange
 
 
 ## Prerequisites ##
 
 - Terraform v1.0+
 - AWS CLI configured with appropriate permissions
-- nOps API key
+- `nOps` API key
 
 
 ## Onboarding Management Account ##
@@ -118,7 +114,7 @@ The example below shows how to add the management (root) AWS account integration
     terraform apply plan
     ```
 
-5. If you want to reconfigure an existing nOps account:
+5. If you want to reconfigure an existing `nOps` account:
     ```hcl
     terraform apply plan -var="reconfigure=true"
     ```
@@ -140,7 +136,7 @@ The example below shows how to add the management (root) AWS account integration
 
 {% include note.html content="The `reconfigure` flag is required after the first onboarding flow with the master account, this flag is used to allow updates to the current project. Make sure to add this flag after the first run." %}
 
-After your Terraform apply has finished, your account should list within the nOps platform as payer.
+After your Terraform apply has finished, your account should list within the `nOps` platform as payer.
 
 ## Onboarding Child Accounts ##
 
@@ -175,7 +171,7 @@ module tf_onboarding {
 If you want to reinstall the stack you might get an error
 
 ```
-│ Error: creating IAM Role (NopsIntegrationRole-xxxxx): EntityAlreadyExists: Role with name NopsIntegrationRole-xxxxx already exists.
+Error: creating IAM Role (NopsIntegrationRole-xxxxx): EntityAlreadyExists: Role with name NopsIntegrationRole-xxxxx already exists.
 ```
 
 You can import the role to terraform state by running the following command
@@ -185,9 +181,9 @@ terraform import module.tf_onboarding.aws_iam_role.nops_integration_role NopsInt
 
 If the above yields the following error
 ```
-│ Error: Resource already managed by Terraform
-│
-│ Terraform is already managing a remote object for aws_iam_role.nops_integration_role. To import to this address you must first remove the existing object from the state.
+Error: Resource already managed by Terraform
+
+Terraform is already managing a remote object for aws_iam_role.nops_integration_role. To import to this address you must first remove the existing object from the state.
 ```
 
 Then execute the following command to remove the failed resource from the state, and then import

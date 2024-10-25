@@ -9,55 +9,92 @@ series: [Onboarding, IAM]
 weight: 1.0
 ---
 
-## IAM Policy Minimum Permissions for the nOps Platform in JSON ##
+## IAM Policy Permissions for the nOps Platform ##
+Currently, the AWS managed `ReadOnlyAccess` policy is attached to the role created by `nOps`. This is to take advantage of a continuously updated managed policy that will cover
+future services added into AWS that the `nOps` platform can add without customer intervention. However, customers requiring a more restricted environment for security concerns may
+deny access to some services or actions. The following table shows the base permissions requested for the `nOps` free platform to provide recommendations around cost, security and
+general architecture best practices.
 
-The following json file shows the minimum permissions necessary for the nOps free platform.
+| Base Permissions Requested                                 | Purpose                                                                                     | Optimization Platform Use                                                                                                            |
+|-----------------------------------------------------------|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `autoscaling:DescribeAutoScalingGroups`                   | View details of auto-scaling groups                                                        | Analyze and recommend adjustments for auto-scaling settings to optimize costs                                                        |
+| `autoscaling:DescribeAutoScalingInstances`                | View details of auto-scaling instances                                                     | Monitor instance performance to optimize scaling for cost savings                                                                    |
+| `autoscaling:DescribeLaunchConfigurations`                | View launch configuration details for auto-scaling                                         | Identify unused or inefficient configurations and suggest improvements                                                               |
+| `ce:GetCostAndUsage`                                      | Retrieve cost and usage data for AWS services                                              | Track real-time cost data, analyze spending trends, and identify high-cost services                                                  |
+| `ce:GetReservationPurchaseRecommendation`                 | Get purchase recommendations for reserved instances                                        | Suggest Reserved Instances to save costs based on usage patterns                                                                     |
+| `ce:GetReservationUtilization`                            | View reserved instance utilization                                                         | Monitor RI utilization to ensure optimal usage and prevent underutilization                                                          |
+| `ce:GetSavingsPlansUtilizationDetails`                    | View detailed utilization data for savings plans                                           | Assess Savings Plans usage and recommend adjustments for cost efficiency                                                             |
+| `ce:ListCostAllocationTags`                               | List cost allocation tags used for tracking expenses                                       | Organize and analyze expenses by tags for better cost management                                                                     |
+| `ce:StartSavingsPlansPurchaseRecommendationGeneration`    | Start generating recommendations for savings plans purchase                                | Automate cost-saving recommendations by analyzing current and forecasted usage                                                       |
+| `ce:UpdateCostAllocationTagsStatus`                       | Update the status of cost allocation tags                                                  | Manage tag usage to improve cost tracking and allocate expenses accurately                                                           |
+| `ce:GetSavingsPlansPurchaseRecommendation`                | Get savings plan purchase recommendations                                                  | Suggest Savings Plans based on spending patterns for maximum cost reduction                                                          |
+| `cloudformation:DescribeStacks`                           | View details of CloudFormation stacks                                                      | Used by our compute copilot service to read and compare Cloudformation configurations to recommend optimizations on ASGs             |
+| `cloudformation:ListStacks`                               | List all CloudFormation stacks                                                             | Required by our compute copilot service to get Cloudformation stacks to analyze                                                      |
+| `cloudtrail:DescribeTrails`                               | View details of CloudTrail trails                                                          | Check logging configurations to ensure compliance with security best practices                                                       |
+| `cloudtrail:LookupEvents`                                 | Search CloudTrail logs for events                                                          | Identify security events and monitor access to detect unusual activities                                                             |
+| `cloudwatch:GetMetricStatistics`                          | Retrieve metric statistics from CloudWatch                                                 | Analyze performance data to recommend cost-effective scaling and optimization                                                        |
+| `cloudwatch:ListMetrics`                                  | List available CloudWatch metrics                                                          | Discover metrics to track for identifying inefficiencies in resource usage                                                           |
+| `config:DescribeConfigurationRecorders`                   | View configuration recorder settings in AWS Config                                         | Ensure that configuration recording is active for compliance and audit purposes                                                      |
+| `cur:DescribeReportDefinitions`                           | View report definitions in AWS Cost and Usage Reports                                      | Analyze existing report configurations for potential cost-saving improvements                                                        |
+| `cur:PutReportDefinition`                                 | Create or update report definitions for AWS Cost and Usage Reports                         | Generate customized reports to provide better visibility on spending and optimization                                                |
+| `dynamodb:DescribeTable`                                  | View details of DynamoDB tables                                                            | Identify inefficient tables and suggest cost-effective scaling adjustments                                                           |
+| `dynamodb:ListTables`                                     | List all DynamoDB tables                                                                   | Detect and recommend archiving or deletion of unused tables to reduce costs                                                          |
+| `ec2:DescribeAvailabilityZones`                           | View available EC2 availability zones                                                      | Help in cost optimization by suggesting zone-based deployments                                                                       |
+| `ec2:DescribeFlowLogs`                                    | View EC2 VPC flow log configurations                                                       | Ensure flow logging is enabled for security monitoring and compliance                                                                |
+| `ec2:DescribeImages`                                      | View details of available Amazon Machine Images (AMIs)                                     | Identify outdated or unused AMIs to prevent unnecessary storage costs                                                                |
+| `ec2:DescribeInstances`                                   | View details of EC2 instances                                                              | Track instance usage and recommend right-sizing for cost savings                                                                     |
+| `ec2:DescribeInstanceStatus`                              | View status of EC2 instances                                                               | Monitor instance health to reduce downtime and optimize resource use                                                                 |
+| `ec2:DescribeLaunchConfigurations`                        | View EC2 launch configurations                                                             | Used by our compute copilot service to recommend cost-efficient configurations for instances based on usage patterns                 |
+| `ec2:DescribeLaunchTemplateVersions`                      | View versions of EC2 launch templates                                                      | Identify unused or redundant versions to optimize template usage and reduce clutter, recommendations generated by compute copilot    |
+| `ec2:DescribeNatGateways`                                 | View details of EC2 NAT gateways                                                           | Recommend optimization for NAT gateway usage based on traffic patterns                                                               |
+| `ec2:DescribeNetworkInterfaces`                           | View EC2 network interface details                                                         | Audit network configurations for security and cost efficiency                                                                        |
+| `ec2:DescribeRegions`                                     | List available AWS regions                                                                 | Recommend cost-effective region usage based on latency and price                                                                     |
+| `ec2:DescribeReservedInstances`                           | View details of reserved EC2 instances                                                     | Track RI utilization and recommend purchases to save on long-term EC2 costs                                                          |
+| `ec2:DescribeRouteTables`                                 | View EC2 VPC route table configurations                                                    | Monitor route tables for security compliance and cost-efficient networking                                                           |
+| `ec2:DescribeSecurityGroups`                              | View details of EC2 security groups                                                        | Ensure security group rules are optimized for least privilege and compliance                                                         |
+| `ec2:DescribeSnapshots`                                   | View details of EC2 snapshots                                                              | Identify and recommend deletion of unused snapshots to save on storage costs                                                         |
+| `ec2:DescribeVolumes`                                     | View details of EC2 volumes                                                                | Recommend adjustments to storage volumes based on usage to reduce costs                                                              |
+| `ec2:DescribeVpcs`                                        | View details of EC2 Virtual Private Clouds (VPCs)                                          | Review VPC usage for security and cost efficiency, suggesting unused resources cleanup                                               |
+| `ecs:ListClusters`                                        | List ECS clusters                                                                          | Identify underutilized clusters to reduce unnecessary resource costs                                                                 |
+| `eks:DescribeCluster`                                     | View details of EKS clusters                                                               | Optimize Kubernetes resource usage to reduce costs and improve performance                                                           |
+| `eks:DescribeNodegroup`                                   | View details of EKS node groups                                                            | Optimize node group configurations for performance and cost savings                                                                  |
+| `eks:ListClusters`                                        | List all EKS clusters                                                                      | Identify inactive clusters to reduce costs by decommissioning unused resources                                                       |
+| `elasticache:DescribeCacheClusters`                       | View details of ElastiCache clusters                                                       | Track usage to suggest scaling or configuration changes for cost efficiency                                                          |
+| `elasticache:DescribeCacheSubnetGroups`                   | View ElastiCache subnet groups                                                             | Audit subnet groups for optimal network performance and security                                                                     |
+| `elasticfilesystem:DescribeFileSystems`                   | View details of EFS file systems                                                           | Identify and suggest deletion of unused file systems to save on storage costs                                                        |
+| `elasticloadbalancing:DescribeLoadBalancers`              | View details of load balancers                                                             | Recommend load balancer configurations to improve efficiency and reduce costs                                                        |
+| `es:DescribeElasticsearchDomains`                         | View details of Elasticsearch domains                                                      | Monitor domain usage to suggest optimizations for indexing and query cost efficiency                                                 |
+| `es:ListDomainNames`                                      | List all Elasticsearch domain names                                                        | Identify inactive or low-usage domains to save costs                                                                                 |
+| `events:CreateEventBus`                                   | Create an event bus for Amazon EventBridge                                                 | Configure automated alerts and actions for cost and security monitoring                                                              |
+| `events:ListRules`                                        | List EventBridge rules                                                                     | Review and suggest optimizations to event rules for security and efficiency                                                          |
+| `guardduty:ListDetectors`                                 | List GuardDuty detectors                                                                   | Ensure continuous security monitoring by identifying and activating necessary detectors                                              |
+| `iam:GetAccountPasswordPolicy`                            | View IAM account password policy                                                           | Ensure strong password policies for account security compliance                                                                      |
+| `iam:GetAccountSummary`                                   | View summary of IAM account data                                                           | Assess account structure for adherence to security best practices                                                                    |
+| `iam:GetRole`                                             | View details of an IAM role                                                                | Audit IAM roles for least-privilege and compliance with security policies                                                            |
+| `iam:ListAttachedUserPolicies`                            | List IAM policies attached to a user                                                       | Identify over-permissioned policies for security and compliance                                                                      |
+| `iam:ListRoles`                                           | List all IAM roles                                                                         | Audit roles to identify unused or redundant ones, optimizing security and governance                                                 |
+| `iam:ListUsers`                                           | List all IAM users                                                                         | Identify inactive users to enhance account security and reduce potential vulnerabilities                                             |
+| `inspector:ListAssessmentRuns`                            | List assessment runs in AWS Inspector                                                      | Review security assessments to ensure resources follow best practices                                                                |
+| `kms:Decrypt`                                             | Decrypt data with AWS Key Management Service (KMS)                                         | Analyze and secure sensitive data for compliance with security requirements, Ex: decrypt Lambda functions encrypted at rest with KMS |
+| `lambda:GetFunction`                                      | View details of Lambda functions                                                           | Identify cost-saving opportunities through function optimization                                                                     |
+| `lambda:GetPolicy`                                        | View policy attached to Lambda functions                                                   | Audit policies to ensure secure function permissions                                                                                 |
+| `lambda:ListFunctions`                                    | List all Lambda functions                                                                  | Track and suggest optimizations for underutilized functions                                                                          |
+| `organizations:DescribeOrganization`                      | View details of AWS Organizations setup                                                    | Monitor organizational setup for cost-effective resource management                                                                  |
+| `organizations:InviteAccountToOrganization`               | Invite an account to join AWS Organizations                                                | Manage and optimize organizational structure for streamlined cost management                                                         |
+| `organizations:ListAccounts`                              | List accounts in an AWS organization                                                       | Track and analyze account usage for cost and security best practices                                                                 |
+| `organizations:ListRoots`                                 | List root entities in AWS Organizations                                                    | Organize root accounts to simplify management, enhancing security and cost efficiency                                                |
+| `rds:DescribeDBClusters`                                  | View details of RDS clusters                                                               | Monitor RDS usage to recommend scaling adjustments and cost-saving measures                                                          |
+| `rds:DescribeDBInstances`                                 | View details of RDS instances                                                              | Identify and suggest right-sizing of RDS instances for cost efficiency                                                               |
+| `rds:DescribeDBSnapshots`                                 | View details of RDS snapshots                                                              | Identify unused snapshots to save on storage costs                                                                                   |
+| `savingsplans:DescribeSavingsPlans`                       | View details of Savings Plans                                                              | Assess and recommend changes in Savings Plans usage to reduce costs                                                                  |
+| `support:DescribeCases`                                   | View support cases in AWS Support                                                          | Track and resolve support cases, ensuring resource usage aligns with best practices                                                  |
+| `support:DescribeTrustedAdvisorCheckRefreshStatuses`      | View refresh statuses for Trusted Advisor checks                                           | Track check refresh statuses to maintain compliance and optimize costs                                                               |
+| `support:DescribeTrustedAdvisorCheckResult`               | View results of Trusted Advisor checks                                                     | Analyze Trusted Advisor findings for cost savings and security optimizations                                                         |
+| `support:DescribeTrustedAdvisorChecks`                    | View list of Trusted Advisor checks                                                        | Identify critical checks to focus on for improving security and reducing unnecessary costs                                           |
+| `s3:ListAllMyBuckets`                                     | List all Amazon S3 buckets                                                                 | Identify and manage bucket usage to avoid excessive storage costs                                                                    |
+| `tag:GetResources`                                        | Retrieve resources with specific tags                                                      | Analyze tag data for better resource allocation, management, and cost tracking                                                       |
+| `wellarchitected:*`                                       | Access to Well-Architected Framework tool                                                  | Review and optimize workloads to meet best practices for cost and security                                                           |
+| `workspaces:DescribeWorkspaceDirectories`                 | View details of AWS WorkSpaces directories                                                 | Track workspace directories for efficient management and cost savings                                                                |
 
-```json
-
-{
-	"Version": "2012-10-17",
-	"Statement": [
-	    {
-			"Sid": "VisualEditor1",
-			"Effect": "Allow",
-			"Action": "s3:*",
-			"Resource": [
-				"arn:aws:s3:::[INSERT CUR S3 BUCKET]",
-				"arn:aws:s3:::[INSERT CUR S3 BUCKET]/*"
-			]
-		},
-		{
-			"Sid": "VisualEditor0",
-			"Effect": "Allow",
-			"Action": [
-				"organizations:InviteAccountToOrganization",
-				"tag:GetResources",
-				"ec2:DescribeInstances",
-				"rds:DescribeDbClusters",
-				"s3:ListBucket",
-				"cloudwatch:GetMetricStatistics",
-				"cur:PutReportDefinition",
-				"rds:DescribeDbInstances",
-				"cur:DeleteReportDefinition",
-				"ec2:DescribeSecurityGroups",
-				"eks:DescribeNodegroup",
-				"ec2:DescribeNetworkInterfaces",
-				"autoscaling:DescribeAutoScalingGroups",
-				"ec2:DescribeVpcs",
-				"ec2:DescribeVolumes",
-				"eks:DescribeCluster",
-				"ec2:DescribeReservedInstances",
-				"eks:ListClusters",
-				"ce:*",
-				"ec2:DescribeSubnets",
-				"cur:DescribeReportDefinitions"
-			],
-			"Resource": "*"
-		}
-	]
-}
-
-```
 
 {% include custom/series_related.html %}

@@ -16,7 +16,7 @@ Here are the methods of onboarding a linked accounts:
 
 1.  [With Stacket Multi Account One Click Setup](#With-Stacket-Multi-Account-One-Click-Setup)
 2.  [During automatic setup](#during-automatic-setup)
-3.  [Via your `nOps` Organization Account](#`nOps`-organization-settings)
+3.  [Via your nOps Organization Account](#nops-organization-settings)
 4.  [With Terraform Multi Account Registration (IaaC)](#terraform-multi-account-registration-iaac)
 
 
@@ -111,7 +111,7 @@ During the onboarding process of linked accounts, `nOps` will not ask for the CU
 
 The setup process can take 1-2 hours to pull in data from AWS.
 
-You can skip the onboarding of linked accounts during this setup and add the accounts later from within the [`nOps` Organization Settings](#`nOps`-organization-settings) .
+You can skip the onboarding of linked accounts during this setup and add the accounts later from within the [nOps Organization Settings](#nops-organization-settings) .
 
 ## `nOps` Organization Settings ##
 

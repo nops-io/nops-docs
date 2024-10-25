@@ -48,12 +48,12 @@ Step 1: Add a New AWS Account
 1. Initiate Account Addition:
 If you have created a new `nOps` client you will be asked to configure AWS on the very first Sign-in or Click on "Add New AWS Account" from the Dashboard if your account is new, or add it from Personal Settings > AWS Accounts.
 
-    <img src="https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-1.png">
 
 
 2. Select "`nOps` Wizard Setup" and click "Next".
 
-    <img src="https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/add+new+account.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/add+new+account.png">
 
 3. Enter Account Details:
 Enter the AWS Account Name and S3 Bucket Name.
@@ -73,20 +73,20 @@ The stack will be created and the Master Payer account will be configured succes
 2. Initiate MultiAccount Setup:
 To configure all child accounts at once, click on "CloudFormation Multiple Accounts Setup" from the AWS Accounts page, which will redirect you to the AWS Create Stack Page.
 
-    <img src="https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-4.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-4.png">
 
 3. Create Stack for Multiple Accounts:
 A Create Stack page will open on AWS with the name "Quick Create Stack".and All details would be prefilled.
 
 
-    <img src="https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-5.png">
 
 Click on the "Create Stack" button to initiate the stack run.
 
 After successful CloudFormation execution within 30 minutes, all child accounts will be connected to `nOps` as Active AWS Accounts.
 
 
-    <img src="https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png">
+    <img src="https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/pic-6.png">
 
 
 This feature also supports automatic listing and connection of any new child accounts created in AWS to `nOps` so you don't need to manually configure any new AWS account created under the same organization account.
@@ -102,7 +102,7 @@ You can configure linked accounts during the automatic setup process of the paye
 After your Payer Account is configured successfully, the automatic setup will then ask you if you want to onboard the linked account(s) right now. You can click on **Automatic Setup** for each linked account to start the account onboarding process:
 
 If you click on **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that `nOps` will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
-![](https://nOps-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
@@ -121,14 +121,14 @@ Click on your account at the top right corner of the page and go to **Organizati
 
 You can onboard each linked account with _Automatic Setup_:
 
-![](https://nOps-help-site-assets.s3.amazonaws.com/OneClickCloudformation/orgSetting.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/OneClickCloudformation/orgSetting.png)
 
 
 Click **Automatic Setup** to start the onboarding process.
 
 Once you click **Automatic Setup**, it will redirect you to the respective AWS account for you to create a stack that `nOps` will use to access the linked account. Please ensure that you are logged into the respective linked AWS account when you click **Proceed**:
 
-![](https://nOps-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-proceed.png)
 
 When you click on Proceed, you will be redirected to **AWS > CloudFormation > Stacks > Create stack > Quick create stack** page, with most of the information pre-filled. Click on **Create Stack** to start the onboarding process.
 

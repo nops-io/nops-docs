@@ -100,7 +100,7 @@ When data ingestion starts, in the AWS console **CloudFormation > Stacks > Stack
 
 Once your AWS accounts are linked successfully, you will see the following screen:
 
-![](https://nOps-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-automatic-fetching.png)
+![](https://nops-help-site-assets.s3.amazonaws.com/images/gettingstarted/gs-aws-automatic-fetching.png)
 
 Once you log back into `nOps`, after data ingestion is complete, in the case of AWS _Organization Account_ you will see the **Setup Child Account** page. With the help of your CUR, the setup process will automatically pull in the child accounts associated with your organization account.
 

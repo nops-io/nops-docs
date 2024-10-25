@@ -318,7 +318,6 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `autoUpdater.failedJobsHistoryLimit` | Number of failed finished jobs to keep for the Auto Update | `0` |
 | `datadog.repository` | Repository for the Data Dog Agent container image | `public.ecr.aws/nops/datadog/agent` |
 | `datadog.imageTag` | Image tag for the Data Dog Agent container image | `7.56.0` |
-| `containerInsights.debug` | Debug mode. | `false` |
 | `containerInsights.repository` | Repository for the nOps Container Insights Agent container image | `public.ecr.aws/nops/container-insights-agent` |
 | `containerInsights.imageTag` | Image tag for the nOps Container Insights Agent container image | `2.0.4` |
 | `containerInsights.successfulJobsHistoryLimit` | Number of successful finished jobs to keep for the nOps Container Insights Agent | `2` |
@@ -336,6 +335,7 @@ The following table lists the optional configuration parameters for the KarpenOp
 | `karpenops.image.tag` | Image tag for the KarpenOps Agent container image | `1.23.2` |
 | `heartbeat.image.repository` | Repository for the Heartbeat Agent container image | `public.ecr.aws/nops/k8s-heartbeat-agent` |
 | `heartbeat.image.tag` | Image tag for the Heartbeat Agent container image | `0.1.4` |
+| `dcgmExporter.enabled` | Flag to enable or disable GPU cost metrics daemonset | `true` |
 | `dataFetcher.image.repository` | Repository for the Data Fetcher Agent container image | `public.ecr.aws/nops/k8s-data-fetcher-agent` |
 | `dataFetcher.image.tag` | Image tag for the Data Fetcher Agent container image | `0.1.2` |
 | `dataFetcher.replicaCount` | Number of replicas for Data Fetcher Agent. | `2` |

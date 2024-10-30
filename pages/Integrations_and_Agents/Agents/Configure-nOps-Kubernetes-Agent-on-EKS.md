@@ -150,7 +150,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   description         = "Helm Chart for nOps kubernetes agent"
   chart               = "kubernetes-agent"
-  version             = "0.1.6" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  version             = "0.1.8" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
 
   # Example to place Prometheus deployment in a on-demand node provisioned by Karpenter (THIS IS THE RECOMMENDED WAY TO RUN PROMETHEUS, Note: using double backslashes (\\) to escape the dot in karpenter.sh/capacity-type) 
   #set { 
@@ -175,7 +175,7 @@ resource "helm_release" "nops_kubernetes_agent" {
 
   set {
     name  = "containerInsights.imageTag"
-    value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+    value = "2.0.7" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
   }
 
   set {
@@ -195,7 +195,7 @@ resource "helm_release" "nops_kubernetes_agent" {
   
   set {
     name  = "karpenops.image.tag"
-    value = "1.23.2" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
+    value = "1.23.6" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/karpenops
   }
   
   set {
@@ -234,7 +234,7 @@ module "eks_blueprints_addon" {
   source = "aws-ia/eks-blueprints-addon/aws"
   version = "~> 1.0"
   chart               = "kubernetes-agent"
-  chart_version       = "0.1.6" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
+  chart_version       = "0.1.8" # Ensure to update this to the latest/desired version: https://gallery.ecr.aws/nops/kubernetes-agent
   repository          = "oci://public.ecr.aws/nops"
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
@@ -261,7 +261,7 @@ module "eks_blueprints_addon" {
     },
     {
       name  = "containerInsights.imageTag"
-      value = "2.0.4" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
+      value = "2.0.7" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/container-insights-agent)
     },
     {
       name  = "containerInsights.env_variables.APP_NOPS_K8S_AGENT_CLUSTER_ARN"
@@ -277,7 +277,7 @@ module "eks_blueprints_addon" {
     },
     {
       name  = "karpenops.image.tag"
-      value = "1.23.2" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/karpenops)
+      value = "1.23.6" # Ensure to update this to the latest/desired version from [here](https://gallery.ecr.aws/nops/karpenops)
     },
     {
       name  = "karpenops.clusterId"

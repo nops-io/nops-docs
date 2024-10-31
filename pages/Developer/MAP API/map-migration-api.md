@@ -1,11 +1,12 @@
 ---
 title: Map Migration API Documentation
+keywords: migration, MAP, public, map tracking, map credits, developer, api
 tags: [map]
-sidebar_label: "MAP Migration API"
-
-hide_title: false
-hide_table_of_contents: false
-sidebar_position: 2
+sidebar: mydoc_sidebar
+permalink: map-migration-api.html
+folder: Developer
+series: [MAP API]
+weight: 3.0
 ---
 
 ## Introduction

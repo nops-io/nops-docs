@@ -211,7 +211,9 @@ entries:
     - title: Configure Commitment Management
       url: /copilot-cm-configure.html
       output: web
-
+    - title: Configure new nOps Kubernetes Agent
+      url: /Configure-nOps-Kubernetes-Agent-on-EKS.html
+      output: web
 
   - title: Essentials
     output: web
@@ -284,6 +286,9 @@ entries:
 
         - title: Support for External Secrets Operator
           url: /Support-for-External-Secrets-Operator.html
+          output: web
+        - title: Container Insights Overview
+          url: /Container-Insights-Overview.html
           output: web
 
       - title: Integrations
@@ -428,6 +433,10 @@ entries:
 
         - title: Essentials Scheduler API
           url: /essentials-scheduler-api.html
+          output: web
+
+        - title: Essentials Storage API
+          url: /essentials-storage-api.html
           output: web
 
         - title: Scheduler Slackbot "How To" Guide

@@ -97,7 +97,7 @@ These permissions are required on the **_child account or master account where t
 
 ```
 
-To get the full CloudFormation YAML template, see [nOps Essentials Lambda Function](https://github.com/nops-io/nops-rules-lambda/blob/master/scheduler/scheduler.yml).
+To get the full CloudFormation YAML template, see [nOps Essentials Lambda Function](https://github.com/nops-io/nops-rules-lambda/blob/master/scheduler/cloudformation_templates/scheduler-stackset.yml).
 
 
 <br/><br/>

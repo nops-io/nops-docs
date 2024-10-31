@@ -22,6 +22,7 @@ For your convenience, we've included video tutorials of the setup process:
 
 ---
 
+
 ## Prerequisites
 
 - **Access to nOps Platform**: Ensure you have the necessary permissions to access the Organization Settings within your nOps account. If not, contact your account administrator.
@@ -143,6 +144,15 @@ For your convenience, we've included video tutorials of the setup process:
 ## Conclusion
 
 You have successfully set up a Microsoft Azure Focus Export and configured it within the nOps platform. This integration enables comprehensive cost management by providing detailed billing data across all your Azure subscriptions.
+
+---
+
+## Additional Resources from Microsoft to go in detail on FOCUS Exports and Storage Account Keys 
+
+- **Microsoft's Detailed Guide on Setting Up Focus Export**:
+  - [Create New Exports](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-improved-exports#create-new-exports)
+- **Retrieve Storage Account Keys and Name**:
+  - [View Account Access Keys](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal#view-account-access-keys)
 
 ---
 

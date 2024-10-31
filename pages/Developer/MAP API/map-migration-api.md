@@ -1,20 +1,16 @@
 ---
 title: Map Migration API Documentation
-keywords: migration, MAP, public, map tracking, map credits, developer, api
 tags: [map]
-sidebar: mydoc_sidebar
-permalink: map-migration-api.html
-folder: Developer
-series: [MAP API]
-weight: 3.0
----
+sidebar_label: "MAP Migration API"
 
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 2
+---
 
 ## Introduction
 
 The nOps Map Migration API provides endpoints to manage and retrieve information about MAP Migration projects signed by customer with AWS. This includes listing all current MAP projects, retrieving details of a specific project, listing products within a project, and listing resources within a project.
-
-Try it in our [Public Swagger](https://app.nops.io/public_swagger/)
 
 ## Endpoints
 
@@ -44,6 +40,7 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `tagged_resources`: Information about tagged resources, including resource count and cost.
 - `untagged_resources`: Information about untagged resources, including resource count and cost.
 - `credits`: Information about received credits, including records of credit details.
+- `client`: The client id associated with the MAP project. This is another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
 - `created`: The creation date of the project.
 - `modified`: The last update date of the project.
 - `name`: The name of the MAP project. This is also something you specify while onboarding the MAP project in nOps MAP Dashboard and it can be renamed later as well.
@@ -57,7 +54,7 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `migration_period`: The migration period in months.
 - `windows_optimization`: Indicates if Windows optimization is enabled.
 - `map_credit_cap`: The MAP credit cap (default is 1.000.000USD).
-- `client`: The client ID associated with the MAP project. Another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
+- `extra_filters`: Filters that were assigned to this MAP project at project creation. They can be edited on the console. You may filter a project based on AWS Accounts, Regions and Services.
 
 ---
 
@@ -92,23 +89,23 @@ The response is a JSON object like the one above
 The response is a JSON array containing a list of products in the map migration project. Each product has the following fields:
 
 - `product_product_name`: The name of the product (a product here refers to an AWS Service, example: Amazon Elastic Compute Cloud etc.)
-- `resources_count`: The amount of resources of that product (using hll approximation).
+- `resources_count`: The amount of resources of that product (using HLL approximation).
 - `cost`: The total cost of all the resources.
 
 ##### Example Response
 
 ```json
 [
-    {
-        "product_product_name": "Amazon Simple Storage Service",
-        "resources_count": 123.0,
-        "cost": 123.0
-    },
-    {
-        "product_product_name": "Amazon Relational Database Service",
-        "resources_count": 123.0,
-        "cost": 123.0
-    }
+  {
+    "product_product_name": "Amazon Simple Storage Service",
+    "resources_count": 123.0,
+    "cost": 123.0
+  },
+  {
+    "product_product_name": "Amazon Relational Database Service",
+    "resources_count": 123.0,
+    "cost": 123.0
+  }
 ]
 ```
 
@@ -121,6 +118,7 @@ The response is a JSON array containing a list of products in the map migration 
 #### Request Parameters
 
 - **Path Parameter**:
+
   - `id` (required): The ID of the MAP Migration project. This ID is nOps specific. nOps assigns a unique ID to each project you onboard to the MAP Dashboard.
 
 - **Query Parameters**:
@@ -143,20 +141,20 @@ The response is a JSON array containing a list of resources in the map migration
 
 ```json
 [
-    {
-        "line_item_resource_id": "arn:aws:ec2:region:account-id:instance/i-1234567890abcdef0",
-        "region": "us-west-2",
-        "account_id": "123456789012",
-        "resource_name": "My EC2 Instance",
-        "cost": 25.50
-    },
-    {
-        "line_item_resource_id": "arn:aws:s3:::my-bucket",
-        "region": "us-east-1",
-        "account_id": "123456789012",
-        "resource_name": "My S3 Bucket",
-        "cost": 10.00
-    }
+  {
+    "line_item_resource_id": "arn:aws:ec2:region:account-id:instance/i-1234567890abcdef0",
+    "region": "us-west-2",
+    "account_id": "123456789012",
+    "resource_name": "My EC2 Instance",
+    "cost": 25.5
+  },
+  {
+    "line_item_resource_id": "arn:aws:s3:::my-bucket",
+    "region": "us-east-1",
+    "account_id": "123456789012",
+    "resource_name": "My S3 Bucket",
+    "cost": 10.0
+  }
 ]
 ```
 
@@ -167,7 +165,7 @@ The response is a JSON array containing a list of resources in the map migration
 - **Example 3**: List Products in a Map Migration Project
 - **Example 4**: List Resources in a Map Migration Project
 
---- 
+---
 
 ## Solution Provider Endpoints
 
@@ -183,7 +181,7 @@ None.
 
 #### Response Format
 
-The response is a JSON array containing a list of map migration projects grouped by clients. Each project has the following fields:
+The response is a JSON array containing a list of map migration projects. Each project has the following fields:
 
 - `id`: The ID of the MAP Migration project. This ID is nOps specific. nOps assigns a unique ID to each project you onboard to the MAP Dashboard.
 - `on_prem_non_commercial_db_entity`: Specific incentives related to on-premises non-commercial database.
@@ -197,6 +195,7 @@ The response is a JSON array containing a list of map migration projects grouped
 - `tagged_resources`: Information about tagged resources, including resource count and cost.
 - `untagged_resources`: Information about untagged resources, including resource count and cost.
 - `credits`: Information about received credits, including records of credit details.
+- `client`: The client associated with the MAP project. Name, website and the client ID, which is another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
 - `created`: The creation date of the project.
 - `modified`: The last update date of the project.
 - `name`: The name of the MAP project. This is also something you specify while onboarding the MAP project in nOps MAP Dashboard and it can be renamed later as well.
@@ -210,4 +209,15 @@ The response is a JSON array containing a list of map migration projects grouped
 - `migration_period`: The migration period in months.
 - `windows_optimization`: Indicates if Windows optimization is enabled.
 - `map_credit_cap`: The MAP credit cap (default is 1.000.000USD).
-- `client`: The client ID associated with the MAP project. Another nOps specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps. You will find your assigned Client ID at the top right corner of nOps platform screen under your profile name.
+- `extra_filters`: Filters that were assigned to this MAP project at project creation. They can be edited on the console. You may filter a project based on AWS Accounts, Regions and Services.
+
+### 2. Retrieve All Map Migration Projects for an Specific Client.
+
+- **URL**: `/sp/v3/map-projects/{id}/`
+- **Method**: `GET`
+- **Description**: Retrieves details of map migration projects for specific client.
+
+#### Request Parameters
+
+- **Path Parameter**:
+  - `id` (required): The ID of the Client. This ID is nOps specific, nOps assigns a unique ID to each client. You may find this ID for each Client when calling the previous method.

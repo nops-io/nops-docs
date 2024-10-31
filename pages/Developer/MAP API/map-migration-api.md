@@ -226,4 +226,4 @@ The response is a JSON array containing a list of map migration projects. Each p
 
 ### 3. Retrieve All Map Migration Projects for an Specific Client.
 
-Comming soon.
+Coming soon.

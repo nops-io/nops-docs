@@ -212,13 +212,18 @@ The response is a JSON array containing a list of map migration projects. Each p
 - `map_credit_cap`: The MAP credit cap (default is 1.000.000USD).
 - `extra_filters`: Filters that were assigned to this MAP project at project creation. They can be edited on the console. You may filter a project based on AWS Accounts, Regions and Services.
 
-### 2. Retrieve All Map Migration Projects for an Specific Client.
+### 2. Retrieve a Specific Map Migration Project.
 
 - **URL**: `/sp/v3/map-projects/{id}/`
 - **Method**: `GET`
-- **Description**: Retrieves details of map migration projects for specific client.
+- **Description**: Retrieves details of a specific map migration project.
 
 #### Request Parameters
 
 - **Path Parameter**:
-  - `id` (required): The ID of the Client. This ID is nOps specific, nOps assigns a unique ID to each client. You may find this ID for each Client when calling the previous method.
+  - `id` (required): The ID of the MAP Migration project. This ID is nOps specific. nOps assigns a unique ID to each project you onboard to the MAP Dashboard.
+
+
+### 3. Retrieve All Map Migration Projects for an Specific Client.
+
+Comming soon.

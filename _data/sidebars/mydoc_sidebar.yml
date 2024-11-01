@@ -410,6 +410,10 @@ entries:
       url: /backfilling-a-cur-file.html
       output: web
 
+    - title: AWS MAP on Solutions Provider Portal
+      url: /aws-map-sp-portal.html
+      output: web
+
   - title: Developer
     output: web
     folderitems:

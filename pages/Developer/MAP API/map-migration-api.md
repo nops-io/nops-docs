@@ -226,4 +226,10 @@ The response is a JSON array containing a list of map migration projects. Each p
 
 ### 3. Retrieve All Map Migration Projects for an Specific Client.
 
-Coming soon.
+- **URL**: `/sp/v3/map-projects/client/{client_id}/`
+- **Method**: `GET`
+- **Description**: Retrieve All Map Migration Projects for an Specific Client.
+
+#### Request Parameters
+
+- `client id` (required): The ID of the Client that belongs to your Solution Provider. This is an specific value that gets generated and assigned to each nOps platform client at the time of account creation in nOps.
